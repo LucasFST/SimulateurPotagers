@@ -4,7 +4,7 @@ public class SimulateurMeteo implements Runnable {
     private SimulateurPotager simPot;
 
     public SimulateurMeteo(SimulateurPotager _simPot) {
-        Ordonnanceur.getOrdonnanceur().add(this);
+        Ordonnanceur.getInstance().add(this);
         simPot = _simPot;
 
     }
