@@ -1,5 +1,0 @@
-package vueControleur;
-
-class VueControleurPotagerTest {
-
-}
