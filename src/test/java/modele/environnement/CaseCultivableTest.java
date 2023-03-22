@@ -1,16 +1,17 @@
 package modele.environnement;
 
 import modele.SimulateurPotager;
-import org.junit.Before;
+import modele.environnement.varietes.Legume;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CaseCultivableTest {
     CaseCultivable caseCultivable;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         SimulateurPotager simulateurPotager = new SimulateurPotager();
         caseCultivable = new CaseCultivable(simulateurPotager);
@@ -26,7 +27,8 @@ class CaseCultivableTest {
     @DisplayName("getLegume() should return legume when legume is not null")
     void testGetLegumeReturnLegumeWhenLegumeIsNotNull() {
         caseCultivable.actionUtilisateur();
-        assertNull(caseCultivable.getLegume());
+        assertNotNull(caseCultivable.getLegume());
+        assertEquals(Legume.class, caseCultivable.getLegume().getClass().getSuperclass());
     }
 
     @Test
