@@ -13,7 +13,7 @@ public class Main {
         VueManager.getInstance().setVueControleurPotager(vcPotager);
 
         Ordonnanceur.getInstance().addObserver(vcPotager);
-        Ordonnanceur.getInstance().start(300);
+        Ordonnanceur.getInstance().start(1000);
 
     }
 }
