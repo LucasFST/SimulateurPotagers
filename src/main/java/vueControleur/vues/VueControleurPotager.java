@@ -21,11 +21,8 @@ import static vueControleur.icon.IconNames.*;
  * (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
-public class VueControleurPotager extends JFrame implements Observer {
+public class VueControleurPotager extends JPanel implements Observer {
     // Window properties
-    public static final int WIDTH = 540;
-    public static final int HEIGHT = 250;
-    public static final String WINDOW_TITLE = "A vegetable garden - Potager";
 
     private final IconRepository icones = IconRepository.getInstance();
     private final SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
@@ -41,6 +38,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         sizeX = SimulateurPotager.SIZE_X;
         sizeY = SimulateurPotager.SIZE_Y;
         simulateurPotager = simPota;
+        this.setLayout(new BorderLayout());
 
         placerLesComposantsGraphiques();
         //ajouterEcouteurClavier(); // si besoin
@@ -63,11 +61,9 @@ public class VueControleurPotager extends JFrame implements Observer {
 
 
     private void placerLesComposantsGraphiques() {
-        initWindow();
-
-        initInfoPanel();
-
         initCases();
+        this.add(new TimeSlider(), BorderLayout.SOUTH);
+        initInfoPanel();
     }
 
     private void initInfoPanel() {
@@ -76,8 +72,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
         jtf.setEditable(false);
         infos.add(jtf);
-
-        add(infos, BorderLayout.EAST);
+        this.add(infos, BorderLayout.EAST);
     }
 
     private void addListenerCases() {
@@ -96,7 +91,11 @@ public class VueControleurPotager extends JFrame implements Observer {
     }
 
     private void initCases() {
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        GridLayout gridLayout = new GridLayout(sizeY, sizeX);
+        gridLayout.setHgap(0);
+        gridLayout.setVgap(0);
+        JComponent grilleJLabels = new JPanel(gridLayout); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+
 
         tabJLabel = new JLabel[sizeX][sizeY];
 
@@ -108,18 +107,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                 grilleJLabels.add(jlab);
             }
         }
-        add(grilleJLabels, BorderLayout.CENTER);
-
+        this.add(grilleJLabels, BorderLayout.CENTER);
         addListenerCases();
     }
-
-    private void initWindow() {
-        setTitle(WINDOW_TITLE);
-        setSize(WIDTH, HEIGHT);
-        setLocationRelativeTo(null); // centre la fenêtre
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
-    }
-
 
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
