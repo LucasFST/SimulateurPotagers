@@ -1,5 +1,12 @@
-package VueControleur;
+package vueControleur;
 
+import modele.SimulateurPotager;
+import modele.environnement.CaseCultivable;
+import modele.environnement.CaseNonCultivable;
+import modele.environnement.varietes.Legume;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,18 +17,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import modele.SimulateurPotager;
-import modele.environnement.*;
-import modele.environnement.varietes.Legume;
 
 
-/** Cette classe a deux fonctions :
- *  (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
- *  (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
- *
+/**
+ * Cette classe a deux fonctions :
+ * (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
+ * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
 public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
@@ -36,12 +37,12 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoMur;
 
 
-    private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
+    private JLabel[][] tabJLabel; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
-        sizeX = simulateurPotager.SIZE_X;
-        sizeY = _simulateurPotager.SIZE_Y;
+        sizeX = SimulateurPotager.SIZE_X;
+        sizeY = SimulateurPotager.SIZE_Y;
         simulateurPotager = _simulateurPotager;
 
         chargerLesIcones();
@@ -65,8 +66,8 @@ public class VueControleurPotager extends JFrame implements Observer {
 */
 
     private void chargerLesIcones() {
-    	// image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons	
-    
+        // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
+
 
         icoSalade = chargerIcone("Images/data.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
@@ -77,7 +78,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private void placerLesComposantsGraphiques() {
         setTitle("A vegetable garden");
         setSize(540, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         JPanel infos = new JPanel();
 
@@ -86,7 +87,6 @@ public class VueControleurPotager extends JFrame implements Observer {
         infos.add(jtf);
 
         add(infos, BorderLayout.EAST);
-
 
 
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
@@ -119,7 +119,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
     }
 
-    
+
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
@@ -134,7 +134,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                     if (legume != null) {
 
                         switch (legume.getVariete()) {
-                            case salade: tabJLabel[x][y].setIcon(icoSalade); break;
+                            case salade:
+                                tabJLabel[x][y].setIcon(icoSalade);
+                                break;
                         }
 
                     } else {

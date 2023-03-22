@@ -7,6 +7,7 @@ import modele.environnement.varietes.Salade;
 public class CaseCultivable extends Case {
 
     private Legume legume;
+
     public CaseCultivable(SimulateurPotager _simulateurPotager) {
         super(_simulateurPotager);
     }

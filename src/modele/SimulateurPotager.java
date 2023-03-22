@@ -10,7 +10,7 @@ import modele.environnement.Case;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.Random;
 
 
@@ -33,11 +33,10 @@ public class SimulateurPotager {
     }
 
 
-    
     public Case[][] getPlateau() {
         return grilleCases;
     }
-    
+
     private void initialisationDesEntites() {
 
         // murs extérieurs horizontaux
@@ -60,7 +59,7 @@ public class SimulateurPotager {
         for (int x = 5; x < 15; x++) {
             for (int y = 3; y < 7; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
-                addEntite(cc , x, y);
+                addEntite(cc, x, y);
                 if (rnd.nextBoolean()) {
                     cc.actionUtilisateur();
                 }
