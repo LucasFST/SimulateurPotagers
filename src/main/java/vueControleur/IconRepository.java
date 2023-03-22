@@ -44,7 +44,8 @@ public class IconRepository {
     private void chargerIcones() {
         // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
 
-        icones.put(IconNames.SALADE, chargerIcone("Images/data.png", 0, 0, 120, 120));
+        icones.put(IconNames.SALADE, chargerLegumeIcone(0, 0));
+        icones.put(IconNames.CAROTTE, chargerLegumeIcone(1, 1));
         icones.put(IconNames.TERRE, chargerIcone("Images/Terre.png"));
         icones.put(IconNames.VIDE, chargerIcone("Images/Vide.png"));
         icones.put(IconNames.MUR, chargerIcone("Images/Mur.png"));
@@ -60,6 +61,25 @@ public class IconRepository {
             Logger.getLogger(VueControleurPotager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    private ImageIcon chargerLegumeIcone(int xIndex, int yIndex) {
+        if (xIndex < 0 || xIndex > 9 || yIndex < 0 || yIndex > 4) {
+            throw new IllegalArgumentException("xIndex and yIndex must be between 0 and 9 and 0 and 4 respectively (number of sprites in the image)");
+        }
+        BufferedImage image = null;
+
+        String path = "Images/data.png";
+        int spriteWidth = 140;
+        int spriteHeight = 140;
+        int xSpaceBetweenSprites = 250;
+        int ySpaceBetweenSprites = 250;
+
+        int x = xIndex * spriteWidth + xIndex * xSpaceBetweenSprites;
+        int y = yIndex * spriteHeight + yIndex * ySpaceBetweenSprites;
+
+
+        return chargerIcone(path, x, y, spriteWidth, spriteHeight);
     }
 
     private ImageIcon chargerIcone(String path, int x, int y, int w, int h) {
