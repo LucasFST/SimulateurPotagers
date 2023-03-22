@@ -1,17 +1,18 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import modele.Ordonnanceur;
 import modele.SimulateurPotager;
-import vueControleur.VueControleurPotager;
+import vueControleur.VueManager;
+import vueControleur.vues.VueControleurPotager;
 
 public class Main {
     public static void main(String[] args) {
-        SimulateurPotager simulateurPotager = new SimulateurPotager();
-
         FlatLightLaf.setup(); // look and feel
-        VueControleurPotager vc = new VueControleurPotager(simulateurPotager);
-        vc.setVisible(true);
 
-        Ordonnanceur.getInstance().addObserver(vc);
+        SimulateurPotager simulateurPotager = new SimulateurPotager();
+        VueControleurPotager vcPotager = new VueControleurPotager(simulateurPotager);
+        VueManager.getInstance().setVueControleurPotager(vcPotager);
+
+        Ordonnanceur.getInstance().addObserver(vcPotager);
         Ordonnanceur.getInstance().start(300);
 
     }
