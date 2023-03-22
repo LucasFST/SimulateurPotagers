@@ -1,4 +1,4 @@
-package vueControleur;
+package vueControleur.icon;
 
 public enum IconNames {
     SALADE,

@@ -1,4 +1,6 @@
-package vueControleur;
+package vueControleur.icon;
+
+import vueControleur.vues.VueControleurPotager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,9 +1,10 @@
-package vueControleur;
+package vueControleur.vues;
 
 import modele.SimulateurPotager;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
 import modele.environnement.varietes.Legume;
+import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import static vueControleur.IconNames.*;
+import static vueControleur.icon.IconNames.*;
 
 
 /**
