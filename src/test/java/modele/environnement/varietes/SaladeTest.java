@@ -17,7 +17,7 @@ class SaladeTest {
     @Test
     @DisplayName("Salade.getVariete() should return Varietes.salade")
     void getVariete() {
-        assertEquals(Varietes.salade, salade.getVariete());
+        assertEquals(Varietes.SALADE, salade.getVariete());
     }
 
     @Test

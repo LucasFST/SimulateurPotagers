@@ -4,7 +4,7 @@ public class Carotte extends Legume {
 
     @Override
     public Varietes getVariete() {
-        return Varietes.carotte;
+        return Varietes.CAROTTE;
     }
 
     @Override
