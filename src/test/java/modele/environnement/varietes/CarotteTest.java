@@ -1,10 +1,12 @@
 package modele.environnement.varietes;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class CarotteTest {
     Carotte carotte;
@@ -25,6 +27,4 @@ class CarotteTest {
     void croissance() {
         // TODO
     }
-
-
 }
