@@ -10,10 +10,10 @@ import modele.SimulateurPotager;
 public abstract class Case implements Runnable {
     protected SimulateurPotager simulateurPotager;
 
-    private int précipitations; // TODO : mis à jour par le simulateur de météo pour chaque case ()
-    private int ensolleillement;
+    private int precipitations; // TODO : mis à jour par le simulateur de météo pour chaque case ()
+    private int ensoleillement;
 
-    
+
     public Case(SimulateurPotager _simulateurPotager) {
         simulateurPotager = _simulateurPotager;
     }
@@ -21,4 +21,4 @@ public abstract class Case implements Runnable {
     public abstract void actionUtilisateur();
 
 
-  }
+}
