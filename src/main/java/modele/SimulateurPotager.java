@@ -64,7 +64,7 @@ public class SimulateurPotager {
                     cc.actionUtilisateur();
                 }
 
-                Ordonnanceur.getOrdonnanceur().add(cc);
+                Ordonnanceur.getInstance().add(cc);
 
             }
         }

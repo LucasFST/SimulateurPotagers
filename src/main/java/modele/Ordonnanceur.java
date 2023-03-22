@@ -13,7 +13,7 @@ public class Ordonnanceur extends Observable implements Runnable {
     private long pause;
 
     // design pattern singleton
-    public static Ordonnanceur getOrdonnanceur() {
+    public static Ordonnanceur getInstance() {
         if (ordonnanceur == null) {
             ordonnanceur = new Ordonnanceur();
         }
