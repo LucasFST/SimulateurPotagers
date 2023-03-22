@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.Date;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -8,9 +9,13 @@ import static java.lang.Thread.sleep;
 public class Ordonnanceur extends Observable implements Runnable {
 
     private static Ordonnanceur ordonnanceur;
+
     private final Vector<Runnable> lst = new Vector<>(); // liste synchronisée
+
     private SimulateurPotager simulateurPotager;
-    private long pause;
+
+    private long delayMs;
+    private Date lastUpdate = new Date();
 
     // design pattern singleton
     public static Ordonnanceur getInstance() {
@@ -20,8 +25,8 @@ public class Ordonnanceur extends Observable implements Runnable {
         return ordonnanceur;
     }
 
-    public void start(long _pause) {
-        pause = _pause;
+    public void start(long _delayMs) {
+        delayMs = _delayMs;
         new Thread(this).start();
     }
 
@@ -31,27 +36,34 @@ public class Ordonnanceur extends Observable implements Runnable {
 
     @Override
     public void run() {
-        boolean update = true;
-
         while (true) {
-
             for (Runnable r : lst) {
                 r.run();
             }
 
-            if (update) {
-                setChanged();
-                notifyObservers();
-                //update = false;
+            if (canUpdate()) {
+                update();
             }
 
-            //update = true; // TODO : variable à déporter pour découpler le rafraichissement de la simulation
-            try {
-                sleep(pause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            waitDelay();
         }
+    }
 
+    private boolean canUpdate() {
+        return lastUpdate.getTime() + delayMs < new Date().getTime();
+    }
+
+    private void waitDelay() {
+        try {
+            sleep(delayMs);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update() {
+        setChanged();
+        notifyObservers();
+        lastUpdate = new Date();
     }
 }
