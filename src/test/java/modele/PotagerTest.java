@@ -3,13 +3,14 @@ package modele;
 import modele.environnement.Case;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
-
-import java.awt.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 public class PotagerTest {
     Potager potager;
 

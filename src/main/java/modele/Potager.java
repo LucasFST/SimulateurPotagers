@@ -17,26 +17,24 @@ public class Potager {
     public Case[][] getPlateau() {
         return grilleCases;
     }
+
     private void initialisationDesCases() {
         // murs extérieurs horizontaux
         for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
             setCase(new CaseNonCultivable(this), new Point(x, 0));
-            setCase(new CaseNonCultivable(this), new Point(x, 9));
+            setCase(new CaseNonCultivable(this), new Point(x, SimulateurPotager.SIZE_Y - 1));
         }
 
         // murs extérieurs verticaux
         for (int y = 1; y < SimulateurPotager.SIZE_Y - 1; y++) {
             setCase(new CaseNonCultivable(this), new Point(0, y));
-            setCase(new CaseNonCultivable(this), new Point(19, y));
+            setCase(new CaseNonCultivable(this), new Point(SimulateurPotager.SIZE_X - 1, y));
         }
-
-        setCase(new CaseNonCultivable(this), new Point(2, 6));
-        setCase(new CaseNonCultivable(this), new Point(3, 6));
 
         Random rnd = new Random();
 
-        for (int x = 5; x < 15; x++) {
-            for (int y = 3; y < 7; y++) {
+        for (int x = 1; x < SimulateurPotager.SIZE_X - 1; x++) {
+            for (int y = 1; y < SimulateurPotager.SIZE_Y - 1; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
                 setCase(cc, new Point(x, y));
                 if (rnd.nextBoolean()) {
@@ -45,6 +43,9 @@ public class Potager {
                 Ordonnanceur.getInstance().add(cc);
             }
         }
+
+        setCase(new CaseNonCultivable(this), new Point(2, 6));
+        setCase(new CaseNonCultivable(this), new Point(3, 6));
     }
 
     public void actionUtilisateur(Point p) {
