@@ -46,8 +46,5 @@ public class SimulateurPotager {
     public void supprimerPotager() {
         listePotagers.remove(listePotagers.size()-1);
     }
-
     //TODO : ajouter une fonction pour les actions de la météo
-
-
 }

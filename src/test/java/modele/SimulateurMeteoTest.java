@@ -1,5 +1,0 @@
-package modele;
-
-class SimulateurMeteoTest {
-
-}

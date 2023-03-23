@@ -7,14 +7,16 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class IconRepository {
     private static IconRepository instance = null;
-    private Hashtable<IconNames, ImageIcon> icones = new Hashtable<>();
+    private final ConcurrentHashMap<IconNames, ImageIcon> icones = new ConcurrentHashMap<>();
+    private final HashMap<String, BufferedImage> imagesCache = new HashMap<>();
 
     public IconRepository() {
         chargerIcones();
@@ -34,12 +36,18 @@ public class IconRepository {
     private BufferedImage getSubImage(String path, int x, int y, int w, int h) throws ExecutionException {
         BufferedImage image = null;
 
-        try {
-            image = ImageIO.read(new File(path));
-        } catch (IOException ex) {
-            Logger.getLogger(VueControleurPotager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ExecutionException("Image not found", ex);
+        if (imagesCache.containsKey(path)) {
+            image = imagesCache.get(path);
+        } else {
+            try {
+                image = ImageIO.read(new File(path));
+                imagesCache.put(path, image);
+            } catch (IOException ex) {
+                Logger.getLogger(VueControleurPotager.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ExecutionException("Image not found", ex);
+            }
         }
+
         return image.getSubimage(x, y, w, h);
     }
 
@@ -54,10 +62,8 @@ public class IconRepository {
     }
 
     private ImageIcon chargerIcone(String path) {
-        BufferedImage image = null;
-
         try {
-            image = ImageIO.read(new File(path));
+            BufferedImage image = ImageIO.read(new File(path));
             return new ImageIcon(image);
         } catch (IOException ex) {
             Logger.getLogger(VueControleurPotager.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +75,6 @@ public class IconRepository {
         if (xIndex < 0 || xIndex > 9 || yIndex < 0 || yIndex > 4) {
             throw new IllegalArgumentException("xIndex and yIndex must be between 0 and 9 and 0 and 4 respectively (number of sprites in the image)");
         }
-        BufferedImage image = null;
 
         String path = "Images/data.png";
         int spriteWidth = 140;
@@ -86,13 +91,12 @@ public class IconRepository {
 
     private ImageIcon chargerIcone(String path, int x, int y, int w, int h) {
         // charger une sous partie de l'image à partir de ses coordonnées dans path
-        BufferedImage bi = null;
         try {
-            bi = getSubImage(path, x, y, w, h);
+            BufferedImage bi = getSubImage(path, x, y, w, h);
+            // adapter la taille de l'image a la taille du composant (ici : 20x20)
+            return new ImageIcon(bi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
         } catch (ExecutionException e) {
             return null;
         }
-        // adapter la taille de l'image a la taille du composant (ici : 20x20)
-        return new ImageIcon(bi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
     }
 }

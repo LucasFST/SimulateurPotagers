@@ -22,11 +22,8 @@ import static vueControleur.icon.IconNames.*;
  * (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
-public class VueControleurPotager extends JFrame implements Observer {
+public class VueControleurPotager extends JPanel implements Observer {
     // Window properties
-    public static final int WIDTH = 540;
-    public static final int HEIGHT = 250;
-    public static final String WINDOW_TITLE = "A vegetable garden - Potager";
 
     private final IconRepository icones = IconRepository.getInstance();
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
@@ -35,15 +32,16 @@ public class VueControleurPotager extends JFrame implements Observer {
     private final int sizeX;
     private final int sizeY;
 
-    private JLabel[][] tabJLabel; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
+    private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
 
     public VueControleurPotager(Potager pota) {
         sizeX = SimulateurPotager.SIZE_X;
         sizeY = SimulateurPotager.SIZE_Y;
         potager = pota;
+        this.setLayout(new BorderLayout());
 
-        placerLesComposantsGraphiques();
+        addComponents();
         //ajouterEcouteurClavier(); // si besoin
     }
 /*
@@ -63,22 +61,19 @@ public class VueControleurPotager extends JFrame implements Observer {
 */
 
 
-    private void placerLesComposantsGraphiques() {
-        initWindow();
-
-        initInfoPanel();
-
-        initCases();
+    private void addComponents() {
+        add(getGridPanel(), BorderLayout.CENTER);
+        add(new TimeSlider(), BorderLayout.SOUTH);
+        add(getInfoPanel(), BorderLayout.EAST);
     }
 
-    private void initInfoPanel() {
+    private JPanel getInfoPanel() {
         JPanel infos = new JPanel();
 
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
         jtf.setEditable(false);
         infos.add(jtf);
-
-        add(infos, BorderLayout.EAST);
+        return infos;
     }
 
     private void addListenerCases() {
@@ -86,7 +81,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             for (int x = 0; x < sizeX; x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
                 final int yy = y;
-                tabJLabel[x][y].addMouseListener(new MouseAdapter() {
+                cases[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         potager.actionUtilisateur(new Point(xx, yy));
@@ -96,36 +91,32 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
     }
 
-    private void initCases() {
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+    private JComponent getGridPanel() {
+        GridLayout gridLayout = new GridLayout(sizeY, sizeX);
+        gridLayout.setHgap(0);
+        gridLayout.setVgap(0);
+        JComponent grilleJLabels = new JPanel(gridLayout); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
-        tabJLabel = new JLabel[sizeX][sizeY];
+
+        cases = new JLabel[sizeX][sizeY];
 
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
-                JLabel jlab = new JLabel();
-
-                tabJLabel[x][y] = jlab; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
-                grilleJLabels.add(jlab);
+                JLabel _case = new JLabel();
+                _case.setIcon(icones.getIcone(VIDE));
+                cases[x][y] = _case; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
+                grilleJLabels.add(_case);
             }
         }
-        add(grilleJLabels, BorderLayout.CENTER);
 
         addListenerCases();
+        return grilleJLabels;
     }
-
-    private void initWindow() {
-        setTitle(WINDOW_TITLE);
-        setSize(WIDTH, HEIGHT);
-        setLocationRelativeTo(null); // centre la fenêtre
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
-    }
-
 
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
-    private void mettreAJourAffichage() {
+    private void updateDisplay() {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 updateCase(x, y);
@@ -137,9 +128,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         if (potager.getPlateau()[x][y] instanceof CaseCultivable) {
             setLegumeCase(x, y);
         } else if (potager.getPlateau()[x][y] instanceof CaseNonCultivable) {
-            tabJLabel[x][y].setIcon(icones.getIcone(MUR));
+            cases[x][y].setIcon(icones.getIcone(MUR));
         } else {
-            tabJLabel[x][y].setIcon(icones.getIcone(VIDE));
+            cases[x][y].setIcon(icones.getIcone(VIDE));
         }
     }
 
@@ -149,14 +140,14 @@ public class VueControleurPotager extends JFrame implements Observer {
         if (legume != null) {
             switch (legume.getVariete()) {
                 case SALADE:
-                    tabJLabel[x][y].setIcon(icones.getIcone(SALADE));
+                    cases[x][y].setIcon(icones.getIcone(SALADE));
                     break;
                 case CAROTTE:
-                    tabJLabel[x][y].setIcon(icones.getIcone(CAROTTE));
+                    cases[x][y].setIcon(icones.getIcone(CAROTTE));
                     break;
             }
         } else {
-            tabJLabel[x][y].setIcon(icones.getIcone(TERRE));
+            cases[x][y].setIcon(icones.getIcone(TERRE));
         }
 
         // si transparence : images avec canal alpha + dessins manuels (voir ci-dessous + créer composant qui redéfinie paint(Graphics g)), se documenter
@@ -166,7 +157,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        mettreAJourAffichage();
+        updateDisplay();
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

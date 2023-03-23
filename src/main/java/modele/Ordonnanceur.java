@@ -1,57 +1,94 @@
 package modele;
 
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
-
-import static java.lang.Thread.sleep;
 
 public class Ordonnanceur extends Observable implements Runnable {
 
-    private static Ordonnanceur ordonnanceur;
-    private final Vector<Runnable> lst = new Vector<>(); // liste synchronisée
-    private SimulateurPotager simulateurPotager;
-    private long pause;
+    public static final long DEFAULT_DELAY = 10000;
+    private static final long UI_DELAY = 1000 / 60; // 1000 / fps
+    private static Ordonnanceur ordonnanceur; // singleton
+    private final Vector<Runnable> runnables = new Vector<>(); // liste synchronisée
+    Timer timer;
+    private long delayMs;
 
     // design pattern singleton
     public static Ordonnanceur getInstance() {
         if (ordonnanceur == null) {
             ordonnanceur = new Ordonnanceur();
+            if (ordonnanceur.delayMs == 0)
+                ordonnanceur.delayMs = DEFAULT_DELAY;
+            ordonnanceur.setTimer();
         }
         return ordonnanceur;
     }
 
-    public void start(long _pause) {
-        pause = _pause;
-        new Thread(this).start();
+    private static void sleepUiUpdate() {
+        try {
+            Thread.sleep(UI_DELAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void add(Runnable r) {
-        lst.add(r);
+    public void start() {
+        new Thread(this).start();
+        setAutoUpdateObservers();
+    }
+
+    public void addRunnable(Runnable r) {
+        runnables.add(r);
     }
 
     @Override
     public void run() {
-        boolean update = true;
-
-        while (true) {
-
-            for (Runnable r : lst) {
-                r.run();
-            }
-
-            if (update) {
-                setChanged();
-                notifyObservers();
-                //update = false;
-            }
-
-            //update = true; // TODO : variable à déporter pour découpler le rafraichissement de la simulation
-            try {
-                sleep(pause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (Runnable r : runnables) {
+            r.run();
         }
+    }
 
+    private void setTimer() {
+        cancelTimer();
+        createAndStartTimer();
+    }
+
+    private void createAndStartTimer() {
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Ordonnanceur.this.run();
+            }
+        }, delayMs, delayMs);
+    }
+
+    private void cancelTimer() {
+        if (this.timer != null) {
+            timer.cancel();
+        }
+    }
+
+    private void setAutoUpdateObservers() {
+        while (true) {
+            updateObservers();
+            sleepUiUpdate();
+        }
+    }
+
+    private void updateObservers() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public long getDelay() {
+        return delayMs;
+    }
+
+    public void setDelay(long delayMs) {
+        this.delayMs = delayMs;
+        setTimer();
     }
 }
