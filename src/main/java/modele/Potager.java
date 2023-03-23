@@ -40,7 +40,7 @@ public class Potager {
                 if (rnd.nextBoolean()) {
                     cc.actionUtilisateur();
                 }
-                Ordonnanceur.getInstance().add(cc);
+                Ordonnanceur.getInstance().addRunnable(cc);
             }
         }
 
