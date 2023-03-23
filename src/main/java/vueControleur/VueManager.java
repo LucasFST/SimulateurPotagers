@@ -4,7 +4,7 @@ import vueControleur.vues.VueControleurPotager;
 
 import javax.swing.*;
 
-public class VueManager extends JFrame {
+public final class VueManager extends JFrame {
     private static VueManager instance = null;
     private VueControleurPotager vueControleurPotager;
 
