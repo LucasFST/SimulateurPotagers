@@ -14,7 +14,7 @@ public class Potager {
         initialisationDesCases();
     }
 
-    private Case[][] getPlateau() {
+    public Case[][] getPlateau() {
         return grilleCases;
     }
     private void initialisationDesCases() {
