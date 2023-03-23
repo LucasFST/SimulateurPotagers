@@ -8,9 +8,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class Potager {
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
-    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
+    private Case[][] grilleCases = new Case[SimulateurPotager.SIZE_X][SimulateurPotager.SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
         initialisationDesCases();
@@ -21,13 +19,13 @@ public class Potager {
     }
     private void initialisationDesCases() {
         // murs extérieurs horizontaux
-        for (int x = 0; x < SIZE_X; x++) {
+        for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
             setCase(new CaseNonCultivable(this), new Point(x, 0));
             setCase(new CaseNonCultivable(this), new Point(x, 9));
         }
 
         // murs extérieurs verticaux
-        for (int y = 1; y < SIZE_Y - 1; y++) {
+        for (int y = 1; y < SimulateurPotager.SIZE_Y - 1; y++) {
             setCase(new CaseNonCultivable(this), new Point(0, y));
             setCase(new CaseNonCultivable(this), new Point(19, y));
         }
@@ -62,7 +60,7 @@ public class Potager {
 
     public Case getCase(Point p) {
         //Case retour = null;
-        if (p.x < 0 || p.x >= SIZE_X || p.y < 0 || p.y >= SIZE_Y) {
+        if (p.x < 0 || p.x >= SimulateurPotager.SIZE_X || p.y < 0 || p.y >= SimulateurPotager.SIZE_Y) {
             return null;
         }
         return grilleCases[p.x][p.y];

@@ -5,10 +5,6 @@
  */
 package modele;
 
-import modele.Potager;
-import modele.environnement.Case;
-import modele.environnement.CaseCultivable;
-import modele.environnement.CaseNonCultivable;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +13,8 @@ import java.util.Random;
 
 public class SimulateurPotager {
 
+    public static final int SIZE_X = 20;
+    public static final int SIZE_Y = 10;
     private ArrayList<Potager> listePotagers = new ArrayList<Potager>();
     private SimulateurMeteo simulateurMeteo;
 
@@ -25,18 +23,28 @@ public class SimulateurPotager {
     public SimulateurPotager() {
         simulateurMeteo = new SimulateurMeteo(this);
         //par défaut, on a un potager
-        ajouterPotager(new Potager());
+        ajouterPotager();
+    }
+
+    public ArrayList<Potager> getListePotagers() {
+        return listePotagers;
     }
 
     //Pour l'instant public, mais devrait être privé quand on aura un système d'achat de potager
     //Est-ce qu'on fixe une taille maximale de potagers ?
     //TODO : ajouter un système d'achat de potager
-    public void ajouterPotager(Potager _potager) {
+    public void ajouterPotager() {
+        Potager _potager = new Potager();
         listePotagers.add(_potager);
     }
 
     public void supprimerPotager(Potager _potager) {
         listePotagers.remove(_potager);
+    }
+
+    //Supprime le dernier potager ajouté
+    public void supprimerPotager() {
+        listePotagers.remove(listePotagers.size()-1);
     }
 
     //TODO : ajouter une fonction pour les actions de la météo
