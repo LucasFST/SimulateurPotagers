@@ -14,10 +14,8 @@ public class TimeSlider extends JSlider {
 
         this.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();
-            if (!source.getValueIsAdjusting()) {
-                int delay = (int) source.getValue();
-                Ordonnanceur.getInstance().setDelay(delay);
-            }
+            int delay = (int) source.getValue();
+            Ordonnanceur.getInstance().setDelay(delay);
         });
     }
 }
