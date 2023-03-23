@@ -27,6 +27,7 @@ public class Ordonnanceur extends Observable implements Runnable {
 
     public void start() {
         new Thread(this).start();
+        update();
     }
 
     public void add(Runnable r) {
@@ -38,8 +39,6 @@ public class Ordonnanceur extends Observable implements Runnable {
         for (Runnable r : lst) {
             r.run();
         }
-
-        update();
     }
 
     private void setTimer() {
@@ -58,8 +57,10 @@ public class Ordonnanceur extends Observable implements Runnable {
     }
 
     private void update() {
-        setChanged();
-        notifyObservers();
+        while (true) {
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public long getDelay() {
