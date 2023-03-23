@@ -1,5 +1,6 @@
 package vueControleur.vues;
 
+import modele.Potager;
 import modele.SimulateurPotager;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
@@ -28,7 +29,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     public static final String WINDOW_TITLE = "A vegetable garden - Potager";
 
     private final IconRepository icones = IconRepository.getInstance();
-    private final SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
 
     // taille de la grille affichée
     private final int sizeX;
@@ -37,10 +38,10 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabJLabel; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
 
-    public VueControleurPotager(SimulateurPotager simPota) {
+    public VueControleurPotager(Potager pota) {
         sizeX = SimulateurPotager.SIZE_X;
         sizeY = SimulateurPotager.SIZE_Y;
-        simulateurPotager = simPota;
+        potager = pota;
 
         placerLesComposantsGraphiques();
         //ajouterEcouteurClavier(); // si besoin
@@ -88,7 +89,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabJLabel[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        simulateurPotager.actionUtilisateur(xx, yy);
+                        potager.actionUtilisateur(new Point(xx, yy));
                     }
                 });
             }
@@ -133,9 +134,9 @@ public class VueControleurPotager extends JFrame implements Observer {
     }
 
     private void updateCase(int x, int y) {
-        if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) {
+        if (potager.getPlateau()[x][y] instanceof CaseCultivable) {
             setLegumeCase(x, y);
-        } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonCultivable) {
+        } else if (potager.getPlateau()[x][y] instanceof CaseNonCultivable) {
             tabJLabel[x][y].setIcon(icones.getIcone(MUR));
         } else {
             tabJLabel[x][y].setIcon(icones.getIcone(VIDE));
@@ -143,7 +144,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     }
 
     private void setLegumeCase(int x, int y) {
-        Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
+        Legume legume = ((CaseCultivable) potager.getPlateau()[x][y]).getLegume();
 
         if (legume != null) {
             switch (legume.getVariete()) {
