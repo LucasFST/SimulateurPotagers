@@ -101,10 +101,10 @@ public class VueControleurPotager extends JPanel implements Observer {
 
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
-                JLabel jlab = new JLabel();
-
-                cases[x][y] = jlab; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
-                grilleJLabels.add(jlab);
+                JLabel _case = new JLabel();
+                _case.setIcon(icones.getIcone(VIDE));
+                cases[x][y] = _case; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
+                grilleJLabels.add(_case);
             }
         }
 
