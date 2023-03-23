@@ -5,19 +5,32 @@
  */
 package modele.environnement;
 
-import modele.SimulateurPotager;
+import modele.Potager;
 
 public abstract class Case implements Runnable {
-    protected SimulateurPotager simulateurPotager;
+    protected Potager potager;
+    private float tauxHumidite; // TODO : mis à jour par le simulateur de météo pour chaque case ()
+    private float tauxEnsoleillement;
 
-    private int precipitations; // TODO : mis à jour par le simulateur de météo pour chaque case ()
-    private int ensoleillement;
-
-
-    public Case(SimulateurPotager _simulateurPotager) {
-        simulateurPotager = _simulateurPotager;
+    protected Case(Potager _potager) {
+        potager = _potager;
     }
 
+    public float getTauxHumidite() {
+        return tauxHumidite;
+    }
+
+    public float getTauxEnsoleillement() {
+        return tauxEnsoleillement;
+    }
+
+    public void setTauxHumidite(float _tauxHumidite) {
+        tauxHumidite = _tauxHumidite;
+    }
+
+    public void setTauxEnsoleillement(float _tauxEnsoleillement) {
+        tauxEnsoleillement = _tauxEnsoleillement;
+    }
     public abstract void actionUtilisateur();
 
 
