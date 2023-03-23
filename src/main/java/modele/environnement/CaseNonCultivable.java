@@ -1,10 +1,10 @@
 package modele.environnement;
 
-import modele.SimulateurPotager;
+import modele.Potager;
 
 public class CaseNonCultivable extends Case {
-    public CaseNonCultivable(SimulateurPotager _simulateurPotager) {
-        super(_simulateurPotager);
+    public CaseNonCultivable(Potager _potager) {
+        super(_potager);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package modele.environnement;
 
-import modele.SimulateurPotager;
+import modele.Potager;
 import modele.environnement.varietes.Legume;
 import modele.environnement.varietes.Salade;
 
@@ -8,8 +8,8 @@ public class CaseCultivable extends Case {
 
     private Legume legume;
 
-    public CaseCultivable(SimulateurPotager _simulateurPotager) {
-        super(_simulateurPotager);
+    public CaseCultivable(Potager _potager) {
+        super(_potager);
     }
 
     @Override

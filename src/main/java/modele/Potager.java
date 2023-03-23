@@ -10,7 +10,7 @@ import java.util.Random;
 public class Potager {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
-    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées => sous forme de Point(x,y)
+    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
         initialisationDesCases();
@@ -32,7 +32,7 @@ public class Potager {
             setCase(new CaseNonCultivable(this), new Point(19, y));
         }
 
-        setCase(new CaseNonCultivable(this), new Point(2, 6)));
+        setCase(new CaseNonCultivable(this), new Point(2, 6));
         setCase(new CaseNonCultivable(this), new Point(3, 6));
 
         Random rnd = new Random();

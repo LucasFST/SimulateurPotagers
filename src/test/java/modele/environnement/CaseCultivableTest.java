@@ -1,6 +1,6 @@
 package modele.environnement;
 
-import modele.SimulateurPotager;
+import modele.Potager;
 import modele.environnement.varietes.Legume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,8 +13,8 @@ class CaseCultivableTest {
 
     @BeforeEach
     public void setUp() {
-        SimulateurPotager simulateurPotager = new SimulateurPotager();
-        caseCultivable = new CaseCultivable(simulateurPotager);
+        Potager potager = new Potager();
+        caseCultivable = new CaseCultivable(potager);
     }
 
     @Test

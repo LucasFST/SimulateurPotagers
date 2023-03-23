@@ -1,6 +1,6 @@
 package modele.environnement;
 
-import modele.SimulateurPotager;
+import modele.Potager;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +9,8 @@ class CaseNonCultivableTest {
 
     @Before
     public void setUp() {
-        SimulateurPotager simulateurPotager = new SimulateurPotager();
-        caseNonCultivable = new CaseNonCultivable(simulateurPotager);
+        Potager potager = new Potager();
+        caseNonCultivable = new CaseNonCultivable(potager);
     }
 
     @Test
