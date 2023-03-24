@@ -22,15 +22,15 @@ public class PotagerTest {
     @Test
     @DisplayName("Test the size of potager")
     void testTaillePotager() {
-        assertEquals(Potager.SIZE_X, potager.getPlateau().length);
-        assertEquals(Potager.SIZE_Y, potager.getPlateau()[0].length);
+        assertEquals(potager.getSizeX(), potager.getPlateau().length);
+        assertEquals(potager.getSizeY(), potager.getPlateau()[0].length);
     }
 
     @Test
     @DisplayName("getPlateau() should return a 2D array of Case")
     void testGetPlateauReturn2DArrayOfCase() {
-        for (int x = 0; x < Potager.SIZE_X; x++) {
-            for (int y = 0; y < Potager.SIZE_Y; y++) {
+        for (int x = 0; x < potager.getSizeX(); x++) {
+            for (int y = 0; y < potager.getSizeY(); y++) {
                 assertTrue(potager.getPlateau()[x][y] instanceof Case);
             }
         }
@@ -39,11 +39,11 @@ public class PotagerTest {
     @Test
     @DisplayName("Test for the presence of CaseNonCultivable in the borders")
     void testPresenceMurs() {
-        for (int x = 0; x < Potager.SIZE_X; x++) {
+        for (int x = 0; x < potager.getSizeX(); x++) {
             assertTrue(potager.getPlateau()[x][0] instanceof CaseNonCultivable);
             assertTrue(potager.getPlateau()[x][9] instanceof CaseNonCultivable);
         }
-        for (int y = 1; y < Potager.SIZE_Y - 1; y++) {
+        for (int y = 1; y < potager.getSizeY() - 1; y++) {
             assertTrue(potager.getPlateau()[0][y] instanceof CaseNonCultivable);
             assertTrue(potager.getPlateau()[19][y] instanceof CaseNonCultivable);
         }
@@ -75,7 +75,7 @@ public class PotagerTest {
     @Test
     @DisplayName("getCase() should return null if the point is invalid")
     void testGetCaseReturnNull() {
-        assertNull(potager.getCase(new Point(Potager.SIZE_X, Potager.SIZE_Y)));
+        assertNull(potager.getCase(new Point(potager.getSizeX(), potager.getSizeY())));
     }
 
 }

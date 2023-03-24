@@ -9,35 +9,59 @@ import java.util.Random;
 
 public class Potager {
 
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
-    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
+    public static final int MAX_SIZE_X = 20;
+    public static final int MAX_SIZE_Y = 10;
+    private int sizeX;
+    private int sizeY;
+    private Case[][] grilleCases; // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
+        sizeX = MAX_SIZE_X;
+        sizeY = MAX_SIZE_Y;
+        grilleCases = new Case[sizeX][sizeY];
         initialisationDesCases();
     }
 
+    public Potager(int size_x, int size_y) {
+        //size_x et size_y doivent être supérieurs à 0 et inférieurs à MAX_SIZE_X et MAX_SIZE_Y
+        if(size_x > MAX_SIZE_X || size_y > MAX_SIZE_Y)
+            throw new IllegalArgumentException("Taille du potager trop grande");
+        if(size_x < 0 || size_y < 0)
+            throw new IllegalArgumentException("Taille du potager trop petite");
+        sizeX = size_x;
+        sizeY = size_y;
+        grilleCases = new Case[size_x][size_y];
+        initialisationDesCases();
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
     public Case[][] getPlateau() {
         return grilleCases;
     }
 
     private void initialisationDesCases() {
         // murs extérieurs horizontaux
-        for (int x = 0; x < SIZE_X; x++) {
+        for (int x = 0; x < sizeX; x++) {
             setCase(new CaseNonCultivable(this), new Point(x, 0));
-            setCase(new CaseNonCultivable(this), new Point(x, SIZE_Y - 1));
+            setCase(new CaseNonCultivable(this), new Point(x, sizeY - 1));
         }
 
         // murs extérieurs verticaux
-        for (int y = 1; y < SIZE_Y - 1; y++) {
+        for (int y = 1; y < sizeY - 1; y++) {
             setCase(new CaseNonCultivable(this), new Point(0, y));
-            setCase(new CaseNonCultivable(this), new Point(SIZE_X - 1, y));
+            setCase(new CaseNonCultivable(this), new Point(sizeX - 1, y));
         }
 
         Random rnd = new Random();
 
-        for (int x = 1; x < SIZE_X - 1; x++) {
-            for (int y = 1; y < SIZE_Y - 1; y++) {
+        for (int x = 1; x < sizeX - 1; x++) {
+            for (int y = 1; y < sizeY - 1; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
                 setCase(cc, new Point(x, y));
                 if (rnd.nextBoolean()) {
@@ -64,7 +88,7 @@ public class Potager {
 
     public Case getCase(Point p) {
         //Case retour = null;
-        if (p.x < 0 || p.x >= SIZE_X || p.y < 0 || p.y >= SIZE_Y) {
+        if (p.x < 0 || p.x >= sizeX || p.y < 0 || p.y >= sizeY) {
             return null;
         }
         return grilleCases[p.x][p.y];
