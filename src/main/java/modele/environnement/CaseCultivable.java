@@ -7,7 +7,7 @@ import modele.environnement.varietes.Salade;
 public class CaseCultivable extends Case {
 
     private Legume legume;
-    private float tauxHumidite = 0.5f; // TODO : mis à jour par le simulateur de météo pour chaque case ()
+    private float tauxHumidite = 0.5f;
     private float tauxEnsoleillement = 0.5f;
 
     public CaseCultivable(Potager _potager) {
@@ -60,7 +60,7 @@ public class CaseCultivable extends Case {
     @Override
     public void run() {
         if (legume != null) {
-            legume.nextStep();
+            legume.nextStep(tauxHumidite, tauxEnsoleillement);
         }
     }
 }
