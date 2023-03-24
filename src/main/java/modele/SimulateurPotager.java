@@ -6,7 +6,8 @@
 package modele;
 
 
-import java.awt.*;
+import modele.meteo.SimulateurMeteo;
+
 import java.util.ArrayList;
 import java.util.Random;
 
