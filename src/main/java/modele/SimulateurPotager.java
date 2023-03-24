@@ -35,8 +35,14 @@ public class SimulateurPotager {
         listePotagers.add(_potager);
     }
 
-    public void supprimerPotager(Potager _potager) {
-        listePotagers.remove(_potager);
+    public void supprimerPotager(int _id) {
+        //trouver le potager correspondant à l'id
+        for (Potager potager : listePotagers) {
+            if (potager.getId() == _id) {
+                listePotagers.remove(potager);
+                break;
+            }
+        }
     }
 
     //Supprime le dernier potager ajouté

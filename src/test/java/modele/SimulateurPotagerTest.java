@@ -35,4 +35,12 @@ class SimulateurPotagerTest {
         simulateurPotager.supprimerPotager();
         assertEquals(0, simulateurPotager.getListePotagers().size());
     }
+
+    @Test
+    @DisplayName("supprimerPotager(id) should remove the potager with the id from the list")
+    void testSupprimerPotagerRemoveAPotagerFromTheListWithId(){
+        int id = simulateurPotager.getListePotagers().get(0).getId();
+        simulateurPotager.supprimerPotager(id);
+        assertEquals(0, simulateurPotager.getListePotagers().size());
+    }
 }
