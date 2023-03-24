@@ -22,8 +22,8 @@ public class PotagerTest {
     @Test
     @DisplayName("Test the size of potager")
     void testTaillePotager() {
-        assertEquals(20, potager.getPlateau().length);
-        assertEquals(10, potager.getPlateau()[0].length);
+        assertEquals(Potager.SIZE_X, potager.getPlateau().length);
+        assertEquals(Potager.SIZE_Y, potager.getPlateau()[0].length);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class PotagerTest {
     @Test
     @DisplayName("getCase() should return null if the point is invalid")
     void testGetCaseReturnNull() {
-        assertNull(potager.getCase(new Point(20, 10)));
+        assertNull(potager.getCase(new Point(Potager.SIZE_X, Potager.SIZE_Y)));
     }
 
 }
