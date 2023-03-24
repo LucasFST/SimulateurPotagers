@@ -36,8 +36,8 @@ public class VueControleurPotager extends JPanel implements Observer {
 
 
     public VueControleurPotager(Potager pota) {
-        sizeX = SimulateurPotager.SIZE_X;
-        sizeY = SimulateurPotager.SIZE_Y;
+        sizeX = Potager.SIZE_X;
+        sizeY = Potager.SIZE_Y;
         potager = pota;
         this.setLayout(new BorderLayout());
 

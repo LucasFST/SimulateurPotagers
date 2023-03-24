@@ -12,9 +12,6 @@ import java.util.Random;
 
 
 public class SimulateurPotager {
-
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
     private ArrayList<Potager> listePotagers = new ArrayList<Potager>();
     private SimulateurMeteo simulateurMeteo;
 
