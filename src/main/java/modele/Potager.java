@@ -9,13 +9,16 @@ import java.util.Random;
 
 public class Potager {
 
+    private static int compteurID = 0; // permet de donner un ID unique à chaque potager
     public static final int MAX_SIZE_X = 20;
     public static final int MAX_SIZE_Y = 10;
     private int sizeX;
     private int sizeY;
+    private int id;
     private Case[][] grilleCases; // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
+        id = compteurID++;
         sizeX = MAX_SIZE_X;
         sizeY = MAX_SIZE_Y;
         grilleCases = new Case[sizeX][sizeY];
@@ -28,12 +31,16 @@ public class Potager {
             throw new IllegalArgumentException("Taille du potager trop grande");
         if(size_x < 0 || size_y < 0)
             throw new IllegalArgumentException("Taille du potager trop petite");
+        id = compteurID++;
         sizeX = size_x;
         sizeY = size_y;
         grilleCases = new Case[size_x][size_y];
         initialisationDesCases();
     }
 
+    public int getId() {
+        return id;
+    }
     public int getSizeX() {
         return sizeX;
     }
@@ -41,6 +48,7 @@ public class Potager {
     public int getSizeY() {
         return sizeY;
     }
+
     public Case[][] getPlateau() {
         return grilleCases;
     }
