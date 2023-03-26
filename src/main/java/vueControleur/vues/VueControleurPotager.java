@@ -4,6 +4,7 @@ import modele.Ordonnanceur;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
 import modele.environnement.varietes.Legume;
+import modele.player.Inventory;
 import modele.potagers.Potager;
 import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
@@ -24,6 +25,7 @@ import static vueControleur.icon.IconNames.*;
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
 public class VueControleurPotager extends JPanel implements Observer, VueControleur {
+    private static final String TEXT_COINS = "Coins : ";
     private final IconRepository icones = IconRepository.getInstance();
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     // taille de la grille affichée
@@ -31,6 +33,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     private final int sizeY;
     private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
     private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
+    private JTextField nbCoins;
 
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
@@ -85,12 +88,20 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
     private JPanel getInfoPanel() {
         JPanel infos = new JPanel();
+        infos.setLayout(new BoxLayout(infos, BoxLayout.Y_AXIS));
 
-        JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
-        jtf.setEditable(false);
+        JTextField panelTitle = new JTextField("infos diverses");
+        panelTitle.setEditable(false);
+        panelTitle.setMaximumSize(new Dimension(100, 20));
+        infos.add(panelTitle);
 
+        infos.add(Box.createRigidArea(new Dimension(0, 10))); // espace entre les infos
 
-        infos.add(jtf);
+        nbCoins = new JTextField(TEXT_COINS + Inventory.getInstance().getNbCoins());
+        nbCoins.setEditable(false);
+        nbCoins.setMaximumSize(new Dimension(100, 20));
+        infos.add(nbCoins);
+
         return infos;
     }
 
@@ -103,7 +114,6 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         potager.actionUtilisateur(new Point(xx, yy));
-                        System.out.println("Clic sur la case (" + xx + ", " + yy + ")");
                     }
                 });
             }
@@ -154,7 +164,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     }
 
     private void updateInfos() {
-
+        nbCoins.setText(TEXT_COINS + Inventory.getInstance().getNbCoins());
     }
 
     private void updateCase(int x, int y) {

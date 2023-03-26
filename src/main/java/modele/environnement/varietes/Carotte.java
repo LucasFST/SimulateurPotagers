@@ -11,4 +11,9 @@ public class Carotte extends Legume {
     protected void croissance() {
         // TODO
     }
+
+    @Override
+    public float getCoinValue() {
+        return 2;
+    }
 }

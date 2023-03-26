@@ -11,4 +11,9 @@ public class Salade extends Legume {
         // TODO
         System.out.println("Une salade pousse !!");
     }
+
+    @Override
+    public float getCoinValue() {
+        return 2;
+    }
 }
