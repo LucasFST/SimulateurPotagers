@@ -34,18 +34,15 @@ public abstract class Legume implements Serializable {
 
         updateEtatVie(tauxHumidite, tauxEnsoleillement);
 
-        updateCroissance();
-
-
         croissance();
     }
 
-    private void updateCroissance() {
-        if (etatVie > 0.9) {
+    protected void updateCroissance(double ratePerfect, double rateGood, double rateBad) {
+        if (etatVie > ratePerfect) {
             etatCroissance += 0.02;
-        } else if (etatVie > 0.6) {
+        } else if (etatVie > rateGood) {
             etatCroissance += 0.01;
-        } else if (etatVie > 0.3) {
+        } else if (etatVie > rateBad) {
             etatCroissance += 0.005;
         } else {
             etatCroissance += 0.001;

@@ -9,7 +9,7 @@ public class Carotte extends Legume {
 
     @Override
     protected void croissance() {
-        // TODO
+        updateCroissance(0.9, 0.6, 0.3);
     }
 
     @Override
