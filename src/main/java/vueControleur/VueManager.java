@@ -57,7 +57,6 @@ public final class VueManager extends JFrame implements Singleton {
         JMenuItem chargerMenuItem = new JMenuItem("Charger");
         chargerMenuItem.addActionListener(e -> {
             vue.LoadWindow loadWindow = new vue.LoadWindow(this);
-            loadWindow.setVisible(true);
         });
         fichierMenu.add(chargerMenuItem);
     }

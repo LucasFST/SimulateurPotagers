@@ -10,27 +10,41 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class SaveWindow extends JFrame {
-    private final JTextField filenameTextField;
+    private JTextField filenameTextField;
 
     public SaveWindow(SimulateurPotager simulateurPotager) {
         super("Sauvegarder les données");
-        JLabel filenameLabel = new JLabel("Nom du fichier :");
-        filenameTextField = new JTextField();
+        initWindow(simulateurPotager);
 
+        pack();
+        setVisible(true);
+    }
+
+    private JButton addSaveButton(SimulateurPotager simulateurPotager) {
         JButton saveButton = new JButton("Sauvegarder");
         saveButton.addActionListener(new SaveButtonListener(simulateurPotager));
+        return saveButton;
+    }
 
-        JPanel panel = new JPanel(new GridLayout(0, 2));
+    private void initWindow(SimulateurPotager simulateurPotager) {
+        JLabel filenameLabel = new JLabel("Nom du fichier :");
+        filenameTextField = new JTextField();
+        int padding = 10;
+
+        JButton saveButton = addSaveButton(simulateurPotager);
+        saveButton.setPreferredSize(new Dimension(0, saveButton.getPreferredSize().height));
+
+        JPanel panel = new JPanel(new GridLayout(2, 2, padding, padding));
+        panel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         panel.add(filenameLabel);
         panel.add(filenameTextField);
+        panel.add(new JLabel());
         panel.add(saveButton);
 
         getContentPane().add(panel, BorderLayout.CENTER);
-
-        pack();
-        setLocationRelativeTo(null); // centre la fenêtre sur l'écran
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(new Dimension(300, 150));
+        this.setLocationRelativeTo(null);
     }
 
     private class SaveButtonListener implements ActionListener {
