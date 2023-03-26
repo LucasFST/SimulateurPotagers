@@ -7,12 +7,14 @@ package modele.potagers;
 
 
 import modele.meteo.SimulateurMeteo;
+import modele.player.Inventory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 
 public class SimulateurPotager implements Serializable {
+    public static final int POTAGER_PRICE = 100;
     private ArrayList<Potager> listePotagers = new ArrayList<Potager>();
     private SimulateurMeteo simulateurMeteo;
 
@@ -34,6 +36,7 @@ public class SimulateurPotager implements Serializable {
     public void ajouterPotager() {
         Potager _potager = new Potager();
         listePotagers.add(_potager);
+        System.getLogger("SimulateurPotager").log(System.Logger.Level.INFO, "Potager ajouté");
     }
 
     public void supprimerPotager(int _id) {
@@ -46,6 +49,15 @@ public class SimulateurPotager implements Serializable {
         }
     }
 
+    public boolean buyPotager() {
+        if (Inventory.getInstance().getNbCoins() >= POTAGER_PRICE) {
+            Inventory.getInstance().removeCoins(POTAGER_PRICE);
+            ajouterPotager();
+            return true;
+        }
+        return false;
+    }
+
     public int getNbPotagers() {
         return listePotagers.size();
     }
@@ -54,5 +66,4 @@ public class SimulateurPotager implements Serializable {
     public void supprimerPotager() {
         listePotagers.remove(listePotagers.size() - 1);
     }
-    //TODO : ajouter une fonction pour les actions de la météo
 }

@@ -13,7 +13,8 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
 
     public SimulateurPotager simulateurPotager;
 
-    private JButton[] listeBoutonsPotagers;
+    private JButton[] listePotagersButton;
+    private JButton buyPotagerButton;
 
     public VueControleurEnsemblePotagers(SimulateurPotager simulateurPotager) {
         super();
@@ -32,17 +33,32 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     @Override
     public void addEventListeners() {
         addEventListenerButtonsPotagers();
+        addEventListenerBuyPotagerButton();
+    }
+
+    private void addEventListenerBuyPotagerButton() {
+        buyPotagerButton.addActionListener(e -> {
+            boolean isBuySuccessful = simulateurPotager.buyPotager();
+            updateDisplay();
+
+            if (!isBuySuccessful) {
+                JOptionPane.showMessageDialog(null, "Vous n'avez pas assez de coins pour acheter un potager");
+            }
+        });
     }
 
     @Override
     public void updateDisplay() {
-
+        this.removeAll();
+        addComponents();
+        this.revalidate();
+        this.repaint();
     }
 
     public void addEventListenerButtonsPotagers() {
-        for (int i = 0; i < listeBoutonsPotagers.length; i++) {
+        for (int i = 0; i < listePotagersButton.length; i++) {
             int potagerIndex = i;
-            listeBoutonsPotagers[i].addActionListener(e -> {
+            listePotagersButton[i].addActionListener(e -> {
                 VueControleurPotager vueControleurPotager = new VueControleurPotager(simulateurPotager.getListePotagers().get(potagerIndex), this);
                 VueManager.getInstance().setVueControleurPotager(vueControleurPotager);
             });
@@ -52,15 +68,18 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     public JComponent getButtonsPotagers() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
-        listeBoutonsPotagers = new JButton[simulateurPotager.getNbPotagers()];
+        listePotagersButton = new JButton[simulateurPotager.getNbPotagers()];
+        System.out.println(simulateurPotager.getNbPotagers());
         for (int i = 0; i < simulateurPotager.getNbPotagers(); i++) {
-            listeBoutonsPotagers[i] = new JButton("Potager " + i);
-            panel.add(listeBoutonsPotagers[i]);
+            listePotagersButton[i] = new JButton("Potager " + i);
+            panel.add(listePotagersButton[i]);
         }
+        buyPotagerButton = new JButton("Acheter un potager : " + simulateurPotager.POTAGER_PRICE + " coins");
+        buyPotagerButton.setBackground(Color.cyan);
+        panel.add(buyPotagerButton);
         addEventListeners();
         return panel;
     }
-
 
     @Override
     public void update(Observable observable, Object o) {
