@@ -23,7 +23,7 @@ import static vueControleur.icon.IconNames.*;
  * (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
-public class VueControleurPotager extends JPanel implements Observer {
+public class VueControleurPotager extends JPanel implements Observer, VueControleur {
     private final IconRepository icones = IconRepository.getInstance();
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     // taille de la grille affichée
@@ -65,12 +65,17 @@ public class VueControleurPotager extends JPanel implements Observer {
 */
 
 
-    private void addComponents() {
+    public void addComponents() {
         add(getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
         add(getInfoPanel(), BorderLayout.EAST);
         add(getGoBackButton(), BorderLayout.WEST);
         add(getPotagerNb(), BorderLayout.NORTH);
+    }
+
+    @Override
+    public void addEventListeners() {
+        addListenerCases();
     }
 
     private JComponent getPotagerNb() {
@@ -123,7 +128,7 @@ public class VueControleurPotager extends JPanel implements Observer {
             }
         }
 
-        addListenerCases();
+        addEventListeners();
         return grilleJLabels;
     }
 
@@ -138,7 +143,8 @@ public class VueControleurPotager extends JPanel implements Observer {
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
-    private void updateDisplay() {
+    @Override
+    public void updateDisplay() {
         updateInfos();
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {

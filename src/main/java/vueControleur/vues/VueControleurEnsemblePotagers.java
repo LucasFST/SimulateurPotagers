@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class VueControleurEnsemblePotagers extends JPanel implements Observer {
+public class VueControleurEnsemblePotagers extends JPanel implements Observer, VueControleur {
 
     SimulateurPotager simulateurPotager;
 
@@ -25,6 +25,16 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer {
         add(new JLabel("Liste des potagers"), BorderLayout.NORTH);
         add(getButtonsPotagers(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
+
+    }
+
+    @Override
+    public void addEventListeners() {
+        addEventListenerButtonsPotagers();
+    }
+
+    @Override
+    public void updateDisplay() {
 
     }
 
@@ -46,13 +56,13 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer {
             listeBoutonsPotagers[i] = new JButton("Potager " + i);
             panel.add(listeBoutonsPotagers[i]);
         }
-        addEventListenerButtonsPotagers();
+        addEventListeners();
         return panel;
     }
 
 
     @Override
     public void update(Observable observable, Object o) {
-
+        updateDisplay();
     }
 }
