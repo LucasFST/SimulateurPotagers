@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modele;
+package modele.potagers;
 
 
 import modele.meteo.SimulateurMeteo;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class SimulateurPotager {
@@ -46,9 +45,13 @@ public class SimulateurPotager {
         }
     }
 
+    public int getNbPotagers() {
+        return listePotagers.size();
+    }
+
     //Supprime le dernier potager ajouté
     public void supprimerPotager() {
-        listePotagers.remove(listePotagers.size()-1);
+        listePotagers.remove(listePotagers.size() - 1);
     }
     //TODO : ajouter une fonction pour les actions de la météo
 }

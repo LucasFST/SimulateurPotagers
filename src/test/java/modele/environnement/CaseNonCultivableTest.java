@@ -1,6 +1,6 @@
 package modele.environnement;
 
-import modele.Potager;
+import modele.potagers.Potager;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 

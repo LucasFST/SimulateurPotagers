@@ -1,9 +1,8 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import modele.Ordonnanceur;
-import modele.Potager;
-import modele.SimulateurPotager;
+import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
-import vueControleur.vues.VueControleurPotager;
+import vueControleur.vues.VueControleurEnsemblePotagers;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,13 +10,14 @@ public class Main {
 
         VueManager.getInstance(); // init vue manager
         Ordonnanceur.getInstance().setDelay(10000); // init ordonnanceur
-        SimulateurPotager simulateurPotager = new SimulateurPotager();
-        Potager potager = simulateurPotager.getListePotagers().get(0);
-        simulateurPotager.ajouterPotager();
-        VueControleurPotager vcPotager = new VueControleurPotager(potager);
-        VueManager.getInstance().setVueControleurPotager(vcPotager);
 
-        Ordonnanceur.getInstance().addObserver(vcPotager);
+        SimulateurPotager simulateurPotager = new SimulateurPotager();
+        simulateurPotager.ajouterPotager();
+
+        VueControleurEnsemblePotagers vcEnsPotager = new VueControleurEnsemblePotagers(simulateurPotager);
+
+        VueManager.getInstance().setVueControleurEnsemblePotagers(vcEnsPotager);
+
         Ordonnanceur.getInstance().start();
 
     }

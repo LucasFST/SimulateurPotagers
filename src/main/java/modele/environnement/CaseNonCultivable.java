@@ -1,6 +1,6 @@
 package modele.environnement;
 
-import modele.Potager;
+import modele.potagers.Potager;
 
 public class CaseNonCultivable extends Case {
     public CaseNonCultivable(Potager _potager) {

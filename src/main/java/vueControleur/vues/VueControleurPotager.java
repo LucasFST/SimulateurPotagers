@@ -1,10 +1,11 @@
 package vueControleur.vues;
 
-import modele.Potager;
-import modele.SimulateurPotager;
+import modele.Ordonnanceur;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
 import modele.environnement.varietes.Legume;
+import modele.potagers.Potager;
+import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
@@ -22,26 +23,29 @@ import static vueControleur.icon.IconNames.*;
  * (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
-public class VueControleurPotager extends JPanel implements Observer {
-    // Window properties
-
+public class VueControleurPotager extends JPanel implements Observer, VueControleur {
     private final IconRepository icones = IconRepository.getInstance();
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
-
     // taille de la grille affichée
     private final int sizeX;
     private final int sizeY;
-
+    private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
     private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
 
-    public VueControleurPotager(Potager pota) {
+    public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
+        super();
         sizeX = pota.getSizeX();
         sizeY = pota.getSizeY();
         potager = pota;
+
+        this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
+
         this.setLayout(new BorderLayout());
 
         addComponents();
+
+        Ordonnanceur.getInstance().addObserver(this);
         //ajouterEcouteurClavier(); // si besoin
     }
 /*
@@ -61,10 +65,22 @@ public class VueControleurPotager extends JPanel implements Observer {
 */
 
 
-    private void addComponents() {
+    public void addComponents() {
         add(getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
         add(getInfoPanel(), BorderLayout.EAST);
+        add(getGoBackButton(), BorderLayout.WEST);
+        add(getPotagerNb(), BorderLayout.NORTH);
+    }
+
+    @Override
+    public void addEventListeners() {
+        addListenerCases();
+    }
+
+    private JComponent getPotagerNb() {
+        JLabel potagerNb = new JLabel("Potager n°" + potager.getId());
+        return potagerNb;
     }
 
     private JPanel getInfoPanel() {
@@ -72,6 +88,8 @@ public class VueControleurPotager extends JPanel implements Observer {
 
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
         jtf.setEditable(false);
+
+
         infos.add(jtf);
         return infos;
     }
@@ -85,6 +103,7 @@ public class VueControleurPotager extends JPanel implements Observer {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         potager.actionUtilisateur(new Point(xx, yy));
+                        System.out.println("Clic sur la case (" + xx + ", " + yy + ")");
                     }
                 });
             }
@@ -109,19 +128,33 @@ public class VueControleurPotager extends JPanel implements Observer {
             }
         }
 
-        addListenerCases();
+        addEventListeners();
         return grilleJLabels;
+    }
+
+    public JComponent getGoBackButton() {
+        JButton goBack = new JButton("Retour");
+        goBack.addActionListener(e -> {
+            VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers);
+        });
+        return goBack;
     }
 
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
-    private void updateDisplay() {
+    @Override
+    public void updateDisplay() {
+        updateInfos();
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 updateCase(x, y);
             }
         }
+    }
+
+    private void updateInfos() {
+
     }
 
     private void updateCase(int x, int y) {

@@ -1,5 +1,6 @@
 package vueControleur;
 
+import vueControleur.vues.VueControleurEnsemblePotagers;
 import vueControleur.vues.VueControleurPotager;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import javax.swing.*;
 public final class VueManager extends JFrame {
     private static VueManager instance = null;
     private VueControleurPotager vueControleurPotager;
+    private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
 
     private VueManager() {
         super("A vegetable garden");
@@ -26,13 +28,29 @@ public final class VueManager extends JFrame {
 
         setSize(800, 600);
         setLocationRelativeTo(null);
-
-        setVisible(true);
     }
+
+    public void reset() {
+        getContentPane().removeAll();
+        initWindow();
+    }
+
 
     public void setVueControleurPotager(VueControleurPotager vueControleurPotager) {
         this.vueControleurPotager = vueControleurPotager;
-        getContentPane().removeAll();
+        reset();
         getContentPane().add(vueControleurPotager);
+        revalidate();
+        repaint();
+        setVisible(true);
+    }
+
+    public void setVueControleurEnsemblePotagers(VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
+        this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
+        reset();
+        getContentPane().add(vueControleurEnsemblePotagers);
+        revalidate();
+        repaint();
+        setVisible(true);
     }
 }

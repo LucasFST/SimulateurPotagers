@@ -1,10 +1,10 @@
 package modele.meteo;
 
 import modele.Ordonnanceur;
-import modele.Potager;
-import modele.SimulateurPotager;
 import modele.environnement.Case;
 import modele.environnement.CaseCultivable;
+import modele.potagers.Potager;
+import modele.potagers.SimulateurPotager;
 
 import java.util.Arrays;
 import java.util.Random;
