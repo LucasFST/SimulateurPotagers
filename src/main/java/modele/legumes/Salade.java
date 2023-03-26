@@ -8,11 +8,11 @@ public class Salade extends Legume {
 
     @Override
     protected void croissance() {
-        // TODO
+        updateCroissance(0.8, 0.5, 0.2);
     }
 
     @Override
     public float getCoinValue() {
-        return 2;
+        return 1;
     }
 }
