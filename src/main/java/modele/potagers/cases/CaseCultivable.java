@@ -1,11 +1,13 @@
-package modele.environnement;
+package modele.potagers.cases;
 
-import modele.environnement.varietes.Legume;
-import modele.environnement.varietes.Salade;
+import modele.legumes.Legume;
+import modele.legumes.Salade;
 import modele.player.Inventory;
 import modele.potagers.Potager;
 
-public class CaseCultivable extends Case {
+import java.io.Serializable;
+
+public class CaseCultivable extends Case implements Serializable {
 
     private Legume legume;
     private float tauxHumidite = 0.5f;
@@ -19,7 +21,6 @@ public class CaseCultivable extends Case {
     public void actionUtilisateur() {
         if (legume == null) {
             legume = new Salade();
-
         } else {
             cultiverLegume();
         }
@@ -47,8 +48,6 @@ public class CaseCultivable extends Case {
             _tauxHumidite = 1;
 
         tauxHumidite = _tauxHumidite;
-
-        System.out.println("Humidité : " + tauxHumidite);
     }
 
     public float getTauxEnsoleillement() {
@@ -62,7 +61,6 @@ public class CaseCultivable extends Case {
             _tauxEnsoleillement = 1;
 
         tauxEnsoleillement = _tauxEnsoleillement;
-        System.out.println("Ensoleillement : " + tauxEnsoleillement);
     }
 
     @Override

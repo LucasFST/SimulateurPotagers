@@ -2,7 +2,9 @@ package modele.player;
 
 import modele.Singleton;
 
-public class Inventory implements Singleton {
+import java.io.Serializable;
+
+public class Inventory implements Singleton, Serializable {
     private static final float DEFAULT_COINS_NB = 0;
 
     private static Inventory instance;
@@ -17,6 +19,10 @@ public class Inventory implements Singleton {
             instance = new Inventory();
         }
         return instance;
+    }
+
+    public void loadNewInstance(Inventory newInventory) {
+        instance = newInventory;
     }
 
     public float getNbCoins() {

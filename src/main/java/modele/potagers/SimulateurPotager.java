@@ -8,10 +8,11 @@ package modele.potagers;
 
 import modele.meteo.SimulateurMeteo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class SimulateurPotager {
+public class SimulateurPotager implements Serializable {
     private ArrayList<Potager> listePotagers = new ArrayList<Potager>();
     private SimulateurMeteo simulateurMeteo;
 

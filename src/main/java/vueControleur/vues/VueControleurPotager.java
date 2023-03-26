@@ -1,13 +1,14 @@
 package vueControleur.vues;
 
 import modele.Ordonnanceur;
-import modele.environnement.CaseCultivable;
-import modele.environnement.CaseNonCultivable;
-import modele.environnement.varietes.Legume;
+import modele.legumes.Legume;
 import modele.player.Inventory;
 import modele.potagers.Potager;
+import modele.potagers.cases.CaseCultivable;
+import modele.potagers.cases.CaseNonCultivable;
 import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
+import vueControleur.vues.components.TimeSlider;
 
 import javax.swing.*;
 import java.awt.*;

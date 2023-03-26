@@ -1,10 +1,9 @@
-package modele.environnement.varietes;
+package modele.legumes;
 
-public class Carotte extends Legume {
-
+public class Salade extends Legume {
     @Override
     public Varietes getVariete() {
-        return Varietes.CAROTTE;
+        return Varietes.SALADE;
     }
 
     @Override

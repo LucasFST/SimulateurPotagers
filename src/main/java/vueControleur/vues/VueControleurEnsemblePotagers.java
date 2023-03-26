@@ -2,6 +2,7 @@ package vueControleur.vues;
 
 import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
+import vueControleur.vues.components.TimeSlider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.util.Observer;
 
 public class VueControleurEnsemblePotagers extends JPanel implements Observer, VueControleur {
 
-    SimulateurPotager simulateurPotager;
+    public SimulateurPotager simulateurPotager;
 
     private JButton[] listeBoutonsPotagers;
 

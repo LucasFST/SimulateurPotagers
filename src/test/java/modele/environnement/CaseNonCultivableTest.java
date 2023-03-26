@@ -1,6 +1,7 @@
 package modele.environnement;
 
 import modele.potagers.Potager;
+import modele.potagers.cases.CaseNonCultivable;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 

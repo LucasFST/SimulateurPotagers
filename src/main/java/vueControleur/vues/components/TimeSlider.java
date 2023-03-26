@@ -1,4 +1,4 @@
-package vueControleur.vues;
+package vueControleur.vues.components;
 
 import modele.Ordonnanceur;
 

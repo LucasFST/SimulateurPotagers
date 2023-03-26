@@ -1,4 +1,4 @@
-package modele.environnement.varietes;
+package modele.legumes;
 
 public enum Varietes {
     SALADE,

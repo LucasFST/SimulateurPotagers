@@ -1,9 +1,9 @@
 package modele;
 
-import modele.environnement.Case;
-import modele.environnement.CaseCultivable;
-import modele.environnement.CaseNonCultivable;
 import modele.potagers.Potager;
+import modele.potagers.cases.Case;
+import modele.potagers.cases.CaseCultivable;
+import modele.potagers.cases.CaseNonCultivable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

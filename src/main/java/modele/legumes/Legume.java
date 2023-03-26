@@ -1,6 +1,8 @@
-package modele.environnement.varietes;
+package modele.legumes;
 
-public abstract class Legume {
+import java.io.Serializable;
+
+public abstract class Legume implements Serializable {
 
     private double etatVie = 0.5;
     private double etatCroissance = 0;
@@ -52,8 +54,6 @@ public abstract class Legume {
         if (etatCroissance > 1) {
             etatCroissance = 1;
         }
-
-        System.out.println("Etat de croissance : " + etatCroissance + " etat de vie : " + etatVie);
     }
 
     private void updateEtatVie(float tauxHumidite, float tauxEnsoleillement) {

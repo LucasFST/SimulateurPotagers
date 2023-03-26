@@ -1,5 +1,4 @@
-package modele.environnement.varietes;
-
+package modele.legumes;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,24 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-class CarotteTest {
-    Carotte carotte;
+class SaladeTest {
+    Salade salade;
 
     @BeforeEach
     void setUp() {
-        carotte = new Carotte();
+        salade = new Salade();
     }
 
     @Test
-    @DisplayName("Carotte.getVariete() should return Varietes.carotte")
+    @DisplayName("Salade.getVariete() should return Varietes.salade")
     void getVariete() {
-        assertEquals(Varietes.CAROTTE, carotte.getVariete());
+        assertEquals(Varietes.SALADE, salade.getVariete());
     }
 
     @Test
-    @DisplayName("Carotte.croissance() should do something")
+    @DisplayName("Salade.croissance() should do something")
     void croissance() {
         // TODO
     }
+
 }

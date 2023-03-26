@@ -1,7 +1,8 @@
 package modele.environnement;
 
-import modele.environnement.varietes.Legume;
+import modele.legumes.Legume;
 import modele.potagers.Potager;
+import modele.potagers.cases.CaseCultivable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

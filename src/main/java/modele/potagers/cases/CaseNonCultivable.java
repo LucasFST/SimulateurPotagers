@@ -1,8 +1,10 @@
-package modele.environnement;
+package modele.potagers.cases;
 
 import modele.potagers.Potager;
 
-public class CaseNonCultivable extends Case {
+import java.io.Serializable;
+
+public class CaseNonCultivable extends Case implements Serializable {
     public CaseNonCultivable(Potager _potager) {
         super(_potager);
     }

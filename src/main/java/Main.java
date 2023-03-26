@@ -1,22 +1,17 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import modele.Ordonnanceur;
-import modele.potagers.SimulateurPotager;
+import modele.save_load.SaveAndLoad;
 import vueControleur.VueManager;
-import vueControleur.vues.VueControleurEnsemblePotagers;
 
 public class Main {
     public static void main(String[] args) {
         FlatLightLaf.setup(); // look and feel
+        System.setProperty("apple.laf.useScreenMenuBar", "true"); // sur mac, pour que le menu soit dans la barre du haut
 
         VueManager.getInstance(); // init vue manager
         Ordonnanceur.getInstance().setDelay(10000); // init ordonnanceur
 
-        SimulateurPotager simulateurPotager = new SimulateurPotager();
-        simulateurPotager.ajouterPotager();
-
-        VueControleurEnsemblePotagers vcEnsPotager = new VueControleurEnsemblePotagers(simulateurPotager);
-
-        VueManager.getInstance().setVueControleurEnsemblePotagers(vcEnsPotager);
+        SaveAndLoad.loadIfFileExists("saves/default.avg");
 
         Ordonnanceur.getInstance().start();
 

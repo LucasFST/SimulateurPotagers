@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modele.environnement;
+package modele.potagers.cases;
 
 import modele.potagers.Potager;
 
-public abstract class Case implements Runnable {
+import java.io.Serializable;
+
+public abstract class Case implements Runnable, Serializable {
     protected Potager potager;
 
     protected Case(Potager _potager) {

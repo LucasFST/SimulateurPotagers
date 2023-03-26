@@ -1,14 +1,17 @@
 package modele.potagers;
 
 import modele.Ordonnanceur;
-import modele.environnement.Case;
-import modele.environnement.CaseCultivable;
-import modele.environnement.CaseNonCultivable;
+import modele.potagers.cases.Case;
+import modele.potagers.cases.CaseCultivable;
+import modele.potagers.cases.CaseNonCultivable;
 
 import java.awt.*;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
-public class Potager {
+public class Potager implements Serializable {
 
     public static final int MAX_SIZE_X = 20;
     public static final int MAX_SIZE_Y = 10;
@@ -16,13 +19,12 @@ public class Potager {
     private int sizeX;
     private int sizeY;
     private int id;
-    private Case[][] grilleCases; // permet de récupérer une entité à partir de ses coordonnées
+    private Map<Point, Case> grilleCases = new LinkedHashMap<>(); // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
         id = compteurID++;
         sizeX = MAX_SIZE_X;
         sizeY = MAX_SIZE_Y;
-        grilleCases = new Case[sizeX][sizeY];
         initialisationDesCases();
     }
 
@@ -35,7 +37,6 @@ public class Potager {
         id = compteurID++;
         sizeX = size_x;
         sizeY = size_y;
-        grilleCases = new Case[size_x][size_y];
         initialisationDesCases();
     }
 
@@ -52,10 +53,17 @@ public class Potager {
     }
 
     public Case[][] getPlateau() {
-        return grilleCases;
+        Case[][] plateau = new Case[sizeX][sizeY];
+        for (int x = 0; x < sizeX; x++) {
+            for (int y = 0; y < sizeY; y++) {
+                plateau[x][y] = getCase(new Point(x, y));
+            }
+        }
+        return plateau;
     }
 
     private void initialisationDesCases() {
+        grilleCases = new LinkedHashMap<>();
         // murs extérieurs horizontaux
         for (int x = 0; x < sizeX; x++) {
             setCase(new CaseNonCultivable(this), new Point(x, 0));
@@ -86,21 +94,19 @@ public class Potager {
     }
 
     public void actionUtilisateur(Point p) {
-        if (grilleCases[p.x][p.y] != null) {
-            grilleCases[p.x][p.y].actionUtilisateur();
+        if (getCase(p) != null) {
+            getCase(p).actionUtilisateur();
         }
     }
 
     private void setCase(Case e, Point p) {
-        grilleCases[p.x][p.y] = e;
-        //map.put(e, new Point(x, y));
+        grilleCases.put(p, e);
     }
 
     public Case getCase(Point p) {
-        //Case retour = null;
         if (p.x < 0 || p.x >= sizeX || p.y < 0 || p.y >= sizeY) {
             return null;
         }
-        return grilleCases[p.x][p.y];
+        return grilleCases.get(p);
     }
 }

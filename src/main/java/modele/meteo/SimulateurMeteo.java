@@ -1,18 +1,19 @@
 package modele.meteo;
 
 import modele.Ordonnanceur;
-import modele.environnement.Case;
-import modele.environnement.CaseCultivable;
 import modele.potagers.Potager;
 import modele.potagers.SimulateurPotager;
+import modele.potagers.cases.Case;
+import modele.potagers.cases.CaseCultivable;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
 import static modele.meteo.Ensoleillement.PEU_NUAGEUX;
 import static modele.meteo.Humidite.NORMAL;
 
-public class SimulateurMeteo implements Runnable {
+public class SimulateurMeteo implements Runnable, Serializable {
     private SimulateurPotager simulateurPotager;
 
     private Random random = new Random();
@@ -30,7 +31,6 @@ public class SimulateurMeteo implements Runnable {
         updateMeteo();
 
         for (Potager potager : simulateurPotager.getListePotagers()) {
-            System.out.println("Potager");
             Case[][] plateau = potager.getPlateau();
             for (int i = 0; i < plateau.length; i++) {
                 for (int j = 0; j < plateau[0].length; j++) {
@@ -126,16 +126,12 @@ public class SimulateurMeteo implements Runnable {
         float tauxEnsoleillement = _case.getTauxEnsoleillement();
         if (ensoleillement == Ensoleillement.TRES_NUAGEUX) {
             tauxEnsoleillement -= 0.1f;
-            System.out.println("TRES_NUAGEUX " + tauxEnsoleillement);
         } else if (ensoleillement == Ensoleillement.NUAGEUX) {
             tauxEnsoleillement -= 0.05f;
-            System.out.println("NUAGEUX " + tauxEnsoleillement);
         } else if (ensoleillement == Ensoleillement.PEU_NUAGEUX) {
             tauxEnsoleillement += 0.05f;
-            System.out.println("PEU_NUAGEUX " + tauxEnsoleillement);
         } else if (ensoleillement == Ensoleillement.ENSOLLEILLE) {
             tauxEnsoleillement += 0.1f;
-            System.out.println("ENSOLLEILLE " + tauxEnsoleillement);
         }
 
         _case.setTauxEnsoleillement(tauxEnsoleillement);
