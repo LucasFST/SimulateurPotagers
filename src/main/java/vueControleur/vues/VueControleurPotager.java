@@ -1,10 +1,10 @@
 package vueControleur.vues;
 
 import modele.Ordonnanceur;
-import modele.Potager;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
 import modele.environnement.varietes.Legume;
+import modele.potagers.Potager;
 import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
 

@@ -1,7 +1,7 @@
 package vueControleur;
 
-import modele.Potager;
-import modele.SimulateurPotager;
+import modele.potagers.Potager;
+import modele.potagers.SimulateurPotager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

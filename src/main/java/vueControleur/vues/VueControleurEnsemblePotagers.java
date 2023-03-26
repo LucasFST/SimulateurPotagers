@@ -1,6 +1,6 @@
 package vueControleur.vues;
 
-import modele.SimulateurPotager;
+import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package modele.environnement;
 
-import modele.Potager;
 import modele.environnement.varietes.Legume;
+import modele.potagers.Potager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

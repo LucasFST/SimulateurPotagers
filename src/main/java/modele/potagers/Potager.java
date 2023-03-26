@@ -1,5 +1,6 @@
-package modele;
+package modele.potagers;
 
+import modele.Ordonnanceur;
 import modele.environnement.Case;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
@@ -9,9 +10,9 @@ import java.util.Random;
 
 public class Potager {
 
-    private static int compteurID = 0; // permet de donner un ID unique à chaque potager
     public static final int MAX_SIZE_X = 20;
     public static final int MAX_SIZE_Y = 10;
+    private static int compteurID = 0; // permet de donner un ID unique à chaque potager
     private int sizeX;
     private int sizeY;
     private int id;
@@ -27,9 +28,9 @@ public class Potager {
 
     public Potager(int size_x, int size_y) {
         //size_x et size_y doivent être supérieurs à 0 et inférieurs à MAX_SIZE_X et MAX_SIZE_Y
-        if(size_x > MAX_SIZE_X || size_y > MAX_SIZE_Y)
+        if (size_x > MAX_SIZE_X || size_y > MAX_SIZE_Y)
             throw new IllegalArgumentException("Taille du potager trop grande");
-        if(size_x < 0 || size_y < 0)
+        if (size_x < 0 || size_y < 0)
             throw new IllegalArgumentException("Taille du potager trop petite");
         id = compteurID++;
         sizeX = size_x;
@@ -41,6 +42,7 @@ public class Potager {
     public int getId() {
         return id;
     }
+
     public int getSizeX() {
         return sizeX;
     }

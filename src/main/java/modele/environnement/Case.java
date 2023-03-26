@@ -5,7 +5,7 @@
  */
 package modele.environnement;
 
-import modele.Potager;
+import modele.potagers.Potager;
 
 public abstract class Case implements Runnable {
     protected Potager potager;

@@ -1,6 +1,6 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import modele.Ordonnanceur;
-import modele.SimulateurPotager;
+import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
 import vueControleur.vues.VueControleurEnsemblePotagers;
 
