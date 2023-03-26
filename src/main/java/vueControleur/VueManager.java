@@ -1,11 +1,12 @@
 package vueControleur;
 
+import modele.Singleton;
 import vueControleur.vues.VueControleurEnsemblePotagers;
 import vueControleur.vues.VueControleurPotager;
 
 import javax.swing.*;
 
-public final class VueManager extends JFrame {
+public final class VueManager extends JFrame implements Singleton {
     private static VueManager instance = null;
     private VueControleurPotager vueControleurPotager;
     private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;

@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
-public class Ordonnanceur extends Observable implements Runnable {
+public class Ordonnanceur extends Observable implements Runnable, Singleton {
 
     public static final long DEFAULT_DELAY = 10000;
     private static final long UI_DELAY = 1000 / 60; // 1000 / fps
