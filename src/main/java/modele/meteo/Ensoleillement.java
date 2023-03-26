@@ -1,0 +1,8 @@
+package modele.meteo;
+
+public enum Ensoleillement {
+    TRES_NUAGEUX,
+    NUAGEUX,
+    PEU_NUAGEUX,
+    ENSOLLEILLE,
+}
