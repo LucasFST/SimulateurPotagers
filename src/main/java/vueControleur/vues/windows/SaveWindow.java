@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class SaveWindow extends JFrame {
-    private JTextField filenameTextField;
+    private final JTextField filenameTextField;
 
     public SaveWindow(SimulateurPotager simulateurPotager) {
         super("Sauvegarder les données");
