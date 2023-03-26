@@ -1,9 +1,11 @@
 package vueControleur;
 
 import modele.Potager;
+import modele.SimulateurPotager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import vueControleur.vues.VueControleurEnsemblePotagers;
 import vueControleur.vues.VueControleurPotager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +30,9 @@ class VueManagerTest {
 
     @Test
     void testSetVueControleurPotager() {
+        VueControleurEnsemblePotagers vueControleurEnsemblePotagers = new VueControleurEnsemblePotagers(new SimulateurPotager());
         Potager potager = new Potager();
-        VueControleurPotager vueControleurPotager = new VueControleurPotager(potager);
+        VueControleurPotager vueControleurPotager = new VueControleurPotager(potager, vueControleurEnsemblePotagers);
         VueManager.getInstance().setVueControleurPotager(vueControleurPotager);
         assertEquals(vueControleurPotager, vueManager.getContentPane().getComponent(0), "La vue du potager doit être ajoutée à la fenêtre.");
         assertEquals(1, vueManager.getContentPane().getComponentCount(), "La fenêtre ne doit contenir qu'une seule vue.");
