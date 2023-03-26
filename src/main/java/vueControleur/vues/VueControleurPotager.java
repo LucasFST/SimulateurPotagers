@@ -1,5 +1,6 @@
 package vueControleur.vues;
 
+import modele.Ordonnanceur;
 import modele.Potager;
 import modele.environnement.CaseCultivable;
 import modele.environnement.CaseNonCultivable;
@@ -43,6 +44,8 @@ public class VueControleurPotager extends JPanel implements Observer {
         this.setLayout(new BorderLayout());
 
         addComponents();
+
+        Ordonnanceur.getInstance().addObserver(this);
         //ajouterEcouteurClavier(); // si besoin
     }
 /*
@@ -95,6 +98,7 @@ public class VueControleurPotager extends JPanel implements Observer {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         potager.actionUtilisateur(new Point(xx, yy));
+                        System.out.println("Clic sur la case (" + xx + ", " + yy + ")");
                     }
                 });
             }
