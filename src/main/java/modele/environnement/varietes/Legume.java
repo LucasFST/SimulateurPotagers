@@ -35,7 +35,7 @@ public abstract class Legume {
         updateCroissance();
 
 
-        // croissance();
+        croissance();
     }
 
     private void updateCroissance() {
@@ -78,4 +78,6 @@ public abstract class Legume {
     public abstract Varietes getVariete();
 
     protected abstract void croissance(); // définir selon les conditions
+
+    public abstract float getCoinValue();
 }

@@ -1,5 +1,6 @@
 package vueControleur.icon;
 
+import modele.Singleton;
 import vueControleur.vues.VueControleurPotager;
 
 import javax.imageio.ImageIO;
@@ -8,12 +9,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class IconRepository {
+public class IconRepository implements Singleton {
     private static IconRepository instance = null;
     private final ConcurrentHashMap<IconNames, ImageIcon> icones = new ConcurrentHashMap<>();
     private final HashMap<String, BufferedImage> imagesCache = new HashMap<>();
@@ -56,9 +58,9 @@ public class IconRepository {
 
         icones.put(IconNames.SALADE, chargerLegumeIcone(0, 0));
         icones.put(IconNames.CAROTTE, chargerLegumeIcone(1, 1));
-        icones.put(IconNames.TERRE, chargerIcone("Images/Terre.png"));
-        icones.put(IconNames.VIDE, chargerIcone("Images/Vide.png"));
-        icones.put(IconNames.MUR, chargerIcone("Images/Mur.png"));
+        icones.put(IconNames.TERRE, Objects.requireNonNull(chargerIcone("Images/Terre.png")));
+        icones.put(IconNames.VIDE, Objects.requireNonNull(chargerIcone("Images/Vide.png")));
+        icones.put(IconNames.MUR, Objects.requireNonNull(chargerIcone("Images/Mur.png")));
     }
 
     private ImageIcon chargerIcone(String path) {

@@ -2,6 +2,7 @@ package modele.environnement;
 
 import modele.environnement.varietes.Legume;
 import modele.environnement.varietes.Salade;
+import modele.player.Inventory;
 import modele.potagers.Potager;
 
 public class CaseCultivable extends Case {
@@ -20,8 +21,15 @@ public class CaseCultivable extends Case {
             legume = new Salade();
 
         } else {
-            legume = null;
+            cultiverLegume();
         }
+    }
+
+    private void cultiverLegume() {
+        if (legume == null) return;
+
+        Inventory.getInstance().addCoins(legume.getCoinValue());
+        legume = null;
     }
 
     public Legume getLegume() {
