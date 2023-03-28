@@ -36,7 +36,7 @@ public class IconRepository implements Singleton {
     }
 
     private BufferedImage getSubImage(String path, int x, int y, int w, int h) throws ExecutionException {
-        BufferedImage image = null;
+        BufferedImage image;
 
         if (imagesCache.containsKey(path)) {
             image = imagesCache.get(path);

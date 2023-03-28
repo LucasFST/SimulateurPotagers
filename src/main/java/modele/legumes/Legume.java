@@ -21,7 +21,7 @@ public abstract class Legume implements Serializable {
             // Si le fruit est mûr et pas pourri, sa qualité est excellente
             return 1;
         } else {
-            // Si on est dans aucun autres cas, la qualité est moyenne
+            // Si on est dans aucun autre cas, la qualité est moyenne
             return 0.5;
         }
     }

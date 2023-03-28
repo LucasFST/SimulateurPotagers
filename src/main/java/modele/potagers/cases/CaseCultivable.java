@@ -1,7 +1,7 @@
 package modele.potagers.cases;
 
+import modele.legumes.Carotte;
 import modele.legumes.Legume;
-import modele.legumes.Salade;
 import modele.player.Inventory;
 import modele.potagers.Potager;
 
@@ -20,7 +20,7 @@ public class CaseCultivable extends Case implements Serializable {
     @Override
     public void actionUtilisateur() {
         if (legume == null) {
-            legume = new Salade();
+            legume = new Carotte();
         } else {
             cultiverLegume();
         }

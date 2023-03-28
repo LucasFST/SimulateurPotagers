@@ -32,7 +32,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     // taille de la grille affichée
     private final int sizeX;
     private final int sizeY;
-    private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
+    private final VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
     private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
     private JTextField nbCoins;
 
@@ -83,8 +83,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     }
 
     private JComponent getPotagerNb() {
-        JLabel potagerNb = new JLabel("Potager n°" + potager.getId());
-        return potagerNb;
+        return new JLabel("Potager n°" + potager.getId());
     }
 
     private JPanel getInfoPanel() {
@@ -145,9 +144,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
     public JComponent getGoBackButton() {
         JButton goBack = new JButton("Retour");
-        goBack.addActionListener(e -> {
-            VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers);
-        });
+        goBack.addActionListener(e -> VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers));
         return goBack;
     }
 
@@ -183,12 +180,8 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
         if (legume != null) {
             switch (legume.getVariete()) {
-                case SALADE:
-                    cases[x][y].setIcon(icones.getIcone(SALADE));
-                    break;
-                case CAROTTE:
-                    cases[x][y].setIcon(icones.getIcone(CAROTTE));
-                    break;
+                case SALADE -> cases[x][y].setIcon(icones.getIcone(SALADE));
+                case CAROTTE -> cases[x][y].setIcon(icones.getIcone(CAROTTE));
             }
         } else {
             cases[x][y].setIcon(icones.getIcone(TERRE));

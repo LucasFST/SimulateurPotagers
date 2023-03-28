@@ -10,7 +10,7 @@ import modele.potagers.Potager;
 import java.io.Serializable;
 
 public abstract class Case implements Runnable, Serializable {
-    protected Potager potager;
+    protected final Potager potager;
 
     protected Case(Potager _potager) {
         potager = _potager;

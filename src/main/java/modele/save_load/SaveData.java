@@ -6,8 +6,8 @@ import modele.potagers.SimulateurPotager;
 import java.io.Serializable;
 
 public class SaveData implements Serializable {
-    private SimulateurPotager simulateurPotager;
-    private Inventory inventory;
+    private final SimulateurPotager simulateurPotager;
+    private final Inventory inventory;
 
     public SaveData(SimulateurPotager simulateurPotager) {
         this.simulateurPotager = simulateurPotager;

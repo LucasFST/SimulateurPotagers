@@ -11,7 +11,7 @@ import java.util.Observer;
 
 public class VueControleurEnsemblePotagers extends JPanel implements Observer, VueControleur {
 
-    public SimulateurPotager simulateurPotager;
+    public final SimulateurPotager simulateurPotager;
 
     private JButton[] listePotagersButton;
     private JButton buyPotagerButton;
@@ -74,7 +74,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
             listePotagersButton[i] = new JButton("Potager " + i);
             panel.add(listePotagersButton[i]);
         }
-        buyPotagerButton = new JButton("Acheter un potager : " + simulateurPotager.POTAGER_PRICE + " coins");
+        buyPotagerButton = new JButton("Acheter un potager : " + SimulateurPotager.POTAGER_PRICE + " coins");
         buyPotagerButton.setBackground(Color.cyan);
         panel.add(buyPotagerButton);
         addEventListeners();

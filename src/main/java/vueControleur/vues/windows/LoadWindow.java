@@ -1,22 +1,19 @@
-package vue;
+package vueControleur.vues.windows;
 
 import modele.save_load.SaveAndLoad;
-import vueControleur.VueManager;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.logging.Logger;
 
 public class LoadWindow {
-
-    private JButton loadButton;
-
-    public LoadWindow(VueManager vueManager) {
+    public LoadWindow() {
         openFileChooser();
     }
 
     private static void createFolderIfNotExists(File savesFolder) {
-        if (!savesFolder.exists()) {
-            savesFolder.mkdir();
+        if (!savesFolder.mkdir()) {
+            Logger.getGlobal().info("Le dossier de sauvegarde existe déjà");
         }
     }
 

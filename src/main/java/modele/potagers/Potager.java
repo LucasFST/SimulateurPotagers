@@ -16,9 +16,9 @@ public class Potager implements Serializable {
     public static final int MAX_SIZE_X = 20;
     public static final int MAX_SIZE_Y = 10;
     private static int compteurID = 0; // permet de donner un ID unique à chaque potager
-    private int sizeX;
-    private int sizeY;
-    private int id;
+    private final int sizeX;
+    private final int sizeY;
+    private final int id;
     private Map<Point, Case> grilleCases = new LinkedHashMap<>(); // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
