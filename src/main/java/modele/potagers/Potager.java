@@ -40,6 +40,10 @@ public class Potager implements Serializable {
         initialisationDesCases();
     }
 
+    public static void resetCompteurID() {
+        compteurID = 0;
+    }
+
     public int getId() {
         return id;
     }
