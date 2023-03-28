@@ -32,6 +32,10 @@ public class Ordonnanceur extends Observable implements Runnable, Singleton {
         }
     }
 
+    public void resetRunnables() {
+        getInstance().runnables.clear();
+    }
+
     public void start() {
         new Thread(this).start();
         setAutoUpdateObservers();

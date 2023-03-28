@@ -1,5 +1,6 @@
 package vueControleur;
 
+import modele.Ordonnanceur;
 import modele.Singleton;
 import modele.player.Inventory;
 import modele.potagers.Potager;
@@ -66,6 +67,11 @@ public final class VueManager extends JFrame implements Singleton {
     private void addNewSaveMenu(JMenu fichierMenu) {
         JMenuItem sauvegarderMenuItem = new JMenuItem("Nouvelle sauvegarde");
         sauvegarderMenuItem.addActionListener(e -> {
+            int input = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr ? Votre sauvegarde actuelle sera perdue.", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (input != 0) {
+                return;
+            }
+            Ordonnanceur.getInstance().resetRunnables();
             Potager.resetCompteurID();
             SimulateurPotager simulateurPotager = new SimulateurPotager();
             setVueControleurEnsemblePotagers(new VueControleurEnsemblePotagers(simulateurPotager));
