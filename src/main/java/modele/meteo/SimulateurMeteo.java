@@ -7,7 +7,7 @@ import modele.potagers.cases.Case;
 import modele.potagers.cases.CaseCultivable;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -18,9 +18,11 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private final SimulateurPotager simulateurPotager;
 
     private final Random random = new Random();
-
+    private int currentDay = 0;
     private Ensoleillement ensoleillement = PEU_NUAGEUX;
     private Humidite humidite = NORMAL;
+    private int temperature = 20;
+    private Saison saison = Saison.PRINTEMPS;
 
     public SimulateurMeteo(SimulateurPotager simPot) {
         Ordonnanceur.getInstance().addRunnable(this);
@@ -45,62 +47,74 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private void updateMeteo() {
         Ensoleillement oldEnsoleillement = ensoleillement;
         Humidite oldHumidite = humidite;
+        int oldTemperature = temperature;
+        updateSaison();
         updateEnsoleillement();
         updateHumidite();
-        if (oldEnsoleillement != ensoleillement || oldHumidite != humidite) {
-            Logger.getLogger("SimulateurMeteo").info("Météo changée: " + ensoleillement + ", " + humidite);
+        updateTemperature();
+        if (oldEnsoleillement != ensoleillement || oldHumidite != humidite || oldTemperature != temperature) {
+            Logger.getLogger("SimulateurMeteo").info("Météo changée: " + saison + ", " + ensoleillement + ", " + humidite + ", " + temperature + "°C");
         }
     }
 
-    private void updateHumidite() {
-        float chanceToChange = 0.1f;
-
-        // Vérifie si la chance de changement est atteinte
-        if (random.nextFloat() >= chanceToChange) {
-            return;
+    private void updateSaison() {
+        currentDay++;
+        int daysPerSeason = 30;
+        if (currentDay >= daysPerSeason) {
+            currentDay = 0;
+            saison = saison.next();
+            Logger.getLogger("SimulateurMeteo").info("Saison changée: " + saison);
         }
+    }
 
-        // Obtient la liste des valeurs d'humidité
-        Humidite[] humidityValues = Humidite.values();
+    private void updateTemperature() {
+        if (checkIfChanceToChange(0.7f)) return;
 
-        // Trouve l'index de l'humidité actuelle dans la liste des valeurs
-        int currentHumidityIndex = Arrays.asList(humidityValues).indexOf(humidite);
+        temperature = saison.getRandomTemperature();
+    }
 
-        // Calcule l'index de la prochaine humidité en fonction d'une valeur aléatoire
-        boolean isNextHumidityUp = random.nextBoolean();
-        int nextHumidityIndex = isNextHumidityUp ? currentHumidityIndex + 1 : currentHumidityIndex - 1;
+    private void updateHumidite() {
+        if (checkIfChanceToChange(0.1f)) return;
 
-        // S'assure que l'index de l'humidité ne dépasse pas la taille de la liste des valeurs
-        int indexWithinBounds = (nextHumidityIndex + humidityValues.length) % humidityValues.length;
+        // calcule la nouvelle humidité en fonction de la saison
+        Map<Humidite, Float> chanceHumidite = this.saison.getChanceHumidite();
 
-        // Met à jour l'humidité avec la nouvelle valeur correspondant à l'index calculé
-        humidite = humidityValues[indexWithinBounds];
+        // Calcule la nouvelle valeur d'humidité en fonction d'une valeur aléatoire
+        float randomValue = random.nextFloat();
+        float cumulativeChance = 0;
+        for (Map.Entry<Humidite, Float> entry : chanceHumidite.entrySet()) {
+            cumulativeChance += entry.getValue();
+            if (randomValue <= cumulativeChance) {
+                humidite = entry.getKey();
+                break;
+            }
+        }
     }
 
 
     private void updateEnsoleillement() {
-        float chanceToChange = 0.1f;
-
-        // Vérifie si la chance de changement est atteinte
-        if (random.nextFloat() >= chanceToChange) {
-            return;
-        }
+        if (checkIfChanceToChange(0.7f)) return;
 
         // Obtient la liste des valeurs d'ensoleillement
-        Ensoleillement[] sunshineValues = Ensoleillement.values();
+        Map<Ensoleillement, Float> chanceEnsoleillement = this.saison.getChanceEnsoleillement();
 
-        // Trouve l'index de l'ensoleillement actuel dans la liste des valeurs
-        int currentSunshineIndex = Arrays.asList(sunshineValues).indexOf(ensoleillement);
+        // Calcule la nouvelle valeur d'ensoleillement en fonction d'une valeur aléatoire
+        float randomValue = random.nextFloat();
+        float cumulativeChance = 0;
+        for (Map.Entry<Ensoleillement, Float> entry : chanceEnsoleillement.entrySet()) {
+            cumulativeChance += entry.getValue();
+            if (randomValue <= cumulativeChance) {
+                ensoleillement = entry.getKey();
+                break;
+            }
+        }
+    }
 
-        // Calcule l'index du prochain ensoleillement en fonction d'une valeur aléatoire
-        boolean isNextSunshineUp = random.nextBoolean();
-        int nextSunshineIndex = isNextSunshineUp ? currentSunshineIndex + 1 : currentSunshineIndex - 1;
-
-        // S'assure que l'index de l'ensoleillement ne dépasse pas la taille de la liste des valeurs
-        int indexWithinBounds = (nextSunshineIndex + sunshineValues.length) % sunshineValues.length;
-
-        // Met à jour l'ensoleillement avec la nouvelle valeur correspondant à l'index calculé
-        ensoleillement = sunshineValues[indexWithinBounds];
+    private boolean checkIfChanceToChange(float chanceToChange) {
+        if (random.nextFloat() >= chanceToChange) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -136,7 +150,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
             tauxEnsoleillement -= 0.05f;
         } else if (ensoleillement == Ensoleillement.PEU_NUAGEUX) {
             tauxEnsoleillement += 0.05f;
-        } else if (ensoleillement == Ensoleillement.ENSOLLEILLE) {
+        } else if (ensoleillement == Ensoleillement.ENSOLEILLE) {
             tauxEnsoleillement += 0.1f;
         }
 
