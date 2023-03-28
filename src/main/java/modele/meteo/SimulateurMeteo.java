@@ -9,6 +9,7 @@ import modele.potagers.cases.CaseCultivable;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import static modele.meteo.Ensoleillement.PEU_NUAGEUX;
 import static modele.meteo.Humidite.NORMAL;
@@ -42,8 +43,13 @@ public class SimulateurMeteo implements Runnable, Serializable {
     }
 
     private void updateMeteo() {
+        Ensoleillement oldEnsoleillement = ensoleillement;
+        Humidite oldHumidite = humidite;
         updateEnsoleillement();
         updateHumidite();
+        if (oldEnsoleillement != ensoleillement || oldHumidite != humidite) {
+            Logger.getLogger("SimulateurMeteo").info("Météo changée: " + ensoleillement + ", " + humidite);
+        }
     }
 
     private void updateHumidite() {
