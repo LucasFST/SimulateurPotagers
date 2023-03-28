@@ -3,7 +3,7 @@ import modele.Ordonnanceur;
 import modele.save_load.SaveAndLoad;
 import vueControleur.VueManager;
 
-public class Main {
+public class AVegetableGarden {
     public static void main(String[] args) {
         FlatLightLaf.setup(); // look and feel
         System.setProperty("apple.laf.useScreenMenuBar", "true"); // sur mac, pour que le menu soit dans la barre du haut
