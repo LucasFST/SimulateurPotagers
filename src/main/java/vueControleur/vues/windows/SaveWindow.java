@@ -34,11 +34,12 @@ public class SaveWindow extends JFrame {
         JButton saveButton = addSaveButton(simulateurPotager);
         saveButton.setPreferredSize(new Dimension(0, saveButton.getPreferredSize().height));
 
-        JPanel panel = new JPanel(new GridLayout(2, 2, padding, padding));
+        JPanel panel = new JPanel(new GridLayout(3, 2, padding, padding));
         panel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         panel.add(filenameLabel);
-        panel.add(filenameTextField);
         panel.add(new JLabel());
+        panel.add(filenameTextField);
+        panel.add(new JLabel(".avg"));
         panel.add(saveButton);
 
         getContentPane().add(panel, BorderLayout.CENTER);
