@@ -67,4 +67,13 @@ public class SimulateurPotager implements Serializable {
     public void supprimerPotager() {
         listePotagers.remove(listePotagers.size() - 1);
     }
+
+    public void loadNewInstance(SimulateurPotager simulateurPotager) {
+        this.listePotagers = (ArrayList<Potager>) simulateurPotager.getListePotagers();
+        this.simulateurMeteo = simulateurPotager.getSimulateurMeteo();
+    }
+
+    private SimulateurMeteo getSimulateurMeteo() {
+        return simulateurMeteo;
+    }
 }
