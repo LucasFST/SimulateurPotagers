@@ -11,11 +11,12 @@ import modele.player.Inventory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SimulateurPotager implements Serializable {
     public static final int POTAGER_PRICE = 100;
-    private ArrayList<Potager> listePotagers = new ArrayList<Potager>();
+    private ArrayList<Potager> listePotagers = new ArrayList<>();
     private SimulateurMeteo simulateurMeteo;
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
@@ -26,7 +27,7 @@ public class SimulateurPotager implements Serializable {
         ajouterPotager();
     }
 
-    public ArrayList<Potager> getListePotagers() {
+    public List<Potager> getListePotagers() {
         return listePotagers;
     }
 
