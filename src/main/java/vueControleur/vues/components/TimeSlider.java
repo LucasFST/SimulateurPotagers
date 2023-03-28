@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class TimeSlider extends JSlider {
     public TimeSlider() {
-        super(JSlider.HORIZONTAL, 500, 10000, (int) Ordonnanceur.getInstance().getDelay());
+        super(JSlider.HORIZONTAL, 0, 10000, (int) Ordonnanceur.getInstance().getDelay());
         setMajorTickSpacing(500);
         setMinorTickSpacing(100);
         setPaintTicks(true);
