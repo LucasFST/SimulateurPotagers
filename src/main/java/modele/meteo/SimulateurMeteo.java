@@ -9,14 +9,15 @@ import modele.potagers.cases.CaseCultivable;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import static modele.meteo.Ensoleillement.PEU_NUAGEUX;
 import static modele.meteo.Humidite.NORMAL;
 
 public class SimulateurMeteo implements Runnable, Serializable {
-    private SimulateurPotager simulateurPotager;
+    private final SimulateurPotager simulateurPotager;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private Ensoleillement ensoleillement = PEU_NUAGEUX;
     private Humidite humidite = NORMAL;
@@ -32,9 +33,9 @@ public class SimulateurMeteo implements Runnable, Serializable {
 
         for (Potager potager : simulateurPotager.getListePotagers()) {
             Case[][] plateau = potager.getPlateau();
-            for (int i = 0; i < plateau.length; i++) {
+            for (Case[] cases : plateau) {
                 for (int j = 0; j < plateau[0].length; j++) {
-                    if (plateau[i][j] instanceof CaseCultivable _case)
+                    if (cases[j] instanceof CaseCultivable _case)
                         applyMeteoOnCase(_case);
                 }
             }
@@ -42,8 +43,13 @@ public class SimulateurMeteo implements Runnable, Serializable {
     }
 
     private void updateMeteo() {
+        Ensoleillement oldEnsoleillement = ensoleillement;
+        Humidite oldHumidite = humidite;
         updateEnsoleillement();
         updateHumidite();
+        if (oldEnsoleillement != ensoleillement || oldHumidite != humidite) {
+            Logger.getLogger("SimulateurMeteo").info("Météo changée: " + ensoleillement + ", " + humidite);
+        }
     }
 
     private void updateHumidite() {

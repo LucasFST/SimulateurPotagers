@@ -48,7 +48,7 @@ public class SaveWindow extends JFrame {
     }
 
     private class SaveButtonListener implements ActionListener {
-        SimulateurPotager simulateurPotager;
+        final SimulateurPotager simulateurPotager;
 
         SaveButtonListener(SimulateurPotager simulateurPotager) {
             this.simulateurPotager = simulateurPotager;

@@ -1,15 +1,18 @@
 package vueControleur;
 
 import modele.Singleton;
+import modele.player.Inventory;
+import modele.potagers.Potager;
+import modele.potagers.SimulateurPotager;
 import vueControleur.vues.VueControleurEnsemblePotagers;
 import vueControleur.vues.VueControleurPotager;
+import vueControleur.vues.windows.LoadWindow;
 import vueControleur.vues.windows.SaveWindow;
 
 import javax.swing.*;
 
 public final class VueManager extends JFrame implements Singleton {
     private static VueManager instance = null;
-    private VueControleurPotager vueControleurPotager;
     private VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
 
     private VueManager() {
@@ -50,15 +53,25 @@ public final class VueManager extends JFrame implements Singleton {
         menuBar.add(fichierMenu);
         addSaveMenu(fichierMenu);
         addLoadMenu(fichierMenu);
+        addNewSaveMenu(fichierMenu);
         setJMenuBar(menuBar);
     }
 
     private void addLoadMenu(JMenu fichierMenu) {
         JMenuItem chargerMenuItem = new JMenuItem("Charger");
-        chargerMenuItem.addActionListener(e -> {
-            vue.LoadWindow loadWindow = new vue.LoadWindow(this);
-        });
+        chargerMenuItem.addActionListener(e -> new LoadWindow());
         fichierMenu.add(chargerMenuItem);
+    }
+
+    private void addNewSaveMenu(JMenu fichierMenu) {
+        JMenuItem sauvegarderMenuItem = new JMenuItem("Nouvelle sauvegarde");
+        sauvegarderMenuItem.addActionListener(e -> {
+            Potager.resetCompteurID();
+            SimulateurPotager simulateurPotager = new SimulateurPotager();
+            setVueControleurEnsemblePotagers(new VueControleurEnsemblePotagers(simulateurPotager));
+            Inventory.getInstance().loadNewInstance(new Inventory());
+        });
+        fichierMenu.add(sauvegarderMenuItem);
     }
 
     public void reset() {
@@ -68,7 +81,6 @@ public final class VueManager extends JFrame implements Singleton {
 
 
     public void setVueControleurPotager(VueControleurPotager vueControleurPotager) {
-        this.vueControleurPotager = vueControleurPotager;
         reset();
         getContentPane().add(vueControleurPotager);
         revalidate();

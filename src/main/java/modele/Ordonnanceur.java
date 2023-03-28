@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class Ordonnanceur extends Observable implements Runnable, Singleton {
 
@@ -12,14 +13,12 @@ public class Ordonnanceur extends Observable implements Runnable, Singleton {
     private static Ordonnanceur ordonnanceur; // singleton
     private final Vector<Runnable> runnables = new Vector<>(); // liste synchronisée
     Timer timer;
-    private long delayMs;
+    private long delayMs = DEFAULT_DELAY;
 
     // design pattern singleton
     public static Ordonnanceur getInstance() {
         if (ordonnanceur == null) {
             ordonnanceur = new Ordonnanceur();
-            if (ordonnanceur.delayMs == 0)
-                ordonnanceur.delayMs = DEFAULT_DELAY;
             ordonnanceur.setTimer();
         }
         return ordonnanceur;
@@ -44,6 +43,7 @@ public class Ordonnanceur extends Observable implements Runnable, Singleton {
 
     @Override
     public void run() {
+        Logger.getLogger("Ordonnanceur").info("Ordonnanceur run " + runnables.size() + " runnables");
         for (Runnable r : runnables) {
             r.run();
         }
@@ -56,6 +56,12 @@ public class Ordonnanceur extends Observable implements Runnable, Singleton {
 
     private void createAndStartTimer() {
         timer = new Timer();
+
+        // si pause, on ne lance pas le timer
+        if (delayMs == 0) {
+            Logger.getLogger("Ordonnanceur").info("Pause");
+            return;
+        }
 
         timer.schedule(new TimerTask() {
             @Override

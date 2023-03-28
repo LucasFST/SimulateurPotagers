@@ -35,7 +35,9 @@ public class SaveAndLoad {
 
     private static void loadSaveData(SaveData saveData) {
         Inventory.getInstance().loadNewInstance(saveData.getInventory());
-        loadSimulateurPotager(saveData.getSimulateurPotager());
+        SimulateurPotager simulateurPotager = new SimulateurPotager();
+        simulateurPotager.loadNewInstance(saveData.getSimulateurPotager());
+        loadSimulateurPotager(simulateurPotager);
     }
 
     public static void save(SimulateurPotager simulateurPotager, String path) throws IOException {
