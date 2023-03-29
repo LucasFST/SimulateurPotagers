@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class CaseCultivable extends Case implements Serializable {
 
+    private int temperature = 20;
     private Legume legume;
     private float tauxHumidite = 0.5f;
     private float tauxEnsoleillement = 0.5f;
@@ -63,10 +64,17 @@ public class CaseCultivable extends Case implements Serializable {
         tauxEnsoleillement = _tauxEnsoleillement;
     }
 
+    public int getTemperature() {
+        return temperature;
+    }
+    public void setTemperature(int _temperature) {
+        temperature = _temperature;
+    }
+
     @Override
     public void run() {
         if (legume != null) {
-            legume.nextStep(tauxHumidite, tauxEnsoleillement);
+            legume.nextStep(tauxHumidite, tauxEnsoleillement, temperature);
         }
     }
 }

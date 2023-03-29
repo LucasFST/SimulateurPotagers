@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public abstract class Legume implements Serializable {
 
+    protected int temperatureMin;
+    protected int temperatureMax;
     private double etatVie = 0.5;
     private double etatCroissance = 0;
 
@@ -26,13 +28,13 @@ public abstract class Legume implements Serializable {
         }
     }
 
-    public void nextStep(float tauxHumidite, float tauxEnsoleillement) {
+    public void nextStep(float tauxHumidite, float tauxEnsoleillement, int temperature) {
         if (etatVie <= 0) {
             // Si le fruit est pourri, il ne peut plus croître
             return;
         }
 
-        updateEtatVie(tauxHumidite, tauxEnsoleillement);
+        updateEtatVie(tauxHumidite, tauxEnsoleillement, temperature);
 
         croissance();
     }
@@ -53,23 +55,51 @@ public abstract class Legume implements Serializable {
         }
     }
 
-    private void updateEtatVie(float tauxHumidite, float tauxEnsoleillement) {
+    private void updateEtatVie(float tauxHumidite, float tauxEnsoleillement, int temperature) {
         if (tauxHumidite < 0.3 || tauxHumidite > 0.7) {
             // Si le taux d'humidité est trop faible ou trop élevé, le fruit se porte mal
             etatVie -= 0.1;
         } else if (tauxEnsoleillement < 0.3 || tauxEnsoleillement > 0.7) {
             // Si le taux d'ensoleillement est trop faible ou trop élevé, le fruit se porte mal
             etatVie -= 0.1;
+        } else if (temperature < temperatureMin || temperature > temperatureMax) {
+            // Si la température est trop faible ou trop élevée, le fruit se porte mal
+            etatVie -= 0.1;
+        } else if (temperature < 0)
+        {   // Si la température est négative, le fruit se porte mal à cause du gel
+            etatVie -= 0.2;
+        } else if ( temperature >= getTemperatureMinOptimale() && temperature <= getTemperatureMaxOptimale())
+        {   // Si la température est optimale, le fruit se porte très bien
+            etatVie += 0.2;
         } else {
-            // Sinon, le fruit se porte bien
+            // Si les conditions sont bonnes, le fruit se porte bien
             etatVie += 0.1;
         }
+
 
         if (etatVie > 1) {
             etatVie = 1;
         } else if (etatVie < 0) {
             etatVie = 0;
         }
+    }
+
+    private int getTemperatureMinOptimale()
+    {
+        //calcul temperature moyenne
+        int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
+        //calcul de la taille de l'intervalle
+        int intervalleSizeOptimale = (temperatureMax - temperatureMin + 1) / 3;
+        return temperatureMoyenne - intervalleSizeOptimale / 2;
+    }
+
+    private int getTemperatureMaxOptimale()
+    {
+        //calcul temperature moyenne
+        int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
+        //calcul de la taille de l'intervalle
+        int intervalleSizeOptimale = (temperatureMax - temperatureMin + 1) / 3;
+        return temperatureMoyenne + intervalleSizeOptimale / 2;
     }
 
     public abstract Varietes getVariete();

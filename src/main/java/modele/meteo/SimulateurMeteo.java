@@ -121,6 +121,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private void applyMeteoOnCase(CaseCultivable _case) {
         applyEnsoleillement(_case);
         applyHumidite(_case);
+        applyTemperature(_case);
     }
 
     private void applyHumidite(CaseCultivable _case) {
@@ -155,5 +156,9 @@ public class SimulateurMeteo implements Runnable, Serializable {
         }
 
         _case.setTauxEnsoleillement(tauxEnsoleillement);
+    }
+
+    private void applyTemperature(CaseCultivable _case) {
+        _case.setTemperature(temperature);
     }
 }

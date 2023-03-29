@@ -1,6 +1,12 @@
 package modele.legumes;
 
 public class Salade extends Legume {
+
+    public Salade() {
+        super();
+        temperatureMin = 10;
+        temperatureMax = 35;
+    }
     @Override
     public Varietes getVariete() {
         return Varietes.SALADE;
@@ -8,7 +14,7 @@ public class Salade extends Legume {
 
     @Override
     public float getCoinValue() {
-        return 1;
+        return 2 * (float)getQualite();
     }
 
     @Override
