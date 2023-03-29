@@ -33,21 +33,19 @@ public abstract class Legume implements Serializable {
             // Si le fruit est pourri, il ne peut plus croître
             return;
         }
-
         updateEtatVie(tauxHumidite, tauxEnsoleillement, temperature);
-
         croissance();
     }
 
     protected void updateCroissance(double ratePerfect, double rateGood, double rateBad) {
         if (etatVie > ratePerfect) {
-            etatCroissance += 0.02;
+            etatCroissance += 0.05;
         } else if (etatVie > rateGood) {
-            etatCroissance += 0.01;
+            etatCroissance += 0.03;
         } else if (etatVie > rateBad) {
-            etatCroissance += 0.005;
+            etatCroissance += 0.02;
         } else {
-            etatCroissance += 0.001;
+            etatCroissance += 0.01;
         }
 
         if (etatCroissance > 1) {
