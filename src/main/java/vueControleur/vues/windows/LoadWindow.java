@@ -1,5 +1,7 @@
 package vueControleur.vues.windows;
 
+import modele.Ordonnanceur;
+import modele.potagers.Potager;
 import modele.save_load.SaveAndLoad;
 
 import javax.swing.*;
@@ -50,6 +52,10 @@ public class LoadWindow {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // Récupération du fichier de sauvegarde sélectionné
             String filePath = fileChooser.getSelectedFile().getPath();
+
+            // réinitialisation du simulateur
+            Ordonnanceur.getInstance().resetRunnables();
+            Potager.resetCompteurID();
 
             // Chargement du fichier de sauvegarde
             SaveAndLoad.loadIfFileExists(filePath);
