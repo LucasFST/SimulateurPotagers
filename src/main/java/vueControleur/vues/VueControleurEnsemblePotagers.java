@@ -78,7 +78,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
             listePotagersButton[i] = new JButton("Potager " + i);
             panel.add(listePotagersButton[i]);
         }
-        buyPotagerButton = new JButton("Acheter un potager : " + SimulateurPotager.POTAGER_PRICE + " coins");
+        buyPotagerButton = new JButton("Acheter un potager : " + SimulateurPotager.POTAGER_PRICE + " pièces");
         buyPotagerButton.setBackground(Color.cyan);
         panel.add(buyPotagerButton);
         addEventListeners();
