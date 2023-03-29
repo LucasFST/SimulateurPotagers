@@ -72,6 +72,10 @@ public abstract class Legume implements Serializable {
         }
     }
 
+    public double getEtatVie() {
+        return etatVie;
+    }
+
     public abstract Varietes getVariete();
 
     protected abstract void croissance(); // définir selon les conditions

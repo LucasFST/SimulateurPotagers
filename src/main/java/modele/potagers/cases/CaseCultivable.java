@@ -56,11 +56,16 @@ public class CaseCultivable extends Case implements Serializable {
 
     public void setTauxEnsoleillement(float _tauxEnsoleillement) {
         if (_tauxEnsoleillement < 0)
-            _tauxEnsoleillement = 0;
+            tauxEnsoleillement = 0;
         else if (_tauxEnsoleillement > 1)
-            _tauxEnsoleillement = 1;
+            tauxEnsoleillement = 1;
+    }
 
-        tauxEnsoleillement = _tauxEnsoleillement;
+    public float getLegumeVie() {
+        if (legume != null) {
+            return (float) legume.getEtatVie();
+        }
+        return 0;
     }
 
     @Override
