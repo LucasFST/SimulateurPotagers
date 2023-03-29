@@ -1,5 +1,6 @@
 package modele.save_load;
 
+import modele.Ordonnanceur;
 import modele.player.Inventory;
 import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
@@ -37,6 +38,7 @@ public class SaveAndLoad {
         Inventory.getInstance().loadNewInstance(saveData.getInventory());
         SimulateurPotager simulateurPotager = new SimulateurPotager();
         simulateurPotager.loadNewInstance(saveData.getSimulateurPotager());
+        Ordonnanceur.getInstance().addRunnable(simulateurPotager.simulateurMeteo);
         loadSimulateurPotager(simulateurPotager);
     }
 

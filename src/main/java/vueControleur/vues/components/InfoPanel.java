@@ -7,8 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InfoPanel {
-    private static Font panelFont = new Font("Arial", Font.BOLD, 14);
-    private static Font subPanelFont = new Font("Arial", Font.BOLD, 12);
+    private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
+    private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
     private JLabel nbCoins;
     private JPanel meteoInfos;
     private JLabel actualSaisonLabel;
@@ -148,7 +148,6 @@ public class InfoPanel {
         actualSaisonLabel.setText(meteo.getSaison());
         actualDayLabel.setText(String.valueOf(meteo.getJour()));
         actualTempLabel.setText(String.valueOf(meteo.getTemperature()) + "°C");
-
     }
 
     private void updateNbCoins() {
