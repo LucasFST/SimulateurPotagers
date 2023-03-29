@@ -25,6 +25,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         super();
         this.simulateurPotager = simulateurPotager;
         this.setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         addComponents();
         Ordonnanceur.getInstance().addObserver(this);
     }
@@ -35,7 +36,6 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         infoPanel = new InfoPanel();
         add(infoPanel.getInfoPanel(), BorderLayout.EAST);
         add(new TimeSlider(), BorderLayout.SOUTH);
-
     }
 
     @Override

@@ -47,6 +47,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
         this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
 
         this.setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         addComponents();
 
