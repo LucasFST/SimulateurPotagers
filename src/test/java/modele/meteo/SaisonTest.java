@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class SaisonTest {
 
     Saison saison = Saison.PRINTEMPS;
@@ -18,17 +20,17 @@ class SaisonTest {
     @Test
     @DisplayName("Test de la méthode next() : doit retourner la saison suivante")
     void next() {
-        assert saison.next() == Saison.ETE;
+        assertEquals(Saison.ETE, saison.next(), "La saison suivante au printemps doit être l'été");
         saison = saison.next();
-        assert saison.next() == Saison.AUTOMNE;
+        assertSame(Saison.AUTOMNE, saison.next(), "La saison suivante à l'été doit être l'automne");
         saison = saison.next();
-        assert saison.next() == Saison.HIVER;
+        assertSame(Saison.HIVER, saison.next(), "La saison suivante à l'automne doit être l'hiver");
         saison = saison.next();
-        assert saison.next() == Saison.PRINTEMPS;
+        assertSame(Saison.PRINTEMPS, saison.next(), "La saison suivante à l'hiver doit être le printemps");
     }
 
     @Test
-    @DisplayName("Test de la méthode getChanceEnsoleillement() : la valeur cumulée des chances doit être égale à 1.0")
+    @DisplayName("Test de la méthode getChanceEnsoleillement()")
     void getChanceEnsoleillement() {
         // for each saison, the sum of the chances must be equal to 1.0
         for (Saison saison : Saison.values()) {
@@ -37,12 +39,12 @@ class SaisonTest {
             for (float chance : chanceEnsoleillement.values()) {
                 cumul += chance;
             }
-            assert cumul == 1.0f;
+            assertEquals(1.0f, cumul, "La somme des chances doit être égale à 1.0");
         }
     }
 
     @Test
-    @DisplayName("Test de la méthode getChanceHumidite() : la valeur cumulée des chances doit être égale à 1.0")
+    @DisplayName("Test de la méthode getChanceHumidite()")
     void getChanceHumidite() {
         for (Saison saison : Saison.values()) {
             Map<Humidite, Float> chanceHumidite = saison.getChanceHumidite();
@@ -50,7 +52,7 @@ class SaisonTest {
             for (float chance : chanceHumidite.values()) {
                 cumul += chance;
             }
-            assert cumul == 1.0f;
+            assertEquals(1.0f, cumul, "La somme des chances doit être égale à 1.0");
         }
     }
 
@@ -59,6 +61,9 @@ class SaisonTest {
     void getRandomTemperature() {
         int temperature = saison.getRandomTemperature();
         int average = saison.getAverageTemperature();
-        assert temperature >= average - 10 && temperature <= average + 10;
+        assertAll(
+                () -> assertTrue(temperature >= average - 10, "La température doit être supérieure ou égale à la moyenne - 10"),
+                () -> assertTrue(temperature <= average + 10, "La température doit être inférieure ou égale à la moyenne + 10")
+        );
     }
 }
