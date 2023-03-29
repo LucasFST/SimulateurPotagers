@@ -135,7 +135,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
      */
     @Override
     public void updateDisplay() {
-        infoPanel.updateInfos();
+        infoPanel.updateInfos(vueControleurEnsemblePotagers.simulateurPotager.simulateurMeteo);
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 updateCase(x, y);
