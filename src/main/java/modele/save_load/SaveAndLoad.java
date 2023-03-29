@@ -21,6 +21,7 @@ public class SaveAndLoad {
             }
         } else {
             System.getLogger("Save").log(System.Logger.Level.INFO, "Aucun fichier de sauvegarde trouvé, création d'un nouveau SimulateurPotager");
+            Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
             loadSimulateurPotager(new SimulateurPotager());
         }
     }
@@ -38,6 +39,7 @@ public class SaveAndLoad {
         Inventory.getInstance().loadNewInstance(saveData.getInventory());
         SimulateurPotager simulateurPotager = new SimulateurPotager();
         simulateurPotager.loadNewInstance(saveData.getSimulateurPotager());
+        Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
         Ordonnanceur.getInstance().addRunnable(simulateurPotager.simulateurMeteo);
         loadSimulateurPotager(simulateurPotager);
     }
