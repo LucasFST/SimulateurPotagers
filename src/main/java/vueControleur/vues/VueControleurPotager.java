@@ -2,12 +2,12 @@ package vueControleur.vues;
 
 import modele.Ordonnanceur;
 import modele.legumes.Legume;
-import modele.player.Inventory;
 import modele.potagers.Potager;
 import modele.potagers.cases.CaseCultivable;
 import modele.potagers.cases.CaseNonCultivable;
 import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
+import vueControleur.vues.components.InfoPanel;
 import vueControleur.vues.components.TimeSlider;
 
 import javax.swing.*;
@@ -26,7 +26,6 @@ import static vueControleur.icon.IconNames.*;
  * (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle
  */
 public class VueControleurPotager extends JPanel implements Observer, VueControleur {
-    private static final String TEXT_COINS = "Coins : ";
     private final IconRepository icones = IconRepository.getInstance();
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     // taille de la grille affichée
@@ -34,7 +33,8 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     private final int sizeY;
     private final VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
     private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
-    private JTextField nbCoins;
+
+    private InfoPanel infoPanel;
 
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
@@ -72,7 +72,8 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     public void addComponents() {
         add(getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
-        add(getInfoPanel(), BorderLayout.EAST);
+        infoPanel = new InfoPanel();
+        add(infoPanel.getInfoPanel(), BorderLayout.EAST);
         add(getGoBackButton(), BorderLayout.WEST);
         add(getPotagerNb(), BorderLayout.NORTH);
     }
@@ -84,25 +85,6 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
     private JComponent getPotagerNb() {
         return new JLabel("Potager n°" + potager.getId());
-    }
-
-    private JPanel getInfoPanel() {
-        JPanel infos = new JPanel();
-        infos.setLayout(new BoxLayout(infos, BoxLayout.Y_AXIS));
-
-        JTextField panelTitle = new JTextField("infos diverses");
-        panelTitle.setEditable(false);
-        panelTitle.setMaximumSize(new Dimension(100, 20));
-        infos.add(panelTitle);
-
-        infos.add(Box.createRigidArea(new Dimension(0, 10))); // espace entre les infos
-
-        nbCoins = new JTextField(TEXT_COINS + Inventory.getInstance().getNbCoins());
-        nbCoins.setEditable(false);
-        nbCoins.setMaximumSize(new Dimension(100, 20));
-        infos.add(nbCoins);
-
-        return infos;
     }
 
     private void addListenerCases() {
@@ -153,16 +135,12 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
      */
     @Override
     public void updateDisplay() {
-        updateInfos();
+        infoPanel.updateInfos();
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 updateCase(x, y);
             }
         }
-    }
-
-    private void updateInfos() {
-        nbCoins.setText(TEXT_COINS + Inventory.getInstance().getNbCoins());
     }
 
     private void updateCase(int x, int y) {
