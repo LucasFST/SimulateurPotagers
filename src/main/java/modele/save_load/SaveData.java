@@ -1,5 +1,6 @@
 package modele.save_load;
 
+import modele.Ordonnanceur;
 import modele.player.Inventory;
 import modele.potagers.SimulateurPotager;
 
@@ -21,5 +22,9 @@ public class SaveData implements Serializable {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public Ordonnanceur getOrdonnanceur() {
+        return Ordonnanceur.getInstance();
     }
 }

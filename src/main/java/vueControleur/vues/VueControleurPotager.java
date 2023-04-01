@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -46,6 +47,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
         this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
 
         this.setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         addComponents();
 
@@ -135,7 +137,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
      */
     @Override
     public void updateDisplay() {
-        infoPanel.updateInfos();
+        infoPanel.updateInfos(vueControleurEnsemblePotagers.simulateurPotager.simulateurMeteo);
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 updateCase(x, y);
@@ -158,29 +160,36 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
         if (legume != null) {
             switch (legume.getVariete()) {
-                case SALADE -> cases[x][y].setIcon(icones.getIcone(SALADE));
-                case CAROTTE -> cases[x][y].setIcon(icones.getIcone(CAROTTE));
+                case SALADE -> setIconCase(x, y, icones.getIcone(SALADE));
+                case CAROTTE -> setIconCase(x, y, icones.getIcone(CAROTTE));
+                default -> cases[x][y].setIcon(icones.getIcone(TERRE));
             }
         } else {
             cases[x][y].setIcon(icones.getIcone(TERRE));
         }
+    }
 
-        // si transparence : images avec canal alpha + dessins manuels (voir ci-dessous + créer composant qui redéfinie paint(Graphics g)), se documenter
-        //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
-        //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null);
+    private void setIconCase(int x, int y, ImageIcon icon) {
+        float tintValue = 1 - ((CaseCultivable) potager.getPlateau()[x][y]).getLegumeVie();
+        Color tintColor = new Color(1, 0, 0, tintValue);
+        ImageIcon tintedIcon = applyTintColor(icon, tintColor);
+        cases[x][y].setIcon(tintedIcon);
+    }
+
+    private ImageIcon applyTintColor(ImageIcon icon, Color tintColor) {
+        BufferedImage tintedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = tintedImage.createGraphics();
+        g.setComposite(AlphaComposite.Src);
+        g.drawImage(icon.getImage(), 0, 0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(tintColor);
+        g.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
+        g.dispose();
+        return new ImageIcon(tintedImage);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         updateDisplay();
-        /*
-        SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        mettreAJourAffichage();
-                    }
-                }); 
-        */
-
     }
 }

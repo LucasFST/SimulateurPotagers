@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SimulateurPotager implements Serializable {
     public static final int POTAGER_PRICE = 100;
+    public SimulateurMeteo simulateurMeteo;
     private ArrayList<Potager> listePotagers = new ArrayList<>();
-    private SimulateurMeteo simulateurMeteo;
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
 

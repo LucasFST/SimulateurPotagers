@@ -161,4 +161,70 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private void applyTemperature(CaseCultivable _case) {
         _case.setTemperature(temperature);
     }
+
+    public String getSaison() {
+        switch (saison) {
+            case PRINTEMPS -> {
+                return "Printemps";
+            }
+            case ETE -> {
+                return "Été";
+            }
+            case AUTOMNE -> {
+                return "Automne";
+            }
+            case HIVER -> {
+                return "Hiver";
+            }
+            default -> {
+                return "Inconnu";
+            }
+        }
+    }
+
+    public int getJour() {
+        return currentDay;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public String getEnsoleillement() {
+        return switch (ensoleillement) {
+            case TRES_NUAGEUX -> "Très nuageux";
+            case NUAGEUX -> "Nuageux";
+            case PEU_NUAGEUX -> "Peu nuageux";
+            case ENSOLEILLE -> "Ensoleillé";
+        };
+    }
+
+    public String getHumidite() {
+        switch (humidite) {
+            case FORTE_PLUIE -> {
+                return "Forte pluie";
+            }
+            case PLUIE -> {
+                return "Pluie";
+            }
+            case HUMIDE -> {
+                return "Humide";
+            }
+            case SEC -> {
+                return "Sec";
+            }
+            case TRES_SEC -> {
+                return "Très sec";
+            }
+            case SECHERESSE -> {
+                return "Sécheresse";
+            }
+            case NORMAL -> {
+                return "Normal";
+            }
+            default -> {
+                return "Inconnu";
+            }
+        }
+    }
 }

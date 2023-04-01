@@ -39,13 +39,13 @@ public abstract class Legume implements Serializable {
 
     protected void updateCroissance(double ratePerfect, double rateGood, double rateBad) {
         if (etatVie > ratePerfect) {
-            etatCroissance += 0.05;
-        } else if (etatVie > rateGood) {
-            etatCroissance += 0.03;
-        } else if (etatVie > rateBad) {
             etatCroissance += 0.02;
-        } else {
+        } else if (etatVie > rateGood) {
             etatCroissance += 0.01;
+        } else if (etatVie > rateBad) {
+            etatCroissance += 0.005;
+        } else {
+            etatCroissance += 0.001;
         }
 
         if (etatCroissance > 1) {
@@ -98,6 +98,10 @@ public abstract class Legume implements Serializable {
         //calcul de la taille de l'intervalle
         int intervalleSizeOptimale = (temperatureMax - temperatureMin + 1) / 3;
         return temperatureMoyenne + intervalleSizeOptimale / 2;
+    }
+
+    public double getEtatVie() {
+        return etatVie;
     }
 
     public abstract Varietes getVariete();

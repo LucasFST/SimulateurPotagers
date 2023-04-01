@@ -8,18 +8,18 @@ import java.util.logging.Logger;
 
 public class Ordonnanceur extends Observable implements Runnable, Singleton {
 
-    public static final long DEFAULT_DELAY = 10000;
+    public static final long DEFAULT_DELAY = 500;
     private static final long UI_DELAY = 1000 / 60; // 1000 / fps
     private static Ordonnanceur ordonnanceur; // singleton
     private final Vector<Runnable> runnables = new Vector<>(); // liste synchronisée
     Timer timer;
-    private long delayMs = DEFAULT_DELAY;
+    private long delayMs;
 
     // design pattern singleton
     public static Ordonnanceur getInstance() {
         if (ordonnanceur == null) {
             ordonnanceur = new Ordonnanceur();
-            ordonnanceur.setTimer();
+            ordonnanceur.setDelay(DEFAULT_DELAY);
         }
         return ordonnanceur;
     }
