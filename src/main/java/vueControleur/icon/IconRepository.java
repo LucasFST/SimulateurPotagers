@@ -35,6 +35,13 @@ public class IconRepository implements Singleton {
         return icones.get(icon);
     }
 
+    //get all icons of legumes
+    public ImageIcon[] getIcones() {
+        //récupère toutes les icones de la map et les met dans un tableau d'imageIcon sauf les icones de terre, de mur et de vide
+        return icones.values().stream().filter(icon -> icon != icones.get(IconNames.TERRE) &&
+                icon != icones.get(IconNames.MUR) && icon != icones.get(IconNames.VIDE)).toArray(ImageIcon[]::new);
+    }
+
     private BufferedImage getSubImage(String path, int x, int y, int w, int h) throws ExecutionException {
         BufferedImage image;
 

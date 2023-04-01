@@ -2,6 +2,7 @@ package vueControleur.vues.components;
 
 import modele.meteo.SimulateurMeteo;
 import modele.player.Inventory;
+import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +17,6 @@ public class InfoPanel {
     private JLabel actualEnsoleillement;
     private JLabel actualHumidite;
     private JLabel actualTempLabel;
-    private JPanel buttonsPanel;
-    private JButton plantingButton;
-    private JButton wateringButton;
-    private JButton harvestingButton;
 
     private static JLabel initTitle() {
         JLabel panelTitle = new JLabel("Informations");
@@ -57,63 +54,6 @@ public class InfoPanel {
         return meteo;
     }
 
-    private static JLabel initActionLabel() {
-        JLabel action = new JLabel("Actions : ");
-        action.setAlignmentX(Component.CENTER_ALIGNMENT);
-        action.setFont(subPanelFont);
-        return action;
-    }
-
-    private static JButton initPlantingButton() {
-        JButton plantingButton = new JButton("Planter");
-        plantingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        plantingButton.setFont(subPanelFont);
-        plantingButton.setEnabled(true);
-        plantingButton.addActionListener(e -> {
-            // Ouvrir la fenêtre de plantation ici
-            JOptionPane.showOptionDialog(null, "Fenêtre de plantation", "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-        });
-        return plantingButton;
-    }
-
-    private static JButton initWateringButton() {
-        JButton wateringButton = new JButton("Arroser");
-        wateringButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        wateringButton.setFont(subPanelFont);
-        wateringButton.setEnabled(true);
-        return wateringButton;
-    }
-
-    private static JButton initHarvestingButton() {
-        JButton harvestingButton = new JButton("Récolter");
-        harvestingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        harvestingButton.setFont(subPanelFont);
-        harvestingButton.setEnabled(true);
-        return harvestingButton;
-    }
-
-    private void initButtonsPanel() {
-        buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
-        buttonsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonsPanel.setBackground(Color.WHITE);
-
-        addPaddingBetweenSubComponents(buttonsPanel);
-
-        plantingButton = initPlantingButton();
-        buttonsPanel.add(plantingButton);
-
-        addPaddingBetweenSubComponents(buttonsPanel);
-
-        wateringButton = initWateringButton();
-        buttonsPanel.add(wateringButton);
-
-        addPaddingBetweenSubComponents(buttonsPanel);
-
-        harvestingButton = initHarvestingButton();
-        buttonsPanel.add(harvestingButton);
-    }
-
     public JPanel getInfoPanel() {
         JPanel panel = initPanel();
 
@@ -135,14 +75,6 @@ public class InfoPanel {
 
         initMeteoInfos();
         panel.add(meteoInfos);
-
-        addPaddingBetweenComponents(panel);
-
-        JLabel actions = initActionLabel();
-        panel.add(actions);
-
-        initButtonsPanel();
-        panel.add(buttonsPanel);
 
         return panel;
     }

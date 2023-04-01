@@ -7,6 +7,7 @@ import modele.potagers.cases.CaseCultivable;
 import modele.potagers.cases.CaseNonCultivable;
 import vueControleur.VueManager;
 import vueControleur.icon.IconRepository;
+import vueControleur.vues.components.ButtonsPanel;
 import vueControleur.vues.components.InfoPanel;
 import vueControleur.vues.components.TimeSlider;
 
@@ -36,6 +37,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     private JLabel[][] cases; // cases graphiques (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
     private InfoPanel infoPanel;
+    private ButtonsPanel buttonsPanel;
 
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
@@ -74,8 +76,18 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     public void addComponents() {
         add(getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+
         infoPanel = new InfoPanel();
-        add(infoPanel.getInfoPanel(), BorderLayout.EAST);
+        panel.add(infoPanel.getInfoPanel());
+
+        buttonsPanel = new ButtonsPanel();
+        panel.add(buttonsPanel.getButtonsPanel());
+
+        add(panel, BorderLayout.EAST);
         add(getGoBackButton(), BorderLayout.WEST);
         add(getPotagerNb(), BorderLayout.NORTH);
     }
