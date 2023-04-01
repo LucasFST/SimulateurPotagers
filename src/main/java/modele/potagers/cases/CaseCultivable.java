@@ -2,8 +2,11 @@ package modele.potagers.cases;
 
 import modele.legumes.Carotte;
 import modele.legumes.Legume;
+import modele.legumes.Salade;
+import modele.legumes.Varietes;
 import modele.player.Inventory;
 import modele.potagers.Potager;
+import vueControleur.vues.components.Actions;
 
 import java.io.Serializable;
 
@@ -19,11 +22,35 @@ public class CaseCultivable extends Case implements Serializable {
     }
 
     @Override
-    public void actionUtilisateur() {
-        if (legume == null) {
+    public void actionUtilisateur(Actions action, Varietes varietes) {
+        /*if (legume == null) {
             legume = new Carotte();
         } else {
             cultiverLegume();
+        }*/
+        switch (action) {
+            case RECOLTER:
+                cultiverLegume();
+                break;
+            case ARROSER:
+                setTauxHumidite(tauxHumidite + 0.1f);
+                break;
+            case PLANTER:
+                if ( (legume == null) && (varietes != null) ) {
+                    switch (varietes) {
+                        case CAROTTE:
+                            legume = new Carotte();
+                            break;
+                        case SALADE:
+                            legume = new Salade();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 

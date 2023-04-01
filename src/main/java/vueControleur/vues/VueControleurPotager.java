@@ -39,7 +39,6 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     private InfoPanel infoPanel;
     private ButtonsPanel buttonsPanel;
 
-
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
         super();
         sizeX = pota.getSizeX();
@@ -109,7 +108,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
                 cases[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        potager.actionUtilisateur(new Point(xx, yy));
+                        potager.actionUtilisateur( buttonsPanel.getAction(), buttonsPanel.getCurrentVariete() ,new Point(xx, yy));
                     }
                 });
             }

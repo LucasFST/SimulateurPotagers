@@ -29,6 +29,7 @@ class VueManagerTest {
     }
 
     @Test
+    @DisplayName("Test de la méthode setVueControleurEnsemblePotagers()")
     void testSetVueControleurPotager() {
         VueControleurEnsemblePotagers vueControleurEnsemblePotagers = new VueControleurEnsemblePotagers(new SimulateurPotager());
         Potager potager = new Potager();

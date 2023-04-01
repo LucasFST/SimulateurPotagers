@@ -1,9 +1,11 @@
 package modele.potagers;
 
 import modele.Ordonnanceur;
+import modele.legumes.Varietes;
 import modele.potagers.cases.Case;
 import modele.potagers.cases.CaseCultivable;
 import modele.potagers.cases.CaseNonCultivable;
+import vueControleur.vues.components.Actions;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -87,7 +89,7 @@ public class Potager implements Serializable {
                 CaseCultivable cc = new CaseCultivable(this);
                 setCase(cc, new Point(x, y));
                 if (rnd.nextBoolean()) {
-                    cc.actionUtilisateur();
+                    cc.actionUtilisateur(Actions.PLANTER, Varietes.values()[rnd.nextInt(Varietes.values().length)]);
                 }
                 Ordonnanceur.getInstance().addRunnable(cc);
             }
@@ -97,9 +99,9 @@ public class Potager implements Serializable {
         setCase(new CaseNonCultivable(this), new Point(3, 6));
     }
 
-    public void actionUtilisateur(Point p) {
+    public void actionUtilisateur(Actions action, Varietes variete, Point p) {
         if (getCase(p) != null) {
-            getCase(p).actionUtilisateur();
+            getCase(p).actionUtilisateur(action, variete);
         }
     }
 

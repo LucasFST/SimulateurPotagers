@@ -1,6 +1,9 @@
 package vueControleur.vues.components;
 
+import modele.legumes.Legume;
+import modele.legumes.Varietes;
 import vueControleur.icon.IconRepository;
+
 import javax.swing.*;
 import java.awt.*;
 public class ButtonsPanel {
@@ -8,8 +11,11 @@ public class ButtonsPanel {
     private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
     private JPanel buttonsPanel;
 
+    private Actions currentAction = null;
+    private Varietes currentVariete = null;
 
-    private static JLabel initTitle() {
+
+    private JLabel initTitle() {
         JLabel panelTitle = new JLabel("Actions");
         panelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTitle.setFont(panelFont);
@@ -17,7 +23,7 @@ public class ButtonsPanel {
         return panelTitle;
     }
 
-    private static JPanel initPanel() {
+    private JPanel initPanel() {
         JPanel buttons = new JPanel();
         buttons.setBackground(Color.WHITE);
         buttons.setPreferredSize(new Dimension(130, 200));
@@ -27,37 +33,53 @@ public class ButtonsPanel {
         return buttons;
     }
 
-    private static void addPaddingBetweenComponents(JPanel panel) {
+    private void addPaddingBetweenComponents(JPanel panel) {
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
-    private static JButton getPlantingButton() {
+    private JButton getPlantingButton() {
         JButton plantingButton = new JButton("Planter");
         plantingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         plantingButton.setFont(subPanelFont);
         plantingButton.setEnabled(true);
         plantingButton.addActionListener(e -> {
+            // Passer en mode plantation
+            currentAction = Actions.PLANTER;
             // Ouvrir la fenêtre de plantation ici
             ImageIcon[] options = IconRepository.getInstance().getIcones();
-            JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
+            int optionSelected =  JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
                     "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+            switch (optionSelected) {
+                //TODO switch fait à la zeub, j'ai juste tester 0 et 1 pour voir quelle image était sélectionnée
+                case 0 -> currentVariete = Varietes.CAROTTE;
+                case 1 -> currentVariete = Varietes.SALADE;
+                default -> currentVariete = null;
+            }
         });
         return plantingButton;
     }
 
-    private static JButton getWateringButton() {
+    private JButton getWateringButton() {
         JButton wateringButton = new JButton("Arroser");
         wateringButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         wateringButton.setFont(subPanelFont);
         wateringButton.setEnabled(true);
+        wateringButton.addActionListener(e -> {
+            // Passer en mode arrosoir
+            currentAction = Actions.ARROSER;
+        });
         return wateringButton;
     }
 
-    private static JButton getHarvestingButton() {
+    private JButton getHarvestingButton() {
         JButton harvestingButton = new JButton("Récolter");
         harvestingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         harvestingButton.setFont(subPanelFont);
         harvestingButton.setEnabled(true);
+        harvestingButton.addActionListener(e -> {
+            // Passer en mode récolte
+            currentAction = Actions.RECOLTER;
+        });
         return harvestingButton;
     }
 
@@ -102,5 +124,12 @@ public class ButtonsPanel {
         panel.add(buttonsPanel);
 
         return panel;
+    }
+    public Actions getAction() {
+        return this.currentAction;
+    }
+
+    public Varietes getCurrentVariete() {
+        return this.currentVariete;
     }
 }

@@ -1,6 +1,8 @@
 package modele.potagers.cases;
 
+import modele.legumes.Varietes;
 import modele.potagers.Potager;
+import vueControleur.vues.components.Actions;
 
 import java.io.Serializable;
 
@@ -10,7 +12,7 @@ public class CaseNonCultivable extends Case implements Serializable {
     }
 
     @Override
-    public void actionUtilisateur() {
+    public void actionUtilisateur(Actions action, Varietes varietes) {
         // TODO
     }
 
