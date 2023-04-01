@@ -63,12 +63,30 @@ public abstract class Legume implements Serializable {
     }
 
     private void updateEtatVie(float tauxHumidite, float tauxEnsoleillement, int temperature) {
-        if (isValueInRange(tauxHumidite, TAUX_HUMIDITE_MIN, TAUX_HUMIDITE_MAX) || isValueInRange(tauxEnsoleillement, TAUX_ENSOLEILLEMENT_MIN, TAUX_ENSOLEILLEMENT_MAX)) {
+        updateEtatVieAccordingToTauxHumiditeAndEnsoleillement(tauxHumidite, tauxEnsoleillement);
+        updateEtatVieAccordingToTemperature(temperature);
+
+        keepEtatVieBetween0And1();
+    }
+
+    private void updateEtatVieAccordingToTauxHumiditeAndEnsoleillement(float tauxHumidite, float tauxEnsoleillement) {
+        int numBadConditions = 0;
+
+        if (!isValueInRange(tauxHumidite, TAUX_HUMIDITE_MIN, TAUX_HUMIDITE_MAX)) {
             etatVie -= ETAT_VIE_DECREMENT;
-        } else {
-            etatVie += ETAT_VIE_INCREMENT;
+            numBadConditions++;
+        }
+        if (!isValueInRange(tauxEnsoleillement, TAUX_ENSOLEILLEMENT_MIN, TAUX_ENSOLEILLEMENT_MAX)) {
+            etatVie -= ETAT_VIE_INCREMENT;
+            numBadConditions++;
         }
 
+        if (numBadConditions == 0) {
+            etatVie += ETAT_VIE_INCREMENT;
+        }
+    }
+
+    private void updateEtatVieAccordingToTemperature(int temperature) {
         if (temperature < TEMPERATURE_GEL) { // Si la température est en dessous du gel, le fruit se gèle
             etatVie -= ETAT_VIE_DECREMENT_GEL;
         } else if (!isValueInRange(temperature, temperatureMin, temperatureMax)) {
@@ -78,8 +96,6 @@ public abstract class Legume implements Serializable {
         } else { // Si la température est dans la moyenne, le fruit se porte bien
             etatVie += ETAT_VIE_INCREMENT;
         }
-
-        keepEtatVieBetween0And1();
     }
 
     private boolean isValueInRange(float value, float min, float max) { // min et max inclus
