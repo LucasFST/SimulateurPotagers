@@ -1,11 +1,11 @@
 package vueControleur.vues.components;
 
-import modele.legumes.Legume;
 import modele.legumes.Varietes;
 import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
 import java.awt.*;
+
 public class ButtonsPanel {
     private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
     private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
@@ -47,7 +47,8 @@ public class ButtonsPanel {
             currentAction = Actions.PLANTER;
             // Ouvrir la fenêtre de plantation ici
             ImageIcon[] options = IconRepository.getInstance().getIcones();
-            int optionSelected =  JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
+            // Idee : Créer un Map de Varietes (id) -> ImageIcon : supprimer getIcones() et appeler getIcone(Varietes) pour chaque variété
+            int optionSelected = JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
                     "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
             switch (optionSelected) {
                 //TODO switch fait à la zeub, j'ai juste tester 0 et 1 pour voir quelle image était sélectionnée
@@ -125,6 +126,7 @@ public class ButtonsPanel {
 
         return panel;
     }
+
     public Actions getAction() {
         return this.currentAction;
     }
