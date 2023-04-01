@@ -1,5 +1,6 @@
 package vueControleur;
 
+import modele.Ordonnanceur;
 import modele.potagers.Potager;
 import modele.potagers.SimulateurPotager;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,7 @@ class VueManagerTest {
 
     @Test
     void testSetVueControleurPotager() {
+        Ordonnanceur.getInstance().setDelay(500);
         VueControleurEnsemblePotagers vueControleurEnsemblePotagers = new VueControleurEnsemblePotagers(new SimulateurPotager());
         Potager potager = new Potager();
         VueControleurPotager vueControleurPotager = new VueControleurPotager(potager, vueControleurEnsemblePotagers);
