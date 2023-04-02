@@ -4,6 +4,15 @@ import java.io.Serializable;
 
 public abstract class Legume implements Serializable {
 
+    private static final int TEMPERATURE_GEL = 0;
+    private static final float TAUX_HUMIDITE_MIN = 0.3f;
+    private static final float TAUX_HUMIDITE_MAX = 0.7f;
+    private static final float TAUX_ENSOLEILLEMENT_MIN = 0.3f;
+    private static final float TAUX_ENSOLEILLEMENT_MAX = 0.7f;
+    private static final float ETAT_VIE_INCREMENT = 0.01f;
+    private static final float ETAT_VIE_INCREMENT_PERFECT_TEMP = 0.02f;
+    private static final float ETAT_VIE_DECREMENT = 0.01f;
+    private static final float ETAT_VIE_DECREMENT_GEL = 0.2f;
     protected int temperatureMin;
     protected int temperatureMax;
     private double etatVie = 0.5;
@@ -54,27 +63,46 @@ public abstract class Legume implements Serializable {
     }
 
     private void updateEtatVie(float tauxHumidite, float tauxEnsoleillement, int temperature) {
-        if (tauxHumidite < 0.3 || tauxHumidite > 0.7) {
-            // Si le taux d'humidité est trop faible ou trop élevé, le fruit se porte mal
-            etatVie -= 0.1;
-        } else if (tauxEnsoleillement < 0.3 || tauxEnsoleillement > 0.7) {
-            // Si le taux d'ensoleillement est trop faible ou trop élevé, le fruit se porte mal
-            etatVie -= 0.1;
-        } else if (temperature < temperatureMin || temperature > temperatureMax) {
-            // Si la température est trop faible ou trop élevée, le fruit se porte mal
-            etatVie -= 0.1;
-        } else if (temperature < 0)
-        {   // Si la température est négative, le fruit se porte mal à cause du gel
-            etatVie -= 0.2;
-        } else if ( temperature >= getTemperatureMinOptimale() && temperature <= getTemperatureMaxOptimale())
-        {   // Si la température est optimale, le fruit se porte très bien
-            etatVie += 0.2;
-        } else {
-            // Si les conditions sont bonnes, le fruit se porte bien
-            etatVie += 0.1;
+        updateEtatVieAccordingToTauxHumiditeAndEnsoleillement(tauxHumidite, tauxEnsoleillement);
+        updateEtatVieAccordingToTemperature(temperature);
+
+        keepEtatVieBetween0And1();
+    }
+
+    private void updateEtatVieAccordingToTauxHumiditeAndEnsoleillement(float tauxHumidite, float tauxEnsoleillement) {
+        int numBadConditions = 0;
+
+        if (!isValueInRange(tauxHumidite, TAUX_HUMIDITE_MIN, TAUX_HUMIDITE_MAX)) {
+            etatVie -= ETAT_VIE_DECREMENT;
+            numBadConditions++;
+        }
+        if (!isValueInRange(tauxEnsoleillement, TAUX_ENSOLEILLEMENT_MIN, TAUX_ENSOLEILLEMENT_MAX)) {
+            etatVie -= ETAT_VIE_INCREMENT;
+            numBadConditions++;
         }
 
+        if (numBadConditions == 0) {
+            etatVie += ETAT_VIE_INCREMENT;
+        }
+    }
 
+    private void updateEtatVieAccordingToTemperature(int temperature) {
+        if (temperature < TEMPERATURE_GEL) { // Si la température est en dessous du gel, le fruit se gèle
+            etatVie -= ETAT_VIE_DECREMENT_GEL;
+        } else if (!isValueInRange(temperature, temperatureMin, temperatureMax)) {
+            etatVie -= ETAT_VIE_DECREMENT;
+        } else if (isValueInRange(temperature, getTemperatureMinOptimale(), getTemperatureMaxOptimale())) { // Si la température est optimale, le fruit se porte très bien
+            etatVie += ETAT_VIE_INCREMENT_PERFECT_TEMP;
+        } else { // Si la température est dans la moyenne, le fruit se porte bien
+            etatVie += ETAT_VIE_INCREMENT;
+        }
+    }
+
+    private boolean isValueInRange(float value, float min, float max) { // min et max inclus
+        return value >= min && value <= max;
+    }
+
+    private void keepEtatVieBetween0And1() {
         if (etatVie > 1) {
             etatVie = 1;
         } else if (etatVie < 0) {
@@ -82,8 +110,7 @@ public abstract class Legume implements Serializable {
         }
     }
 
-    private int getTemperatureMinOptimale()
-    {
+    private int getTemperatureMinOptimale() {
         //calcul temperature moyenne
         int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
         //calcul de la taille de l'intervalle
@@ -91,8 +118,7 @@ public abstract class Legume implements Serializable {
         return temperatureMoyenne - intervalleSizeOptimale / 2;
     }
 
-    private int getTemperatureMaxOptimale()
-    {
+    private int getTemperatureMaxOptimale() {
         //calcul temperature moyenne
         int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
         //calcul de la taille de l'intervalle

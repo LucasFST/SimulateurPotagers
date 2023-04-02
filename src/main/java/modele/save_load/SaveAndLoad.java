@@ -7,6 +7,7 @@ import vueControleur.VueManager;
 import vueControleur.vues.VueControleurEnsemblePotagers;
 
 import java.io.*;
+import java.util.logging.Logger;
 
 public class SaveAndLoad {
 
@@ -29,9 +30,16 @@ public class SaveAndLoad {
     private static void load(String path) throws IOException, ClassNotFoundException {
         try (FileInputStream fileInputStream = new FileInputStream(path);
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-            SaveData saveData = (SaveData) objectInputStream.readObject();
-
-            loadSaveData(saveData);
+            try {
+                SaveData saveData = (SaveData) objectInputStream.readObject();
+                loadSaveData(saveData);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // save in wrong format : create new save
+                Logger.getLogger("Save").warning("Fichier de sauvegarde corrompu, création d'un nouveau SimulateurPotager");
+                SaveData saveData = new SaveData(new SimulateurPotager());
+                loadSaveData(saveData);
+            }
         }
     }
 
