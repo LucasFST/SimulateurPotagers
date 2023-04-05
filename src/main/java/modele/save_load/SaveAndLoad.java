@@ -2,6 +2,7 @@ package modele.save_load;
 
 import modele.Ordonnanceur;
 import modele.player.Inventory;
+import modele.potagers.Potager;
 import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
 import vueControleur.vues.VueControleurEnsemblePotagers;
@@ -43,9 +44,12 @@ public class SaveAndLoad {
         }
     }
 
-    private static void loadNewSave() {
+    public static void loadNewSave() {
+        Ordonnanceur.getInstance().resetRunnables();
         Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
-        loadSimulateurPotagerVue(new SimulateurPotager());
+        Potager.resetCompteurID();
+        SimulateurPotager simulateurPotager = new SimulateurPotager();
+        loadSimulateurPotagerVue(simulateurPotager);
         Inventory.getInstance().loadNewInstance(new Inventory());
     }
 
