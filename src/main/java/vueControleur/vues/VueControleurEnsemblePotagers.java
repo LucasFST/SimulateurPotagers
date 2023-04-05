@@ -2,6 +2,7 @@ package vueControleur.vues;
 
 import modele.Ordonnanceur;
 import modele.player.Inventory;
+import modele.potagers.Potager;
 import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
 import vueControleur.vues.components.InfoPanel;
@@ -93,9 +94,13 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         panel.setLayout(new GridLayout(0, 1));
         listePotagersButton = new JButton[simulateurPotager.getNbPotagers()];
         for (int i = 0; i < simulateurPotager.getNbPotagers(); i++) {
-            listePotagersButton[i] = new JButton("Potager " + i);
+            Potager potager = simulateurPotager.getListePotagers().get(i);
+            listePotagersButton[i] = new JButton(potager.getName());
+            listePotagersButton[i].setBackground(potager.getButtonColor());
+            listePotagersButton[i].setForeground(new Color(255 - potager.getButtonColor().getRed(), 255 - potager.getButtonColor().getGreen(), 255 - potager.getButtonColor().getBlue()));
             panel.add(listePotagersButton[i]);
         }
+
         buyPotagerButton = new JButton("Acheter un potager : " + SimulateurPotager.POTAGER_PRICE + " pièces");
         buyPotagerButton.setBackground(Color.cyan);
         panel.add(buyPotagerButton);

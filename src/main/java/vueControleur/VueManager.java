@@ -4,6 +4,7 @@ import modele.Singleton;
 import modele.save_load.SaveAndLoad;
 import vueControleur.vues.VueControleurEnsemblePotagers;
 import vueControleur.vues.VueControleurPotager;
+import vueControleur.vues.windows.EditPotagersWindow;
 import vueControleur.vues.windows.LoadWindow;
 import vueControleur.vues.windows.SaveWindow;
 
@@ -52,6 +53,9 @@ public final class VueManager extends JFrame implements Singleton {
         addSaveMenu(fichierMenu);
         addLoadMenu(fichierMenu);
         addNewSaveMenu(fichierMenu);
+        JMenu editMenu = new JMenu("Édition");
+        menuBar.add(editMenu);
+        addEditPotagersMenu(editMenu);
         setJMenuBar(menuBar);
     }
 
@@ -71,6 +75,15 @@ public final class VueManager extends JFrame implements Singleton {
             SaveAndLoad.loadNewSave();
         });
         fichierMenu.add(sauvegarderMenuItem);
+    }
+
+    private void addEditPotagersMenu(JMenu fichierMenu) {
+        JMenuItem editPotagersMenuItem = new JMenuItem("Éditer les potagers");
+        editPotagersMenuItem.addActionListener(e -> {
+            EditPotagersWindow editPotagersWindow = new EditPotagersWindow(VueManager.getInstance().vueControleurEnsemblePotagers.simulateurPotager);
+            editPotagersWindow.setVisible(true);
+        });
+        fichierMenu.add(editPotagersMenuItem);
     }
 
     public void reset() {

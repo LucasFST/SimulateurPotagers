@@ -19,6 +19,8 @@ public class Potager implements Serializable {
     private final int sizeX;
     private final int sizeY;
     private final int id;
+    private String name = "Potager";
+    private Color buttonColor = Color.WHITE;
     private Map<Point, Case> grilleCases = new LinkedHashMap<>(); // permet de récupérer une entité à partir de ses coordonnées
 
     public Potager() {
@@ -112,5 +114,13 @@ public class Potager implements Serializable {
             return null;
         }
         return grilleCases.get(p);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Color getButtonColor() {
+        return buttonColor;
     }
 }
