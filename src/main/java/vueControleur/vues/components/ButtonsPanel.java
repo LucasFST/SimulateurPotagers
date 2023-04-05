@@ -52,8 +52,8 @@ public class ButtonsPanel {
                     "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
             switch (optionSelected) {
                 //TODO switch fait à la zeub, j'ai juste tester 0 et 1 pour voir quelle image était sélectionnée
-                case 0 -> currentVariete = Varietes.CAROTTE;
-                case 1 -> currentVariete = Varietes.SALADE;
+                case 0 -> currentVariete = Varietes.SALADE;
+                case 1 -> currentVariete = Varietes.CAROTTE;
                 default -> currentVariete = null;
             }
         });
