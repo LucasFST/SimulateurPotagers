@@ -14,7 +14,7 @@ public class CaseNonCultivable extends Case implements Serializable {
     @Override
     public String actionUtilisateur(Actions action, Varietes varietes) {
         // TODO
-        return null;
+        return "Case non cultivable, vous ne pouvez rien faire ici";
     }
 
     @Override

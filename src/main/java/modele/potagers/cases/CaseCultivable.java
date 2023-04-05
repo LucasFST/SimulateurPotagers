@@ -50,17 +50,17 @@ public class CaseCultivable extends Case implements Serializable {
                         legume = new Carotte();
                         return null;
                     } else {
-                        return "Pas assez de pièces";
+                        return "Pas assez de pièces, il vous faut " + Carotte.PRICE + " pièces";
                     }
                 case SALADE:
                     if (Inventory.getInstance().removeCoinsIfEnough(Salade.PRICE)) {
                         legume = new Salade();
                         return null;
                     } else {
-                        return "Pas assez de pièces";
+                        return "Pas assez de pièces, il vous faut " + Salade.PRICE + " pièces";
                     }
                 default:
-                    return "Variété non implémentée";
+                    return "Variété non implémentée, veuillez contacter le développeur";
             }
         }
         return "Case déjà occupée ou aucune variété sélectionnée";
