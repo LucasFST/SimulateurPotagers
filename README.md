@@ -25,7 +25,7 @@ How to install the project and run it.
 - Command line
     - Open a command line in the project directory
     - Enter the command ```mvn clean install``` to compile and create the executable jar
-    - The executable jar will be created in the 📙target/` directory with the name `AVegetableGarden.jar`
+    - The executable jar will be created in the `target/` directory with the name `AVegetableGarden.jar`
 - IDE
     - Open the project in your IDE
     - Run the `AVegetableGarden` class
