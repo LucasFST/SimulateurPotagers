@@ -5,7 +5,7 @@ import modele.Singleton;
 import java.io.Serializable;
 
 public class Inventory implements Singleton, Serializable {
-    private static final float DEFAULT_COINS_NB = 0;
+    private static final float DEFAULT_COINS_NB = 200;
 
     private static Inventory instance;
     private float nbCoins;
@@ -45,7 +45,11 @@ public class Inventory implements Singleton, Serializable {
         return true;
     }
 
-    private boolean hasEnoughCoins(float nbCoins) {
-        return !((nbCoins < 0) && (this.nbCoins < nbCoins));
+    private boolean hasEnoughCoins(float nbCoins){
+        if(nbCoins < 0) {
+            return false;
+        }
+        return this.nbCoins >= nbCoins;
     }
+
 }
