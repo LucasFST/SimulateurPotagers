@@ -26,6 +26,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         this.simulateurPotager = simulateurPotager;
         this.setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        listePotagersButton = new JButton[simulateurPotager.getNbPotagers()];
         addComponents();
         Ordonnanceur.getInstance().addObserver(this);
     }
@@ -47,13 +48,22 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     private void addEventListenerBuyPotagerButton() {
         buyPotagerButton.addActionListener(e -> {
             boolean isBuySuccessful = simulateurPotager.buyPotager();
-            updateDisplay();
+            updatePotagersDisplay();
 
             if (!isBuySuccessful) {
-                JOptionPane.showMessageDialog(null, "Vous n'avez pas assez de coins pour acheter un potager");
+                VueManager.getInstance().showWarningWindow("Vous n'avez pas assez d'argent pour acheter un potager");
             }
         });
     }
+
+    private void updatePotagersDisplay() {
+        this.removeAll();
+        addComponents();
+        this.revalidate();
+        this.repaint();
+        updateDisplay();
+    }
+
 
     @Override
     public void updateDisplay() {

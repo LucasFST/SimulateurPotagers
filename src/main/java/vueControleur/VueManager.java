@@ -99,4 +99,8 @@ public final class VueManager extends JFrame implements Singleton {
     public void showErrorWindow(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage, "Erreur", JOptionPane.ERROR_MESSAGE);
     }
+
+    public void showWarningWindow(String warningMessage) {
+        JOptionPane.showMessageDialog(this, warningMessage, "Attention", JOptionPane.WARNING_MESSAGE);
+    }
 }
