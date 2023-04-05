@@ -18,12 +18,12 @@ public class SaveAndLoad {
                 System.getLogger("Save").log(System.Logger.Level.INFO, "SimulateurPotager chargé depuis " + path + " !");
             } catch (Exception e) {
                 e.printStackTrace();
-                loadSimulateurPotager(new SimulateurPotager());
+                loadSimulateurPotagerVue(new SimulateurPotager());
             }
         } else {
             System.getLogger("Save").log(System.Logger.Level.INFO, "Aucun fichier de sauvegarde trouvé, création d'un nouveau SimulateurPotager");
             Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
-            loadSimulateurPotager(new SimulateurPotager());
+            loadSimulateurPotagerVue(new SimulateurPotager());
         }
     }
 
@@ -37,10 +37,15 @@ public class SaveAndLoad {
                 e.printStackTrace();
                 // save in wrong format : create new save
                 Logger.getLogger("Save").warning("Fichier de sauvegarde corrompu, création d'un nouveau SimulateurPotager");
-                SaveData saveData = new SaveData(new SimulateurPotager());
-                loadSaveData(saveData);
+                loadNewSave();
             }
         }
+    }
+
+    private static void loadNewSave() {
+        Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
+        loadSimulateurPotagerVue(new SimulateurPotager());
+        Inventory.getInstance().loadNewInstance(new Inventory());
     }
 
     private static void loadSaveData(SaveData saveData) {
@@ -49,7 +54,7 @@ public class SaveAndLoad {
         simulateurPotager.loadNewInstance(saveData.getSimulateurPotager());
         Ordonnanceur.getInstance().setDelay(Ordonnanceur.DEFAULT_DELAY);
         Ordonnanceur.getInstance().addRunnable(simulateurPotager.simulateurMeteo);
-        loadSimulateurPotager(simulateurPotager);
+        loadSimulateurPotagerVue(simulateurPotager);
     }
 
     public static void save(SimulateurPotager simulateurPotager, String path) throws IOException {
@@ -63,11 +68,10 @@ public class SaveAndLoad {
 
     private static boolean checkIfFileExists(String path) {
         File file = new File(path);
-        System.out.println("File exists : " + file.exists() + " " + path);
         return file.exists();
     }
 
-    private static void loadSimulateurPotager(SimulateurPotager simulateurPotager) {
+    private static void loadSimulateurPotagerVue(SimulateurPotager simulateurPotager) {
         VueControleurEnsemblePotagers vueControleurEnsemblePotagers = new VueControleurEnsemblePotagers(simulateurPotager);
         VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers);
     }
