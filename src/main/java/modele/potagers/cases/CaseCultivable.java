@@ -22,24 +22,18 @@ public class CaseCultivable extends Case implements Serializable {
     }
 
     @Override
-    public void actionUtilisateur(Actions action, Varietes varietes) {
-        /*if (legume == null) {
-            legume = new Carotte();
-        } else {
-            cultiverLegume();
-        }*/
+    public String actionUtilisateur(Actions action, Varietes varietes) {
         switch (action) {
             case RECOLTER:
                 cultiverLegume();
-                break;
+                return null;
             case ARROSER:
                 setTauxHumidite(tauxHumidite + 0.1f);
-                break;
+                return null;
             case PLANTER:
-                planterLegume(varietes);
-                break;
+                return planterLegume(varietes);
             default:
-                break;
+                return null;
         }
     }
 
@@ -48,21 +42,28 @@ public class CaseCultivable extends Case implements Serializable {
         Inventory.getInstance().addCoins(legume.getCoinValue());
         legume = null;
     }
-    private void planterLegume(Varietes variete) {
+    private String planterLegume(Varietes variete) {
         if ( (legume == null) && (variete != null) ) {
             switch (variete) {
                 case CAROTTE:
-                    legume = new Carotte();
-                    Inventory.getInstance().removeCoins(legume.getCoinPrice());
-                    break;
+                    if (Inventory.getInstance().removeCoinsIfEnough(Carotte.PRICE)) {
+                        legume = new Carotte();
+                        return null;
+                    } else {
+                        return "Pas assez de pièces";
+                    }
                 case SALADE:
-                    legume = new Salade();
-                    Inventory.getInstance().removeCoins(legume.getCoinPrice());
-                    break;
+                    if (Inventory.getInstance().removeCoinsIfEnough(Salade.PRICE)) {
+                        legume = new Salade();
+                        return null;
+                    } else {
+                        return "Pas assez de pièces";
+                    }
                 default:
-                    break;
+                    return "Variété non implémentée";
             }
         }
+        return "Case déjà occupée ou aucune variété sélectionnée";
     }
 
     public Legume getLegume() {

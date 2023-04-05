@@ -18,5 +18,5 @@ public abstract class Case implements Runnable, Serializable {
         potager = _potager;
     }
 
-    public abstract void actionUtilisateur(Actions action, Varietes varietes);
+    public abstract String actionUtilisateur(Actions action, Varietes varietes);
 }

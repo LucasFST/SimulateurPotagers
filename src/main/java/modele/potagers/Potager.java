@@ -99,10 +99,11 @@ public class Potager implements Serializable {
         setCase(new CaseNonCultivable(this), new Point(3, 6));
     }
 
-    public void actionUtilisateur(Actions action, Varietes variete, Point p) {
+    public String actionUtilisateur(Actions action, Varietes variete, Point p) {
         if (getCase(p) != null) {
-            getCase(p).actionUtilisateur(action, variete);
+            return getCase(p).actionUtilisateur(action, variete);
         }
+        return null;
     }
 
     private void setCase(Case e, Point p) {

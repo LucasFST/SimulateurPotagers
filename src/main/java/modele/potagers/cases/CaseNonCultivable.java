@@ -12,8 +12,9 @@ public class CaseNonCultivable extends Case implements Serializable {
     }
 
     @Override
-    public void actionUtilisateur(Actions action, Varietes varietes) {
+    public String actionUtilisateur(Actions action, Varietes varietes) {
         // TODO
+        return null;
     }
 
     @Override
