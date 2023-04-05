@@ -1,6 +1,7 @@
 package vueControleur.vues;
 
 import modele.Ordonnanceur;
+import modele.player.Inventory;
 import modele.potagers.SimulateurPotager;
 import vueControleur.VueManager;
 import vueControleur.vues.components.InfoPanel;
@@ -29,6 +30,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         listePotagersButton = new JButton[simulateurPotager.getNbPotagers()];
         addComponents();
         Ordonnanceur.getInstance().addObserver(this);
+        updateBuyButton();
     }
 
     public void addComponents() {
@@ -68,6 +70,12 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     @Override
     public void updateDisplay() {
         infoPanel.updateInfos(simulateurPotager.simulateurMeteo);
+        updateBuyButton();
+    }
+
+    private void updateBuyButton() {
+        boolean hasEnoughCoins = !(Inventory.getInstance().getNbCoins() < SimulateurPotager.POTAGER_PRICE);
+        buyPotagerButton.setEnabled(hasEnoughCoins);
     }
 
     public void addEventListenerButtonsPotagers() {
