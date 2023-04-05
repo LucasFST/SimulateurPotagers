@@ -4,6 +4,7 @@ import modele.legumes.Legume;
 import modele.potagers.Potager;
 import modele.potagers.cases.CaseCultivable;
 import modele.potagers.cases.CaseNonCultivable;
+import vueControleur.VueManager;
 import vueControleur.icon.IconNames;
 import vueControleur.vues.VueControleurPotager;
 
@@ -21,11 +22,14 @@ public class PotagerGrid {
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     private Cases cases;
 
+    private ButtonsPanel buttonsPanel;
 
-    public PotagerGrid(Potager potager) {
+
+    public PotagerGrid(Potager potager, ButtonsPanel buttonsPanel) {
         this.sizeX = potager.getSizeX();
         this.sizeY = potager.getSizeY();
         this.potager = potager;
+        this.buttonsPanel = buttonsPanel;
     }
 
     public JComponent getGridPanel() {
@@ -54,7 +58,10 @@ public class PotagerGrid {
                 cases.getCase(new Point(x, y)).addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        potager.actionUtilisateur(new Point(xx, yy));
+                        String actionLog = potager.actionUtilisateur(buttonsPanel.getAction(), buttonsPanel.getCurrentVariete() ,new Point(xx, yy));
+                        if(actionLog != null) {
+                            VueManager.getInstance().showErrorWindow(actionLog);
+                        }
                     }
                 });
             }
