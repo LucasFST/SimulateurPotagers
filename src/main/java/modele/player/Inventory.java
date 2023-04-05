@@ -37,10 +37,15 @@ public class Inventory implements Singleton, Serializable {
         this.nbCoins += nbCoins;
     }
 
-    public void removeCoins(float nbCoins) {
-        if (nbCoins < 0) {
-            throw new IllegalArgumentException("nbCoins must be positive");
+    public boolean removeCoinsIfEnough(float nbCoins) {
+        if(!hasEnoughCoins(nbCoins)) {
+            return false;
         }
         this.nbCoins -= nbCoins;
+        return true;
+    }
+
+    private boolean hasEnoughCoins(float nbCoins) {
+        return !((nbCoins < 0) && (this.nbCoins < nbCoins));
     }
 }
