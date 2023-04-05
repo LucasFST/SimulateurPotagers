@@ -36,18 +36,7 @@ public class CaseCultivable extends Case implements Serializable {
                 setTauxHumidite(tauxHumidite + 0.1f);
                 break;
             case PLANTER:
-                if ( (legume == null) && (varietes != null) ) {
-                    switch (varietes) {
-                        case CAROTTE:
-                            legume = new Carotte();
-                            break;
-                        case SALADE:
-                            legume = new Salade();
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                planterLegume(varietes);
                 break;
             default:
                 break;
@@ -56,9 +45,24 @@ public class CaseCultivable extends Case implements Serializable {
 
     private void cultiverLegume() {
         if (legume == null) return;
-
         Inventory.getInstance().addCoins(legume.getCoinValue());
         legume = null;
+    }
+    private void planterLegume(Varietes variete) {
+        if ( (legume == null) && (variete != null) ) {
+            switch (variete) {
+                case CAROTTE:
+                    legume = new Carotte();
+                    Inventory.getInstance().removeCoins(legume.getCoinPrice());
+                    break;
+                case SALADE:
+                    legume = new Salade();
+                    Inventory.getInstance().removeCoins(legume.getCoinPrice());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public Legume getLegume() {

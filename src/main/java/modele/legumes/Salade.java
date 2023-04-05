@@ -13,8 +13,8 @@ public class Salade extends Legume {
     }
 
     @Override
-    public float getCoinValue() {
-        return 2 * (float)getQualite();
+    protected float getCoinBaseValue() {
+        return 2f;
     }
 
     @Override

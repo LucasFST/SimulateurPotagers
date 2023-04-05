@@ -2,11 +2,11 @@ package modele.legumes;
 
 public enum Varietes {
     SALADE,
-    CONCOMBRE,
     CAROTTE,
+    /*CONCOMBRE,
     RADIS,
     MAIS,
     OIGNON,
     POIVRON,
-    PIMENT
+    PIMENT*/
 }

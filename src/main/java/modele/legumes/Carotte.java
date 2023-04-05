@@ -14,7 +14,12 @@ public class Carotte extends Legume {
 
     @Override
     public float getCoinValue() {
-        return 4 * (float)getQualite();
+        return getCoinBaseValue() * (float)getQualite();
+    }
+
+    @Override
+    protected float getCoinBaseValue() {
+        return 4f;
     }
 
     @Override

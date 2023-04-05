@@ -1,10 +1,13 @@
 package vueControleur.vues.components;
 
 import modele.legumes.Varietes;
+import vueControleur.icon.IconNames;
 import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ButtonsPanel {
     private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
@@ -46,14 +49,16 @@ public class ButtonsPanel {
             // Passer en mode plantation
             currentAction = Actions.PLANTER;
             // Ouvrir la fenêtre de plantation ici
-            ImageIcon[] options = IconRepository.getInstance().getIcones();
-            // Idee : Créer un Map de Varietes (id) -> ImageIcon : supprimer getIcones() et appeler getIcone(Varietes) pour chaque variété
+            ImageIcon[] icones = new ImageIcon[Varietes.values().length];
+            for (int i = 0; i < Varietes.values().length; i++) {
+                icones[i] = IconRepository.getInstance().getIcone(IconNames.values()[i]);
+            }
             int optionSelected = JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
-                    "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+                    "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, icones, null);
             switch (optionSelected) {
-                //TODO switch fait à la zeub, j'ai juste tester 0 et 1 pour voir quelle image était sélectionnée
-                case 0 -> currentVariete = Varietes.SALADE;
-                case 1 -> currentVariete = Varietes.CAROTTE;
+                //Les IconNames sont dans le même ordre que les Varietes dans l'enum
+                case 0 -> currentVariete = Varietes.values()[0];
+                case 1 -> currentVariete = Varietes.values()[1];
                 default -> currentVariete = null;
             }
         });
