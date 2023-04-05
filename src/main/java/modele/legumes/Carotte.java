@@ -8,7 +8,7 @@ public class Carotte extends Legume {
         temperatureMax = 25;
     }
 
-    public static final float PRICE = 4f;
+    public static final float PRICE = 2f;
     @Override
     public Varietes getVariete() {
         return Varietes.CAROTTE;

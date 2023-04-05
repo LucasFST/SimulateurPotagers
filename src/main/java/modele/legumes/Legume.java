@@ -141,10 +141,10 @@ public abstract class Legume implements Serializable {
     protected abstract float getCoinBaseValue();
 
     public float getCoinPrice(){
-        return getCoinBaseValue() / 2f;
+        return getCoinBaseValue();
     }
 
     public float getCoinValue(){
-        return getCoinBaseValue() * (float)getQualite();
+        return (2f * getCoinBaseValue() * (float)getQualite());
     }
 }
