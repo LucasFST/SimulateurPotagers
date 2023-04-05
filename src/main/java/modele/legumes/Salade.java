@@ -7,6 +7,8 @@ public class Salade extends Legume {
         temperatureMin = 10;
         temperatureMax = 35;
     }
+
+    public static final float PRICE = 2f;
     @Override
     public Varietes getVariete() {
         return Varietes.SALADE;
@@ -14,7 +16,7 @@ public class Salade extends Legume {
 
     @Override
     protected float getCoinBaseValue() {
-        return 2f;
+        return PRICE;
     }
 
     @Override
