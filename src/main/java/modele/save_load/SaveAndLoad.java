@@ -36,8 +36,9 @@ public class SaveAndLoad {
             } catch (Exception e) {
                 e.printStackTrace();
                 // save in wrong format : create new save
-                Logger.getLogger("Save").warning("Fichier de sauvegarde corrompu, création d'un nouveau SimulateurPotager");
                 loadNewSave();
+                Logger.getLogger("Save").warning("Fichier de sauvegarde corrompu, création d'un nouveau SimulateurPotager");
+                VueManager.getInstance().showErrorWindow("Chargement automatique : fichier de sauvegarde corrompu, création d'une nouvelle partie");
             }
         }
     }
