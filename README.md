@@ -25,10 +25,11 @@ How to install the project and run it.
 - Command line
     - Open a command line in the project directory
     - Enter the command ```mvn clean install``` to compile and create the executable jar
-    - The executable jar will be created in the `target/` directory with the name `AVegetableGarden.jar`
+    - The executable jar will be created in the `target/` directory with the
+      name `AVegetableGarden.AVegetableGarden.jar`
 - IDE
     - Open the project in your IDE
-    - Run the `AVegetableGarden` class
+    - Run the `AVegetableGarden.AVegetableGarden` class
 
 ### Folder structure
 
@@ -42,14 +43,14 @@ How to install the project and run it.
 └── src
      ├── main
      │    └── java
-     │        ├── modele
+     │        ├── AVegetableGarden.modele
      │        │   ├── legumes
      │        │   ├── meteo
      │        │   ├── player
      │        │   ├── potagers
      │        │   └── save_load
      │        │
-     │        └── vueControleur
+     │        └── AVegetableGarden.vueControleur
      │            ├── icon
      │            └── vues
      │                ├── components
@@ -57,13 +58,13 @@ How to install the project and run it.
      │
      └──test
          └── java
-             ├── modele
+             ├── AVegetableGarden.modele
              │   ├── legumes
              │   ├── meteo
              │   └── potagers
              │         └── cases
              │
-             └── vueControleur
+             └── AVegetableGarden.vueControleur
                     └── icon
 ```
 
