@@ -1,10 +1,12 @@
 package modele.potagers.cases;
 
 import modele.legumes.Legume;
+import modele.legumes.Varietes;
 import modele.potagers.Potager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import vueControleur.vues.components.Actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +28,7 @@ class CaseCultivableTest {
     @Test
     @DisplayName("getLegume() should return legume when legume is not null")
     void testGetLegumeReturnLegumeWhenLegumeIsNotNull() {
-        caseCultivable.actionUtilisateur();
+        caseCultivable.actionUtilisateur(Actions.PLANTER, Varietes.CAROTTE);
         assertNotNull(caseCultivable.getLegume());
         assertEquals(Legume.class, caseCultivable.getLegume().getClass().getSuperclass());
     }

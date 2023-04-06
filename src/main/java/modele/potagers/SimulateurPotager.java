@@ -52,7 +52,7 @@ public class SimulateurPotager implements Serializable {
 
     public boolean buyPotager() {
         if (Inventory.getInstance().getNbCoins() >= POTAGER_PRICE) {
-            Inventory.getInstance().removeCoins(POTAGER_PRICE);
+            Inventory.getInstance().removeCoinsIfEnough(POTAGER_PRICE);
             ajouterPotager();
             return true;
         }

@@ -3,6 +3,7 @@ package vueControleur.vues;
 import modele.Ordonnanceur;
 import modele.potagers.Potager;
 import vueControleur.VueManager;
+import vueControleur.vues.components.ButtonsPanel;
 import vueControleur.vues.components.InfoPanel;
 import vueControleur.vues.components.PotagerGrid;
 import vueControleur.vues.components.TimeSlider;
@@ -23,12 +24,14 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     public final VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     public InfoPanel infoPanel;
+    public ButtonsPanel buttonsPanel;
     private PotagerGrid potagerGrid;
 
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
         super();
-        this.potagerGrid = new PotagerGrid(pota);
+        buttonsPanel = new ButtonsPanel();
+        this.potagerGrid = new PotagerGrid(pota, buttonsPanel);
         potager = pota;
 
         this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
@@ -44,8 +47,12 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     public void addComponents() {
         add(potagerGrid.getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         infoPanel = new InfoPanel();
-        add(infoPanel.getInfoPanel(), BorderLayout.EAST);
+        panel.add(infoPanel.getInfoPanel());
+        panel.add(buttonsPanel.getButtonsPanel());
+        add(panel, BorderLayout.EAST);
         add(getGoBackButton(), BorderLayout.WEST);
         add(getPotagerNb(), BorderLayout.NORTH);
     }

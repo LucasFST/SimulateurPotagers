@@ -5,7 +5,9 @@
  */
 package modele.potagers.cases;
 
+import modele.legumes.Varietes;
 import modele.potagers.Potager;
+import vueControleur.vues.components.Actions;
 
 import java.io.Serializable;
 
@@ -16,7 +18,5 @@ public abstract class Case implements Runnable, Serializable {
         potager = _potager;
     }
 
-    public abstract void actionUtilisateur();
-
-
+    public abstract String actionUtilisateur(Actions action, Varietes varietes);
 }

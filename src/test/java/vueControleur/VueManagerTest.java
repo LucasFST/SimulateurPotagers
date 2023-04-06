@@ -30,6 +30,7 @@ class VueManagerTest {
     }
 
     @Test
+    @DisplayName("Test de la méthode setVueControleurEnsemblePotagers()")
     void testSetVueControleurPotager() {
         Ordonnanceur.getInstance().setDelay(500);
         VueControleurEnsemblePotagers vueControleurEnsemblePotagers = new VueControleurEnsemblePotagers(new SimulateurPotager());

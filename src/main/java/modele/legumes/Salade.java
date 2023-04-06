@@ -7,14 +7,16 @@ public class Salade extends Legume {
         temperatureMin = 10;
         temperatureMax = 35;
     }
+
+    public static final float PRICE = 1f;
     @Override
     public Varietes getVariete() {
         return Varietes.SALADE;
     }
 
     @Override
-    public float getCoinValue() {
-        return 2 * (float)getQualite();
+    protected float getCoinBaseValue() {
+        return PRICE;
     }
 
     @Override

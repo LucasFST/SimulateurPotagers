@@ -2,8 +2,11 @@ package modele.potagers.cases;
 
 import modele.legumes.Carotte;
 import modele.legumes.Legume;
+import modele.legumes.Salade;
+import modele.legumes.Varietes;
 import modele.player.Inventory;
 import modele.potagers.Potager;
+import vueControleur.vues.components.Actions;
 
 import java.io.Serializable;
 
@@ -19,19 +22,48 @@ public class CaseCultivable extends Case implements Serializable {
     }
 
     @Override
-    public void actionUtilisateur() {
-        if (legume == null) {
-            legume = new Carotte();
-        } else {
-            cultiverLegume();
+    public String actionUtilisateur(Actions action, Varietes varietes) {
+        switch (action) {
+            case RECOLTER:
+                cultiverLegume();
+                return null;
+            case ARROSER:
+                setTauxHumidite(tauxHumidite + 0.1f);
+                return null;
+            case PLANTER:
+                return planterLegume(varietes);
+            default:
+                return null;
         }
     }
 
     private void cultiverLegume() {
         if (legume == null) return;
-
         Inventory.getInstance().addCoins(legume.getCoinValue());
         legume = null;
+    }
+    private String planterLegume(Varietes variete) {
+        if ( (legume == null) && (variete != null) ) {
+            switch (variete) {
+                case CAROTTE:
+                    if (Inventory.getInstance().removeCoinsIfEnough(Carotte.PRICE)) {
+                        legume = new Carotte();
+                        return null;
+                    } else {
+                        return "Pas assez de pièces, il vous faut " + Carotte.PRICE + " pièces";
+                    }
+                case SALADE:
+                    if (Inventory.getInstance().removeCoinsIfEnough(Salade.PRICE)) {
+                        legume = new Salade();
+                        return null;
+                    } else {
+                        return "Pas assez de pièces, il vous faut " + Salade.PRICE + " pièces";
+                    }
+                default:
+                    return "Variété non implémentée, veuillez contacter le développeur";
+            }
+        }
+        return "Case déjà occupée ou aucune variété sélectionnée";
     }
 
     public Legume getLegume() {

@@ -2,6 +2,7 @@ package vueControleur.vues.components;
 
 import modele.meteo.SimulateurMeteo;
 import modele.player.Inventory;
+import vueControleur.icon.IconRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,6 @@ public class InfoPanel {
     private JLabel actualSaisonLabel;
     private JLabel actualDayLabel;
     private JLabel actualEnsoleillement;
-
     private JLabel actualHumidite;
     private JLabel actualTempLabel;
 
@@ -75,7 +75,6 @@ public class InfoPanel {
 
         initMeteoInfos();
         panel.add(meteoInfos);
-
 
         return panel;
     }
