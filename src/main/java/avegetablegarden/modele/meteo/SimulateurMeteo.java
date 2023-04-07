@@ -173,9 +173,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
             case HIVER -> {
                 return "Hiver";
             }
-            default -> {
-                return "Inconnu";
-            }
+            default -> throw new IllegalStateException("Unexpected value: " + saison);
         }
     }
 
@@ -193,6 +191,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
             case NUAGEUX -> "Nuageux";
             case PEU_NUAGEUX -> "Peu nuageux";
             case ENSOLEILLE -> "Ensoleillé";
+            default -> throw new IllegalStateException("Unexpected value: " + ensoleillement);
         };
     }
 
@@ -219,9 +218,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
             case NORMAL -> {
                 return "Normal";
             }
-            default -> {
-                return "Inconnu";
-            }
+            default -> throw new IllegalStateException("Unexpected value: " + humidite);
         }
     }
 }

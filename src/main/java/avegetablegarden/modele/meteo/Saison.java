@@ -39,6 +39,7 @@ public enum Saison {
                 chanceEnsoleillement.put(Ensoleillement.PEU_NUAGEUX, 0.2f);
                 chanceEnsoleillement.put(Ensoleillement.ENSOLEILLE, 0.1f);
             }
+            default -> throw new IllegalStateException("Unexpected value: " + this);
         }
         return chanceEnsoleillement;
     }
@@ -73,6 +74,7 @@ public enum Saison {
                 chanceHumidite.put(Humidite.TRES_SEC, 0.0f);
                 chanceHumidite.put(Humidite.SECHERESSE, 0.0f);
             }
+            default -> throw new IllegalStateException("Unexpected value: " + this);
         }
         return chanceHumidite;
     }
@@ -88,9 +90,8 @@ public enum Saison {
             case HIVER -> {
                 return 5;
             }
-            default -> {
-                return 0;
-            }
+
+            default -> throw new IllegalStateException("Unexpected value: " + this);
         }
     }
 
