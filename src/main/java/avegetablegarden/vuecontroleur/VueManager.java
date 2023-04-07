@@ -4,9 +4,9 @@ import avegetablegarden.modele.Singleton;
 import avegetablegarden.modele.save_load.SaveAndLoad;
 import avegetablegarden.vuecontroleur.vues.VueControleurEnsemblePotagers;
 import avegetablegarden.vuecontroleur.vues.VueControleurPotager;
-import avegetablegarden.vuecontroleur.vues.windows.EditPotagersWindow;
 import avegetablegarden.vuecontroleur.vues.windows.LoadWindow;
 import avegetablegarden.vuecontroleur.vues.windows.SaveWindow;
+import avegetablegarden.vuecontroleur.vues.windows.editpotager.EditPotagersWindow;
 
 import javax.swing.*;
 
@@ -115,5 +115,9 @@ public final class VueManager extends JFrame implements Singleton {
 
     public void showWarningWindow(String warningMessage) {
         JOptionPane.showMessageDialog(this, warningMessage, "Attention", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void UpdatePotagerList() {
+        vueControleurEnsemblePotagers.updatePotagersName();
     }
 }

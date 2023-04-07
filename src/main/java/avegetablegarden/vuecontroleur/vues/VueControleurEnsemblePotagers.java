@@ -59,7 +59,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         });
     }
 
-    private void updatePotagersDisplay() {
+    public void updatePotagersDisplay() {
         this.removeAll();
         addComponents();
         this.revalidate();
@@ -72,11 +72,19 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     public void updateDisplay() {
         infoPanel.updateInfos(simulateurPotager.simulateurMeteo);
         updateBuyButton();
+        updatePotagersName();
     }
 
     private void updateBuyButton() {
         boolean hasEnoughCoins = !(Inventory.getInstance().getNbCoins() < SimulateurPotager.POTAGER_PRICE);
         buyPotagerButton.setEnabled(hasEnoughCoins);
+    }
+
+    public void updatePotagersName() {
+        for (int i = 0; i < listePotagersButton.length; i++) {
+            Potager potager = simulateurPotager.getListePotagers().get(i);
+            listePotagersButton[i].setText(potager.getName());
+        }
     }
 
     public void addEventListenerButtonsPotagers() {

@@ -1,4 +1,4 @@
-package avegetablegarden.vuecontroleur.vues.windows;
+package avegetablegarden.vuecontroleur.vues.windows.editpotager;
 
 import avegetablegarden.modele.potagers.Potager;
 import avegetablegarden.modele.potagers.SimulateurPotager;
@@ -9,6 +9,7 @@ import java.util.List;
 
 public class EditPotagersWindow extends JFrame {
     final SimulateurPotager simulateurPotager;
+    private JLabel potagerNameLabel;
 
     public EditPotagersWindow(SimulateurPotager simulateurPotager) {
         super("Éditer les potagers");
@@ -35,10 +36,12 @@ public class EditPotagersWindow extends JFrame {
             JPanel potagerPanel = new JPanel();
             potagerPanel.setLayout(new GridLayout(2, 3));
 
-            potagerPanel.add(new JLabel(potager.getName()));
+            potagerNameLabel = new JLabel(potager.getName());
+            potagerPanel.add(potagerNameLabel);
             potagerPanel.add(new JLabel(""));
             potagerPanel.add(new JLabel(""));
-            potagerPanel.add(new JButton("Éditer le nom"));
+            JButton editNameButton = setEditNameButton(potager);
+            potagerPanel.add(editNameButton);
             potagerPanel.add(new JButton("Éditer la couleur"));
             potagerPanel.add(new JButton("Supprimer"));
             potagersPanel.add(potagerPanel);
@@ -46,5 +49,20 @@ public class EditPotagersWindow extends JFrame {
         }
 
         add(panel);
+    }
+
+    private JButton setEditNameButton(Potager potager) {
+        JButton editNameButton = new JButton("Éditer le nom");
+        editNameButton.addActionListener(e -> {
+            EditName editNameWindow = new EditName(potager);
+            editNameWindow.setVisible(true);
+            editNameWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    potagerNameLabel.setText(potager.getName());
+                }
+            });
+        });
+        return editNameButton;
     }
 }

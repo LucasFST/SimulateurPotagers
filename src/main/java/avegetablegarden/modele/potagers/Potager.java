@@ -123,6 +123,10 @@ public class Potager implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Color getButtonColor() {
         return buttonColor;
     }

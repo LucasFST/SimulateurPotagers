@@ -48,7 +48,7 @@ public class SaveWindow extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private class SaveButtonListener implements ActionListener {
+    public class SaveButtonListener implements ActionListener {
         final SimulateurPotager simulateurPotager;
 
         SaveButtonListener(SimulateurPotager simulateurPotager) {
