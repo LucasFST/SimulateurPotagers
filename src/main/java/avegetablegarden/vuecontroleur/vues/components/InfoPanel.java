@@ -145,7 +145,7 @@ public class InfoPanel {
         actualHumidite.setText(meteo.getHumidite());
         actualSaisonLabel.setText(meteo.getSaison());
         actualDayLabel.setText(String.valueOf(meteo.getJour()));
-        actualTempLabel.setText(String.valueOf(meteo.getTemperature()) + "°C");
+        actualTempLabel.setText(meteo.getTemperature() + "°C");
     }
 
     private void updateNbCoins() {

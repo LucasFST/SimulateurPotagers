@@ -1,7 +1,6 @@
 package avegetablegarden.modele;
 
 import avegetablegarden.modele.potagers.Potager;
-import avegetablegarden.modele.potagers.cases.Case;
 import avegetablegarden.modele.potagers.cases.CaseCultivable;
 import avegetablegarden.modele.potagers.cases.CaseNonCultivable;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +31,7 @@ public class PotagerTest {
     void testGetPlateauReturn2DArrayOfCase() {
         for (int x = 0; x < potager.getSizeX(); x++) {
             for (int y = 0; y < potager.getSizeY(); y++) {
-                assertTrue(potager.getPlateau()[x][y] instanceof Case);
+                assertNotNull(potager.getPlateau()[x][y]);
             }
         }
     }
@@ -70,7 +69,7 @@ public class PotagerTest {
     @Test
     @DisplayName("getCase() should return a Case if the point is valid")
     void testGetCaseReturnCase() {
-        assertTrue(potager.getCase(new Point(0, 0)) instanceof Case);
+        assertNotNull(potager.getCase(new Point(0, 0)));
     }
 
     @Test

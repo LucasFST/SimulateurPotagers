@@ -20,9 +20,8 @@ public class PotagerGrid {
     private final int sizeX;
     private final int sizeY;
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    private final ButtonsPanel buttonsPanel;
     private Cases cases;
-
-    private ButtonsPanel buttonsPanel;
 
 
     public PotagerGrid(Potager potager, ButtonsPanel buttonsPanel) {

@@ -10,7 +10,7 @@ public enum Saison {
     AUTOMNE,
     HIVER;
 
-    Random random = new Random();
+    final Random random = new Random();
 
     public Map<Ensoleillement, Float> getChanceEnsoleillement() {
         EnumMap<Ensoleillement, Float> chanceEnsoleillement = new EnumMap<>(Ensoleillement.class);

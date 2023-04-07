@@ -32,7 +32,7 @@ public class SaveAndLoad {
         }
     }
 
-    private static void load(String path) throws IOException, ClassNotFoundException {
+    private static void load(String path) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(path);
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             try {

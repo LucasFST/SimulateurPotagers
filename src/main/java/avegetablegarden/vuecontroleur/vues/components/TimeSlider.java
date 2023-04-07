@@ -10,7 +10,7 @@ public class TimeSlider extends JSlider {
         super(SwingConstants.HORIZONTAL, 0, 4, (int) Ordonnanceur.getInstance().getDelay() / 250);
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         for (int i = 0; i <= 4; i++) {
-            labelTable.put(i, new JLabel(Double.toString((double) i / 4) + "s"));
+            labelTable.put(i, new JLabel((double) i / 4 + "s"));
         }
 
         setLabelTable(labelTable);

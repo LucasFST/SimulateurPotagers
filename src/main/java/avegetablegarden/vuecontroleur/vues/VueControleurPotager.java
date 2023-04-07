@@ -22,10 +22,10 @@ import java.util.Observer;
 public class VueControleurPotager extends JPanel implements Observer, VueControleur {
     // taille de la grille affichée
     public final VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
+    public final ButtonsPanel buttonsPanel;
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    private final PotagerGrid potagerGrid;
     public InfoPanel infoPanel;
-    public ButtonsPanel buttonsPanel;
-    private PotagerGrid potagerGrid;
 
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {

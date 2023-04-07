@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.List;
 
 public class EditPotagersWindow extends JFrame {
-    SimulateurPotager simulateurPotager;
+    final SimulateurPotager simulateurPotager;
 
     public EditPotagersWindow(SimulateurPotager simulateurPotager) {
         super("Éditer les potagers");
@@ -29,13 +29,13 @@ public class EditPotagersWindow extends JFrame {
 
         List<Potager> potagers = simulateurPotager.getListePotagers();
 
-        for (int i = 0; i < potagers.size(); i++) {
+        for (Potager potager : potagers) {
             JPanel potagersPanel = new JPanel();
             potagersPanel.setLayout(new GridLayout(1, simulateurPotager.getNbPotagers()));
             JPanel potagerPanel = new JPanel();
             potagerPanel.setLayout(new GridLayout(2, 3));
 
-            potagerPanel.add(new JLabel(potagers.get(i).getName()));
+            potagerPanel.add(new JLabel(potager.getName()));
             potagerPanel.add(new JLabel(""));
             potagerPanel.add(new JLabel(""));
             potagerPanel.add(new JButton("Éditer le nom"));

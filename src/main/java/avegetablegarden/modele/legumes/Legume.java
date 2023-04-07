@@ -13,10 +13,18 @@ public abstract class Legume implements Serializable {
     private static final float ETAT_VIE_INCREMENT_PERFECT_TEMP = 0.02f;
     private static final float ETAT_VIE_DECREMENT = 0.01f;
     private static final float ETAT_VIE_DECREMENT_GEL = 0.2f;
-    protected int temperatureMin;
-    protected int temperatureMax;
+    protected static int temperatureMin;
+    protected static int temperatureMax;
     private double etatVie = 0.5;
     private double etatCroissance = 0;
+
+    private static int getTemperatureMoyenne() {
+        return (temperatureMin + temperatureMax) / 2;
+    }
+
+    private static int getIntervalleSizeOptimale() {
+        return (temperatureMax - temperatureMin + 1) / 3;
+    }
 
     public double getQualite() {
         if (etatCroissance < 0.3 || etatVie <= 0.3) {
@@ -111,19 +119,11 @@ public abstract class Legume implements Serializable {
     }
 
     private int getTemperatureMinOptimale() {
-        //calcul temperature moyenne
-        int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
-        //calcul de la taille de l'intervalle
-        int intervalleSizeOptimale = (temperatureMax - temperatureMin + 1) / 3;
-        return temperatureMoyenne - intervalleSizeOptimale / 2;
+        return getTemperatureMoyenne() - getIntervalleSizeOptimale() / 2;
     }
 
     private int getTemperatureMaxOptimale() {
-        //calcul temperature moyenne
-        int temperatureMoyenne = (temperatureMin + temperatureMax) / 2;
-        //calcul de la taille de l'intervalle
-        int intervalleSizeOptimale = (temperatureMax - temperatureMin + 1) / 3;
-        return temperatureMoyenne + intervalleSizeOptimale / 2;
+        return getTemperatureMoyenne() + getIntervalleSizeOptimale() / 2;
     }
 
     public double getEtatVie() {
