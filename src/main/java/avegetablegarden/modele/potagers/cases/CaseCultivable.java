@@ -27,6 +27,7 @@ public class CaseCultivable extends Case implements Serializable {
 
     @Override
     public String actionUtilisateur(Actions action, Varietes varietes) {
+        if (action == null) return null;
         switch (action) {
             case RECOLTER -> {
                 cultiverLegume();
