@@ -130,4 +130,11 @@ public class Potager implements Serializable {
     public Color getButtonColor() {
         return buttonColor;
     }
+
+    public void setButtonColor(Color color) {
+        if (color == null)
+            throw new IllegalArgumentException("La couleur ne peut pas être null");
+
+        this.buttonColor = color;
+    }
 }

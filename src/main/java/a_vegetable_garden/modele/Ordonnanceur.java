@@ -46,6 +46,10 @@ public class Ordonnanceur extends Observable implements Runnable, Singleton {
         runnables.add(r);
     }
 
+    public void removeRunnable(Runnable r) {
+        runnables.remove(r);
+    }
+
     @Override
     public void run() {
         for (Runnable r : runnables) {

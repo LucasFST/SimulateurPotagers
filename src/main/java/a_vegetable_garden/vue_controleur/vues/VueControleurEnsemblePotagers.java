@@ -72,7 +72,24 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
     public void updateDisplay() {
         infoPanel.updateInfos(simulateurPotager.simulateurMeteo);
         updateBuyButton();
+        checkIfPotagerListChanged();
+        checkIfColorChanged();
         updatePotagersName();
+    }
+
+    private void checkIfColorChanged() {
+        for (int i = 0; i < listePotagersButton.length; i++) {
+            Potager potager = simulateurPotager.getListePotagers().get(i);
+            if (!potager.getButtonColor().equals(listePotagersButton[i].getBackground())) {
+                setButtonColor(i, potager);
+            }
+        }
+    }
+
+    private void checkIfPotagerListChanged() {
+        if (listePotagersButton.length != simulateurPotager.getNbPotagers()) {
+            updatePotagersDisplay();
+        }
     }
 
     private void updateBuyButton() {
@@ -104,8 +121,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         for (int i = 0; i < simulateurPotager.getNbPotagers(); i++) {
             Potager potager = simulateurPotager.getListePotagers().get(i);
             listePotagersButton[i] = new JButton(potager.getName());
-            listePotagersButton[i].setBackground(potager.getButtonColor());
-            listePotagersButton[i].setForeground(new Color(255 - potager.getButtonColor().getRed(), 255 - potager.getButtonColor().getGreen(), 255 - potager.getButtonColor().getBlue()));
+            setButtonColor(i, potager);
             panel.add(listePotagersButton[i]);
         }
 
@@ -114,6 +130,11 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         panel.add(buyPotagerButton);
         addEventListeners();
         return panel;
+    }
+
+    private void setButtonColor(int i, Potager potager) {
+        listePotagersButton[i].setBackground(potager.getButtonColor());
+        listePotagersButton[i].setForeground(new Color(255 - potager.getButtonColor().getRed(), 255 - potager.getButtonColor().getGreen(), 255 - potager.getButtonColor().getBlue()));
     }
 
     @Override

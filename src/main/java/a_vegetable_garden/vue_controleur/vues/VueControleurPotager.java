@@ -64,7 +64,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
 
     private JComponent getPotagerNb() {
-        return new JLabel("Potager n°" + potager.getId());
+        return new JLabel(potager.getName());
     }
 
 
