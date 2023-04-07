@@ -9,6 +9,7 @@ import a_vegetable_garden.vue_controleur.vues.windows.SaveWindow;
 import a_vegetable_garden.vue_controleur.vues.windows.edit_potager.EditPotagersWindow;
 
 import javax.swing.*;
+import java.util.logging.Logger;
 
 public final class VueManager extends JFrame implements Singleton {
     private static VueManager instance = null;
@@ -16,6 +17,8 @@ public final class VueManager extends JFrame implements Singleton {
 
     private VueManager() {
         super("A vegetable garden");
+
+        warnSaveOnClose();
 
         initWindow();
     }
@@ -37,12 +40,32 @@ public final class VueManager extends JFrame implements Singleton {
         fichierMenu.add(sauvegarderMenuItem);
     }
 
+    private void warnSaveOnClose() {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                int input = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr ? Les données non-enregistrées seront perdues.", "Confirmation de fermeture", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (input == JOptionPane.OK_OPTION) {
+                    Logger.getGlobal().info("Fermeture de l'application");
+                    dispose();
+                    System.exit(0);
+                } else {
+                    Logger.getGlobal().info("Annulation de la fermeture de l'application");
+                    setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+    }
+
     private void initWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initMenuBar();
 
         setSize(800, 600);
         setLocationRelativeTo(null);
+
+        setVisible(true);
+
     }
 
     private void initMenuBar() {
