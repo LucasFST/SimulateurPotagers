@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class EditName extends JFrame {
 
+    private final Potager potager;
     private JTextField potagerNameTextField;
-    private Potager potager;
 
     public EditName(Potager potager) {
         super("Éditer le nom du potager");
