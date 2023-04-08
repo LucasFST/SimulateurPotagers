@@ -5,5 +5,8 @@ public enum IconNames {
     CAROTTE,
     TERRE,
     VIDE,
-    MUR
+    MUR,
+    ARROSER,
+    PLANTER,
+    RECOLTER,
 }
