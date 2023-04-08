@@ -12,7 +12,8 @@ public class ButtonsPanel extends Panel{
     private Varietes currentVariete = null;
 
     private JButton getPlantingButton() {
-        JButton plantingButton = new JButton("Planter");
+        ImageIcon plantingIcon = IconRepository.getInstance().getIcone(IconNames.PLANTER);
+        JButton plantingButton = new JButton("Planter", plantingIcon);
         plantingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         plantingButton.setFont(subPanelFont);
         plantingButton.setEnabled(true);
@@ -37,7 +38,8 @@ public class ButtonsPanel extends Panel{
     }
 
     private JButton getWateringButton() {
-        JButton wateringButton = new JButton("Arroser");
+        ImageIcon wateringIcon = IconRepository.getInstance().getIcone(IconNames.ARROSER);
+        JButton wateringButton = new JButton("Arroser", wateringIcon);
         wateringButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         wateringButton.setFont(subPanelFont);
         wateringButton.setEnabled(true);
@@ -46,7 +48,8 @@ public class ButtonsPanel extends Panel{
     }
 
     private JButton getHarvestingButton() {
-        JButton harvestingButton = new JButton("Récolter");
+        ImageIcon harvestingIcon = IconRepository.getInstance().getIcone(IconNames.RECOLTER);
+        JButton harvestingButton = new JButton("Récolter", harvestingIcon);
         harvestingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         harvestingButton.setFont(subPanelFont);
         harvestingButton.setEnabled(true);
