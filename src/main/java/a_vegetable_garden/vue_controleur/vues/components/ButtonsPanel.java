@@ -7,36 +7,9 @@ import a_vegetable_garden.vue_controleur.icon.IconRepository;
 import javax.swing.*;
 import java.awt.*;
 
-public class ButtonsPanel {
-    private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
-    private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
-    private JPanel mainPanel;
-
+public class ButtonsPanel extends Panel{
     private Actions currentAction = null;
     private Varietes currentVariete = null;
-
-
-    private JLabel initTitle() {
-        JLabel panelTitle = new JLabel("Actions");
-        panelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTitle.setFont(panelFont);
-        panelTitle.setMinimumSize(new Dimension(100, 20));
-        return panelTitle;
-    }
-
-    private JPanel initPanel() {
-        JPanel buttons = new JPanel();
-        buttons.setBackground(Color.WHITE);
-        buttons.setPreferredSize(new Dimension(130, 200));
-        int padding = 10;
-        buttons.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-        return buttons;
-    }
-
-    private void addPaddingBetweenComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-    }
 
     private JButton getPlantingButton() {
         JButton plantingButton = new JButton("Planter");
@@ -81,11 +54,7 @@ public class ButtonsPanel {
         return harvestingButton;
     }
 
-    private void addPaddingBetweenSubComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-    }
-
-    private void initButtonsPanel() {
+    protected void initMainPanel() {
         JButton plantingButton;
         JButton wateringButton;
         JButton harvestingButton;
@@ -110,15 +79,15 @@ public class ButtonsPanel {
         mainPanel.add(harvestingButton);
     }
 
-    public JPanel getMainPanel() {
+    public JPanel getPanel() {
         JPanel panel = initPanel();
 
-        JLabel panelTitle = initTitle();
+        JLabel panelTitle = initTitle("Actions");
         panel.add(panelTitle);
 
         addPaddingBetweenComponents(panel);
 
-        initButtonsPanel();
+        initMainPanel();
         panel.add(mainPanel);
 
         return panel;
