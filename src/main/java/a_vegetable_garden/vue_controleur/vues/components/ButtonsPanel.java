@@ -7,39 +7,13 @@ import a_vegetable_garden.vue_controleur.icon.IconRepository;
 import javax.swing.*;
 import java.awt.*;
 
-public class ButtonsPanel {
-    private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
-    private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
-    private JPanel mainPanel;
-
+public class ButtonsPanel extends Panel{
     private Actions currentAction = null;
     private Varietes currentVariete = null;
 
-
-    private JLabel initTitle() {
-        JLabel panelTitle = new JLabel("Actions");
-        panelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTitle.setFont(panelFont);
-        panelTitle.setMinimumSize(new Dimension(100, 20));
-        return panelTitle;
-    }
-
-    private JPanel initPanel() {
-        JPanel buttons = new JPanel();
-        buttons.setBackground(Color.WHITE);
-        buttons.setPreferredSize(new Dimension(130, 200));
-        int padding = 10;
-        buttons.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-        return buttons;
-    }
-
-    private void addPaddingBetweenComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-    }
-
     private JButton getPlantingButton() {
-        JButton plantingButton = new JButton("Planter");
+        ImageIcon plantingIcon = IconRepository.getInstance().getIcone(IconNames.PLANTER);
+        JButton plantingButton = new JButton("Planter", plantingIcon);
         plantingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         plantingButton.setFont(subPanelFont);
         plantingButton.setEnabled(true);
@@ -64,7 +38,8 @@ public class ButtonsPanel {
     }
 
     private JButton getWateringButton() {
-        JButton wateringButton = new JButton("Arroser");
+        ImageIcon wateringIcon = IconRepository.getInstance().getIcone(IconNames.ARROSER);
+        JButton wateringButton = new JButton("Arroser", wateringIcon);
         wateringButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         wateringButton.setFont(subPanelFont);
         wateringButton.setEnabled(true);
@@ -73,7 +48,8 @@ public class ButtonsPanel {
     }
 
     private JButton getHarvestingButton() {
-        JButton harvestingButton = new JButton("Récolter");
+        ImageIcon harvestingIcon = IconRepository.getInstance().getIcone(IconNames.RECOLTER);
+        JButton harvestingButton = new JButton("Récolter", harvestingIcon);
         harvestingButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         harvestingButton.setFont(subPanelFont);
         harvestingButton.setEnabled(true);
@@ -81,44 +57,46 @@ public class ButtonsPanel {
         return harvestingButton;
     }
 
-    private void addPaddingBetweenSubComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-    }
-
-    private void initButtonsPanel() {
+    protected void initMainPanel() {
         JButton plantingButton;
         JButton wateringButton;
         JButton harvestingButton;
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
         mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.setBackground(Color.WHITE);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         plantingButton = getPlantingButton();
-        mainPanel.add(plantingButton);
+        c.gridy = 0;
+        mainPanel.add(plantingButton, c);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         wateringButton = getWateringButton();
-        mainPanel.add(wateringButton);
+        c.gridy = 1;
+        mainPanel.add(wateringButton, c);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         harvestingButton = getHarvestingButton();
-        mainPanel.add(harvestingButton);
+        c.gridy = 2;
+        mainPanel.add(harvestingButton, c);
     }
 
-    public JPanel getMainPanel() {
-        JPanel panel = initPanel();
+    public JPanel getPanel() {
+        JPanel panel = initPanel(130,130);
 
-        JLabel panelTitle = initTitle();
+        JLabel panelTitle = initTitle("Actions");
         panel.add(panelTitle);
 
         addPaddingBetweenComponents(panel);
 
-        initButtonsPanel();
+        initMainPanel();
         panel.add(mainPanel);
 
         return panel;

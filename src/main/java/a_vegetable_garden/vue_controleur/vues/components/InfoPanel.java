@@ -6,38 +6,13 @@ import a_vegetable_garden.modele.player.Inventory;
 import javax.swing.*;
 import java.awt.*;
 
-public class InfoPanel {
-    private static final Font panelFont = new Font("Arial", Font.BOLD, 14);
-    private static final Font subPanelFont = new Font("Arial", Font.BOLD, 12);
+public class InfoPanel extends Panel {
     private JLabel nbCoins;
-    private JPanel meteoInfos;
     private JLabel actualSaisonLabel;
     private JLabel actualDayLabel;
     private JLabel actualEnsoleillement;
     private JLabel actualHumidite;
     private JLabel actualTempLabel;
-
-    private static JLabel initTitle() {
-        JLabel panelTitle = new JLabel("Informations");
-        panelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTitle.setFont(panelFont);
-        panelTitle.setMinimumSize(new Dimension(100, 20));
-        return panelTitle;
-    }
-
-    private static JPanel initPanel() {
-        JPanel infos = new JPanel();
-        infos.setBackground(Color.WHITE);
-        infos.setPreferredSize(new Dimension(130, 200));
-        int padding = 10;
-        infos.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
-        infos.setLayout(new BoxLayout(infos, BoxLayout.Y_AXIS));
-        return infos;
-    }
-
-    private static void addPaddingBetweenComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-    }
 
     private static JLabel initCoinsLabel() {
         JLabel coinsLabel = new JLabel("Pièces : ");
@@ -53,10 +28,10 @@ public class InfoPanel {
         return meteo;
     }
 
-    public JPanel getInfoPanel() {
-        JPanel panel = initPanel();
+    public JPanel getPanel() {
+        JPanel panel = initPanel(130,200);
 
-        JLabel panelTitle = initTitle();
+        JLabel panelTitle = initTitle("Informations");
         panel.add(panelTitle);
 
         addPaddingBetweenComponents(panel);
@@ -72,60 +47,56 @@ public class InfoPanel {
         JLabel meteo = initMeteoLabel();
         panel.add(meteo);
 
-        initMeteoInfos();
-        panel.add(meteoInfos);
+        initMainPanel();
+        panel.add(mainPanel);
 
         return panel;
     }
 
-    private void initMeteoInfos() {
-        meteoInfos = new JPanel();
-        meteoInfos.setLayout(new BoxLayout(meteoInfos, BoxLayout.Y_AXIS));
-        meteoInfos.setAlignmentX(Component.CENTER_ALIGNMENT);
-        meteoInfos.setBackground(Color.WHITE);
-        addPaddingBetweenSubComponents(meteoInfos);
+    protected void initMainPanel() {
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.setBackground(Color.WHITE);
+        addPaddingBetweenSubComponents(mainPanel);
 
         JLabel saisonLabel = new JLabel("Saison :");
-        meteoInfos.add(saisonLabel);
+        mainPanel.add(saisonLabel);
 
         actualSaisonLabel = new JLabel("Printemps");
-        meteoInfos.add(actualSaisonLabel);
+        mainPanel.add(actualSaisonLabel);
 
-        addPaddingBetweenSubComponents(meteoInfos);
+        addPaddingBetweenSubComponents(mainPanel);
 
         JLabel dayLabel = new JLabel("Jour :");
-        meteoInfos.add(dayLabel);
+        mainPanel.add(dayLabel);
 
         actualDayLabel = new JLabel("3");
-        meteoInfos.add(actualDayLabel);
+        mainPanel.add(actualDayLabel);
 
-        addPaddingBetweenSubComponents(meteoInfos);
+        addPaddingBetweenSubComponents(mainPanel);
 
         JLabel ensoleillementLabel = new JLabel("Ensoleillement :");
-        meteoInfos.add(ensoleillementLabel);
+        mainPanel.add(ensoleillementLabel);
 
         actualEnsoleillement = new JLabel("Ensoleillé");
-        meteoInfos.add(actualEnsoleillement);
+        mainPanel.add(actualEnsoleillement);
 
-        addPaddingBetweenSubComponents(meteoInfos);
+        addPaddingBetweenSubComponents(mainPanel);
 
 
         JLabel humiditeLabel = new JLabel("Humidité :");
-        meteoInfos.add(humiditeLabel);
+        mainPanel.add(humiditeLabel);
 
         actualHumidite = new JLabel("Normal");
-        meteoInfos.add(actualHumidite);
+        mainPanel.add(actualHumidite);
 
-        addPaddingBetweenSubComponents(meteoInfos);
+        addPaddingBetweenSubComponents(mainPanel);
 
         JLabel tempLabel = new JLabel("Température :");
-        meteoInfos.add(tempLabel);
+        mainPanel.add(tempLabel);
         actualTempLabel = new JLabel("25°C");
-        meteoInfos.add(actualTempLabel);
-    }
-
-    private void addPaddingBetweenSubComponents(JPanel panel) {
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        mainPanel.add(actualTempLabel);
     }
 
     private void initNbCoins() {

@@ -60,6 +60,9 @@ public class IconRepository implements Singleton {
         icones.put(IconNames.TERRE, Objects.requireNonNull(chargerIcone("Images/Terre.png")));
         icones.put(IconNames.VIDE, Objects.requireNonNull(chargerIcone("Images/Vide.png")));
         icones.put(IconNames.MUR, Objects.requireNonNull(chargerIcone("Images/Mur.png")));
+        icones.put(IconNames.ARROSER, Objects.requireNonNull(chargerIcone("Images/Arroser.png")));
+        icones.put(IconNames.PLANTER, Objects.requireNonNull(chargerIcone("Images/Planter.png")));
+        icones.put(IconNames.RECOLTER, Objects.requireNonNull(chargerIcone("Images/Recolter.png")));
     }
 
     private ImageIcon chargerIcone(String path) {

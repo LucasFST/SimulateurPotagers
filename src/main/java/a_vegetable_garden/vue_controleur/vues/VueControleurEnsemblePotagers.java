@@ -38,7 +38,7 @@ public class VueControleurEnsemblePotagers extends JPanel implements Observer, V
         add(new JLabel("Liste des potagers"), BorderLayout.NORTH);
         add(getButtonsPotagers(), BorderLayout.CENTER);
         infoPanel = new InfoPanel();
-        add(infoPanel.getInfoPanel(), BorderLayout.EAST);
+        add(infoPanel.getPanel(), BorderLayout.EAST);
         add(new TimeSlider(), BorderLayout.SOUTH);
     }
 

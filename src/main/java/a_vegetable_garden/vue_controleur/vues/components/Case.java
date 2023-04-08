@@ -73,4 +73,8 @@ public class Case extends JPanel {
         return new ImageIcon(tintedImage);
     }
 
+    public void setTooltipInfo(String tooltipInfo) {
+        label.setToolTipText(tooltipInfo);
+    }
+
 }
