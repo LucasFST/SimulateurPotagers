@@ -62,28 +62,34 @@ public class ButtonsPanel extends Panel{
         JButton wateringButton;
         JButton harvestingButton;
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
         mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.setBackground(Color.WHITE);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         plantingButton = getPlantingButton();
-        mainPanel.add(plantingButton);
+        c.gridy = 0;
+        mainPanel.add(plantingButton, c);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         wateringButton = getWateringButton();
-        mainPanel.add(wateringButton);
+        c.gridy = 1;
+        mainPanel.add(wateringButton, c);
 
         addPaddingBetweenSubComponents(mainPanel);
 
         harvestingButton = getHarvestingButton();
-        mainPanel.add(harvestingButton);
+        c.gridy = 2;
+        mainPanel.add(harvestingButton, c);
     }
 
     public JPanel getPanel() {
-        JPanel panel = initPanel();
+        JPanel panel = initPanel(130,130);
 
         JLabel panelTitle = initTitle("Actions");
         panel.add(panelTitle);

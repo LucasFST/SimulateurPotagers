@@ -52,13 +52,12 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
         GridBagConstraints c = new GridBagConstraints();
         infoPanel = new InfoPanel();
         c.fill = GridBagConstraints.BOTH;
-        c.ipady = 50;
-        c.gridx = 0;
         c.gridy = 0;
+        c.weighty = 1;
         panel.add(infoPanel.getPanel(),c);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.gridy = 2;
+        c.weighty = 0;
         panel.add(buttonsPanel.getPanel(),c);
         add(panel, BorderLayout.EAST);
         add(getGoBackButton(), BorderLayout.WEST);

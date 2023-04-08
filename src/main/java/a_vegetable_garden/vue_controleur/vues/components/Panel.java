@@ -16,10 +16,10 @@ public abstract class Panel {
         return panelTitle;
     }
 
-    protected static JPanel initPanel() {
+    protected static JPanel initPanel(int width, int height) {
         JPanel infos = new JPanel();
         infos.setBackground(Color.WHITE);
-        infos.setPreferredSize(new Dimension(130, 200));
+        infos.setPreferredSize(new Dimension(width, height));
         int padding = 10;
         infos.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         infos.setLayout(new BoxLayout(infos, BoxLayout.Y_AXIS));

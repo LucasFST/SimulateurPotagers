@@ -29,7 +29,7 @@ public class InfoPanel extends Panel {
     }
 
     public JPanel getPanel() {
-        JPanel panel = initPanel();
+        JPanel panel = initPanel(130,200);
 
         JLabel panelTitle = initTitle("Informations");
         panel.add(panelTitle);
