@@ -2,6 +2,7 @@ package a_vegetable_garden.vue_controleur.vues.components;
 
 import a_vegetable_garden.modele.legumes.Legume;
 import a_vegetable_garden.modele.potagers.Potager;
+import a_vegetable_garden.modele.potagers.cases.Case;
 import a_vegetable_garden.modele.potagers.cases.CaseCultivable;
 import a_vegetable_garden.modele.potagers.cases.CaseNonCultivable;
 import a_vegetable_garden.vue_controleur.VueManager;
@@ -74,8 +75,51 @@ public class PotagerGrid {
             cases.setIconCase(new Point(x, y), MUR);
         } else {
             cases.setIconCase(new Point(x, y), VIDE);
-
         }
+
+        setCaseTooltip(x, y);
+    }
+
+    private void setCaseTooltip(int x, int y) {
+        Case _case = potager.getPlateau()[x][y];
+        if (_case instanceof CaseNonCultivable) {
+            setTooltipMur(x, y);
+        } else if (_case instanceof CaseCultivable caseCultivable) {
+            setTooltipCaseCultivable(x, y, caseCultivable);
+        }
+    }
+
+    private void setTooltipCaseCultivable(int x, int y, CaseCultivable caseCultivable) {
+        String tooltip = "<html>";
+        tooltip += "<strong>Case cultivable</strong></br>";
+
+        tooltip += setPercentTooltip("Humidité", caseCultivable.getTauxHumidite());
+        tooltip += setPercentTooltip("Ensoleillement", caseCultivable.getTauxEnsoleillement());
+
+        Legume legume = caseCultivable.getLegume();
+        if (legume != null) {
+            tooltip += "<p>Legume : " + legume.getVariete() + "</p>";
+            tooltip += setPercentTooltip("Etat de vie", (float) legume.getEtatVie());
+            tooltip += setPercentTooltip("Etat de croissance", (float) legume.getEtatCroissance());
+        } else {
+            tooltip += "<p>Pas de legume</p>";
+        }
+
+        tooltip += "</html>";
+        cases.getCase(new Point(x, y)).setTooltipInfo(tooltip);
+    }
+
+    private void setTooltipMur(int x, int y) {
+        String murTooltip = "<html><strong>Mur</strong></html>";
+        cases.getCase(new Point(x, y)).setTooltipInfo(murTooltip);
+    }
+
+    private String setPercentTooltip(String name, float value) {
+        return "<p>" + name + " : " + floatToPercent(value) + "%</p>";
+    }
+
+    private int floatToPercent(float value) {
+        return (int) (value * 100);
     }
 
     public void updatePotagerVue(VueControleurPotager vueControleurPotager) {
