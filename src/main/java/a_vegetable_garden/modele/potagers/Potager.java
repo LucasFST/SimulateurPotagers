@@ -21,7 +21,7 @@ public class Potager implements Serializable {
     private final int sizeX;
     private final int sizeY;
     private final int id;
-    private final Random random = new Random();
+    //private final Random random = new Random();
     private String name = "Potager";
     private Color buttonColor = Color.WHITE;
     private Map<Point, Case> grilleCases = new LinkedHashMap<>(); // permet de récupérer une entité à partir de ses coordonnées
@@ -90,15 +90,13 @@ public class Potager implements Serializable {
             for (int y = 1; y < sizeY - 1; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
                 setCase(cc, new Point(x, y));
+                /* Initialiser le potager avec des légumes de base => pour tester
                 if (random.nextBoolean()) {
                     cc.actionUtilisateur(Actions.PLANTER, Varietes.values()[random.nextInt(Varietes.values().length)]);
-                }
+                }*/
                 Ordonnanceur.getInstance().addRunnable(cc);
             }
         }
-
-        setCase(new CaseNonCultivable(this), new Point(2, 6));
-        setCase(new CaseNonCultivable(this), new Point(3, 6));
     }
 
     public String actionUtilisateur(Actions action, Varietes variete, Point p) {

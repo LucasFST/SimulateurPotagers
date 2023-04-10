@@ -5,7 +5,7 @@ import a_vegetable_garden.modele.Singleton;
 import java.io.Serializable;
 
 public class Inventory implements Singleton, Serializable {
-    private static final float DEFAULT_NB_COINS = 200;
+    private static final float DEFAULT_NB_COINS = 80;
 
     private static Inventory instance;
     private float nbCoins;
