@@ -18,7 +18,6 @@ public class ButtonsPanel extends Panel{
         plantingButton.setFont(subPanelFont);
         plantingButton.setEnabled(true);
         plantingButton.addActionListener(e -> {
-            // Passer en mode plantation
             currentAction = Actions.PLANTER;
             // Récupérer les boutons des variétés
             JButton[] buttons = ButtonsInfosLegume.getInstance().getButtons();
