@@ -47,6 +47,12 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
     public void addComponents() {
         add(potagerGrid.getGridPanel(), BorderLayout.CENTER);
         add(new TimeSlider(), BorderLayout.SOUTH);
+        addPanels();
+        add(getGoBackButton(), BorderLayout.WEST);
+        add(getPotagerNb(), BorderLayout.NORTH);
+    }
+
+    private void addPanels() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -54,14 +60,12 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
         c.fill = GridBagConstraints.BOTH;
         c.gridy = 0;
         c.weighty = 1;
-        panel.add(infoPanel.getPanel(),c);
+        panel.add(infoPanel.getPanel(), c);
         c.fill = GridBagConstraints.BOTH;
         c.gridy = 2;
         c.weighty = 0;
-        panel.add(buttonsPanel.getPanel(),c);
+        panel.add(buttonsPanel.getPanel(), c);
         add(panel, BorderLayout.EAST);
-        add(getGoBackButton(), BorderLayout.WEST);
-        add(getPotagerNb(), BorderLayout.NORTH);
     }
 
     @Override
