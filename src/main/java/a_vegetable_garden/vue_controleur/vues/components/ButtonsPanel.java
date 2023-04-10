@@ -20,19 +20,29 @@ public class ButtonsPanel extends Panel{
         plantingButton.addActionListener(e -> {
             // Passer en mode plantation
             currentAction = Actions.PLANTER;
+            // Récupérer les boutons des variétés
+            JButton[] buttons = ButtonsInfosLegume.getInstance().getButtons();
             // Ouvrir la fenêtre de plantation ici
-            ImageIcon[] icones = new ImageIcon[Varietes.values().length];
-            for (int i = 0; i < Varietes.values().length; i++) {
-                icones[i] = IconRepository.getInstance().getIcone(IconNames.values()[i]);
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Fenêtre de plantation");
+            dialog.setLayout(new GridLayout(0, 1)); // 1 colonne, nombre de lignes automatique
+            for (JButton button : buttons) {
+                dialog.add(button);
             }
-            int optionSelected = JOptionPane.showOptionDialog(null, "Fenêtre de plantation",
-                    "Planter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, icones, null);
-            switch (optionSelected) {
-                //Les IconNames sont dans le même ordre que les Varietes dans l'enum
-                case 0 -> currentVariete = Varietes.values()[0];
-                case 1 -> currentVariete = Varietes.values()[1];
-                default -> currentVariete = null;
+            // Ajouter un ActionListener à chaque bouton pour fermer le JDialog et récupérer l'index du bouton cliqué
+            for (int i = 0; i < buttons.length; i++) {
+                int finalI = i;
+                buttons[i].addActionListener(e1 -> {
+                    dialog.dispose(); // Fermer la boîte de dialogue
+                    // Ordre des boutons = ordre des variétés
+                    currentVariete = Varietes.values()[finalI];
+                });
             }
+            // Afficher la boîte de dialogue modale
+            dialog.setModal(true);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null); // Centrer la boîte de dialogue
+            dialog.setVisible(true);
         });
         return plantingButton;
     }
