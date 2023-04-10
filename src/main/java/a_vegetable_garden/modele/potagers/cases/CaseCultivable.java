@@ -34,7 +34,7 @@ public class CaseCultivable extends Case implements Serializable {
                 return null;
             }
             case ARROSER -> {
-                setTauxHumidite(tauxHumidite + 0.1f);
+                doWatering();
                 return null;
             }
             case PLANTER -> {
@@ -44,6 +44,11 @@ public class CaseCultivable extends Case implements Serializable {
                 return null;
             }
         }
+    }
+
+    private void doWatering() {
+        float wateringIncrement = 0.3f;
+        setTauxHumidite(tauxHumidite + wateringIncrement);
     }
 
     private void cultiverLegume() {
