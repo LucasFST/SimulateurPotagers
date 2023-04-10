@@ -9,7 +9,6 @@ import a_vegetable_garden.modele.potagers.cases.CaseCultivable;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import static a_vegetable_garden.modele.meteo.Ensoleillement.PEU_NUAGEUX;
 import static a_vegetable_garden.modele.meteo.Humidite.NORMAL;
@@ -52,9 +51,6 @@ public class SimulateurMeteo implements Runnable, Serializable {
         updateEnsoleillement();
         updateHumidite();
         updateTemperature();
-        if (oldEnsoleillement != ensoleillement || oldHumidite != humidite || oldTemperature != temperature) {
-            Logger.getLogger("SimulateurMeteo").info("Météo changée: " + saison + ", " + ensoleillement + ", " + humidite + ", " + temperature + "°C");
-        }
     }
 
     private void updateSaison() {
@@ -63,7 +59,6 @@ public class SimulateurMeteo implements Runnable, Serializable {
         if (currentDay >= daysPerSeason) {
             currentDay = 0;
             saison = saison.next();
-            Logger.getLogger("SimulateurMeteo").info("Saison changée: " + saison);
         }
     }
 
