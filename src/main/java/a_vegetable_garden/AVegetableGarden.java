@@ -3,11 +3,11 @@ package a_vegetable_garden;
 import a_vegetable_garden.modele.Ordonnanceur;
 import a_vegetable_garden.modele.save_load.SaveAndLoad;
 import a_vegetable_garden.vue_controleur.VueManager;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 public class AVegetableGarden {
     public static void main(String[] args) {
-        FlatLightLaf.setup(); // look and feel
+        FlatMacLightLaf.setup(); // look and feel
         System.setProperty("apple.laf.useScreenMenuBar", "true"); // sur mac, pour que le menu soit dans la barre du haut
 
         VueManager.getInstance(); // init vue manager
