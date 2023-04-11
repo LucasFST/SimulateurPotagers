@@ -112,6 +112,7 @@ public class CaseCultivable extends Case implements Serializable {
             this.tauxEnsoleillement = 0;
         else if (tauxEnsoleillement > 1)
             this.tauxEnsoleillement = 1;
+        else this.tauxEnsoleillement = tauxEnsoleillement;
     }
 
     public float getLegumeVie() {
