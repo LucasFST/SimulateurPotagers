@@ -30,8 +30,7 @@ public class CaseCultivable extends Case implements Serializable {
         if (action == null) return null;
         switch (action) {
             case RECOLTER -> {
-                cultiverLegume();
-                return null;
+                return cultiverLegume();
             }
             case ARROSER -> {
                 doWatering();
@@ -51,10 +50,11 @@ public class CaseCultivable extends Case implements Serializable {
         setTauxHumidite(tauxHumidite + wateringIncrement);
     }
 
-    private void cultiverLegume() {
-        if (legume == null) return;
+    private String cultiverLegume() {
+        if (legume == null) return "Case vide : rien à récolter";
         Inventory.getInstance().addCoins(legume.getCoinValue());
         legume = null;
+        return null;
     }
 
     private String planterLegume(Varietes variete) {
