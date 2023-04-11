@@ -1,4 +1,4 @@
-package a_vegetable_garden.vue_controleur.vues.components;
+package a_vegetable_garden.modele.potagers;
 
 public enum Actions {
     PLANTER,
