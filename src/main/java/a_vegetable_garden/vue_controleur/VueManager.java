@@ -163,7 +163,7 @@ public final class VueManager extends JFrame implements Singleton {
                 return;
             }
         }
-        Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(imageIcon.getImage(), new Point(0, 0), "potager action cursor");
+        Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(imageIcon.getImage(), new Point(8, 8), "potager action cursor");
         setCursor(cursor);
     }
 }
