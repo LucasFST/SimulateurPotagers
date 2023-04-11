@@ -3,7 +3,7 @@ package a_vegetable_garden.vue_controleur.vues;
 import a_vegetable_garden.modele.Ordonnanceur;
 import a_vegetable_garden.modele.potagers.Potager;
 import a_vegetable_garden.vue_controleur.VueManager;
-import a_vegetable_garden.vue_controleur.vues.components.ButtonsPanel;
+import a_vegetable_garden.vue_controleur.vues.components.ActionsButtonsPanel;
 import a_vegetable_garden.vue_controleur.vues.components.InfoPanel;
 import a_vegetable_garden.vue_controleur.vues.components.PotagerGrid;
 import a_vegetable_garden.vue_controleur.vues.components.TimeSlider;
@@ -22,7 +22,7 @@ import java.util.Observer;
 public class VueControleurPotager extends JPanel implements Observer, VueControleur {
     // taille de la grille affichée
     public final VueControleurEnsemblePotagers vueControleurEnsemblePotagers;
-    public final ButtonsPanel buttonsPanel;
+    public final ActionsButtonsPanel buttonsPanel;
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     private final PotagerGrid potagerGrid;
     public InfoPanel infoPanel;
@@ -30,7 +30,7 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
     public VueControleurPotager(Potager pota, VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
         super();
-        buttonsPanel = new ButtonsPanel();
+        buttonsPanel = new ActionsButtonsPanel();
         this.potagerGrid = new PotagerGrid(pota, buttonsPanel);
         potager = pota;
 
@@ -81,7 +81,10 @@ public class VueControleurPotager extends JPanel implements Observer, VueControl
 
     public JComponent getGoBackButton() {
         JButton goBack = new JButton("Retour");
-        goBack.addActionListener(e -> VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers));
+        goBack.addActionListener(e -> {
+            VueManager.getInstance().setVueControleurEnsemblePotagers(vueControleurEnsemblePotagers);
+            VueManager.getInstance().setDefaultCursor();
+        });
         return goBack;
     }
 

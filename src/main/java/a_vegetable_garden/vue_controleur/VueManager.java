@@ -1,7 +1,10 @@
 package a_vegetable_garden.vue_controleur;
 
 import a_vegetable_garden.modele.Singleton;
+import a_vegetable_garden.modele.potagers.Actions;
 import a_vegetable_garden.modele.save_load.SaveAndLoad;
+import a_vegetable_garden.vue_controleur.icon.IconNames;
+import a_vegetable_garden.vue_controleur.icon.IconRepository;
 import a_vegetable_garden.vue_controleur.vues.VueControleurEnsemblePotagers;
 import a_vegetable_garden.vue_controleur.vues.VueControleurPotager;
 import a_vegetable_garden.vue_controleur.vues.windows.LoadWindow;
@@ -9,6 +12,7 @@ import a_vegetable_garden.vue_controleur.vues.windows.SaveWindow;
 import a_vegetable_garden.vue_controleur.vues.windows.edit_potager.EditPotagersWindow;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Logger;
 
 public final class VueManager extends JFrame implements Singleton {
@@ -140,7 +144,26 @@ public final class VueManager extends JFrame implements Singleton {
         JOptionPane.showMessageDialog(this, warningMessage, "Attention", JOptionPane.WARNING_MESSAGE);
     }
 
-    public void UpdatePotagerList() {
+    public void updatePotagerList() {
         vueControleurEnsemblePotagers.updatePotagersName();
+    }
+
+    public void setDefaultCursor() {
+        setCursor(Cursor.getDefaultCursor());
+    }
+
+    public void changeCursor(Actions action) {
+        ImageIcon imageIcon = null;
+        switch (action) {
+            case PLANTER -> imageIcon = IconRepository.getInstance().getIcone(IconNames.PLANTER);
+            case ARROSER -> imageIcon = IconRepository.getInstance().getIcone(IconNames.ARROSER);
+            case RECOLTER -> imageIcon = IconRepository.getInstance().getIcone(IconNames.RECOLTER);
+            default -> {
+                setDefaultCursor();
+                return;
+            }
+        }
+        Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(imageIcon.getImage(), new Point(0, 0), "potager action cursor");
+        setCursor(cursor);
     }
 }
