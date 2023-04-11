@@ -1,8 +1,8 @@
 package a_vegetable_garden.modele.potagers.cases;
 
 import a_vegetable_garden.modele.legumes.Varietes;
+import a_vegetable_garden.modele.potagers.Actions;
 import a_vegetable_garden.modele.potagers.Potager;
-import a_vegetable_garden.vue_controleur.vues.components.Actions;
 
 import java.io.Serializable;
 

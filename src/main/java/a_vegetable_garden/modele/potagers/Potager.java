@@ -5,13 +5,11 @@ import a_vegetable_garden.modele.legumes.Varietes;
 import a_vegetable_garden.modele.potagers.cases.Case;
 import a_vegetable_garden.modele.potagers.cases.CaseCultivable;
 import a_vegetable_garden.modele.potagers.cases.CaseNonCultivable;
-import a_vegetable_garden.vue_controleur.vues.components.Actions;
 
 import java.awt.*;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Potager implements Serializable {
 
