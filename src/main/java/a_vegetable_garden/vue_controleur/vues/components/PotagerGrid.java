@@ -21,11 +21,11 @@ public class PotagerGrid {
     private final int sizeX;
     private final int sizeY;
     private final Potager potager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
-    private final ButtonsPanel buttonsPanel;
+    private final ActionsButtonsPanel buttonsPanel;
     private Cases cases;
 
 
-    public PotagerGrid(Potager potager, ButtonsPanel buttonsPanel) {
+    public PotagerGrid(Potager potager, ActionsButtonsPanel buttonsPanel) {
         this.sizeX = potager.getSizeX();
         this.sizeY = potager.getSizeY();
         this.potager = potager;
@@ -37,6 +37,7 @@ public class PotagerGrid {
         gridLayout.setHgap(2);
         gridLayout.setVgap(2);
         JComponent grilleCases = new JPanel(gridLayout);
+        grilleCases.setBackground(new Color(212, 175, 133));
 
         cases = new Cases(sizeX, sizeY);
 
@@ -76,6 +77,8 @@ public class PotagerGrid {
         } else {
             cases.setIconCase(new Point(x, y), VIDE);
         }
+
+        cases.updateAllCasesBackground(potager);
 
         setCaseTooltip(x, y);
     }

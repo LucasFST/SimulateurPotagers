@@ -17,11 +17,27 @@ public class Case extends JPanel {
     public Case() {
         super();
         this.label = new JLabel();
-        setBackground(Color.GREEN);
+        setBackGroundColor(0);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
         setIcon(VIDE);
         add(label);
+    }
+
+    public void updateBackgroundAlpha(float humidite) {
+        int minimumAlpha = 20;
+        int alpha = (int) (255 * humidite);
+        if (alpha > 255) {
+            alpha = 255;
+        } else if (alpha < minimumAlpha) {
+            alpha = minimumAlpha;
+        }
+        setBackGroundColor(alpha);
+    }
+
+    private void setBackGroundColor(int alpha) {
+        Color color = new Color(99, 96, 69, alpha);
+        setBackground(color);
     }
 
     public void setIcon(IconNames iconNames) {
