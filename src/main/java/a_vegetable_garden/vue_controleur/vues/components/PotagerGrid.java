@@ -102,8 +102,10 @@ public class PotagerGrid {
         Legume legume = caseCultivable.getLegume();
         if (legume != null) {
             tooltip += "<p>Legume : " + legume.getVariete() + "</p>";
+            /* Pour débug
             tooltip += setPercentTooltip("Etat de vie", (float) legume.getEtatVie());
-            tooltip += setPercentTooltip("Etat de croissance", (float) legume.getEtatCroissance());
+            tooltip += setPercentTooltip("Etat de croissance", (float) legume.getEtatCroissance());*/
+            tooltip += setPercentTooltip("Qualité du légume", (float) legume.getQualite());
         } else {
             tooltip += "<p>Pas de legume</p>";
         }
