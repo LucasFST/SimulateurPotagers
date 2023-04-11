@@ -40,7 +40,11 @@ public class ActionsButtonsPanel extends Panel {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFont(subPanelFont);
         button.setEnabled(true);
-        VueManager.getInstance().changeCursor(Actions.RECOLTER);
+        if(currentAction != null) {
+            VueManager.getInstance().changeCursor(currentAction);
+        } else {
+            VueManager.getInstance().setDefaultCursor();
+        }
         button.addActionListener(actionListener);
         return button;
     }
