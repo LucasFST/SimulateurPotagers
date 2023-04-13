@@ -40,7 +40,7 @@ public class ActionsButtonsPanel extends Panel {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFont(subPanelFont);
         button.setEnabled(true);
-        if(currentAction != null) {
+        if (currentAction != null) {
             VueManager.getInstance().changeCursor(currentAction);
         } else {
             VueManager.getInstance().setDefaultCursor();
@@ -50,7 +50,10 @@ public class ActionsButtonsPanel extends Panel {
     }
 
     private static void planterOnClick() {
-        setAction(Actions.PLANTER);
+        if (!setAction(Actions.PLANTER)) {
+            return;
+        }
+
         // Récupérer les boutons des variétés
         JButton[] buttons = ButtonsSelectVariete.getInstance().getButtons();
         // Ouvrir la fenêtre de plantation ici
@@ -74,6 +77,17 @@ public class ActionsButtonsPanel extends Panel {
         dialog.pack();
         dialog.setLocationRelativeTo(null); // Centrer la boîte de dialogue
         dialog.setVisible(true);
+    }
+
+    private static boolean setAction(Actions action) {
+        if (currentAction == action) {
+            currentAction = null;
+            VueManager.getInstance().setDefaultCursor();
+            return false;
+        }
+        currentAction = action;
+        VueManager.getInstance().changeCursor(action);
+        return true;
     }
 
     protected void initMainPanel() {
@@ -120,11 +134,6 @@ public class ActionsButtonsPanel extends Panel {
 
     public Actions getAction() {
         return currentAction;
-    }
-
-    private static void setAction(Actions action) {
-        currentAction = action;
-        VueManager.getInstance().changeCursor(action);
     }
 
     public Varietes getCurrentVariete() {
