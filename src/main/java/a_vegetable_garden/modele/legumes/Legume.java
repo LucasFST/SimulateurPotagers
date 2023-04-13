@@ -85,7 +85,7 @@ public abstract class Legume implements Serializable {
             numBadConditions++;
         }
         if (!isValueInRange(tauxEnsoleillement, TAUX_ENSOLEILLEMENT_MIN, TAUX_ENSOLEILLEMENT_MAX)) {
-            etatVie -= ETAT_VIE_INCREMENT;
+            etatVie -= ETAT_VIE_DECREMENT;
             numBadConditions++;
         }
 
