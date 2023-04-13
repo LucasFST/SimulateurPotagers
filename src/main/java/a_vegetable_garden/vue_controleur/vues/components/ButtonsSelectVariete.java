@@ -4,6 +4,7 @@ import a_vegetable_garden.modele.Singleton;
 import a_vegetable_garden.modele.legumes.Carotte;
 import a_vegetable_garden.modele.legumes.Salade;
 import a_vegetable_garden.modele.legumes.Varietes;
+import a_vegetable_garden.modele.player.Inventory;
 import a_vegetable_garden.vue_controleur.icon.IconNames;
 import a_vegetable_garden.vue_controleur.icon.IconRepository;
 
@@ -15,7 +16,9 @@ public class ButtonsSelectVariete implements Singleton, Serializable {
     private final JButton[] buttons = new JButton[Varietes.values().length];
     private final ImageIcon[] icones = new ImageIcon[Varietes.values().length];
     private final String[] noms = new String[Varietes.values().length];
-    private final String[] prix = new String[Varietes.values().length];
+    private final float[] prix = new float[Varietes.values().length];
+
+    private float lastTimeCoinsNb = -1;
 
     public ButtonsSelectVariete() {
         chargerButtons();
@@ -29,7 +32,21 @@ public class ButtonsSelectVariete implements Singleton, Serializable {
     }
 
     public JButton[] getButtons() {
+        updateButtonsIfCoinsNbChanged();
         return buttons;
+    }
+
+    private void updateButtonsIfCoinsNbChanged() {
+        if (lastTimeCoinsNb != Inventory.getInstance().getNbCoins()) {
+            updateButtonsEnabling();
+            lastTimeCoinsNb = Inventory.getInstance().getNbCoins();
+        }
+    }
+
+    private void updateButtonsEnabling() {
+        for (int i = 0; i < Varietes.values().length; i++) {
+            buttons[i].setEnabled(Inventory.getInstance().getNbCoins() >= prix[i]);
+        }
     }
 
     private void chargerIcones() {
@@ -48,8 +65,8 @@ public class ButtonsSelectVariete implements Singleton, Serializable {
 
     private void chargerPrix() {
         //Ordre = ordre des variétés dans l'enum Varietes
-        prix[0] = Float.toString(Salade.PRICE);
-        prix[1] = Float.toString(Carotte.PRICE);
+        prix[0] = Salade.PRICE;
+        prix[1] = Carotte.PRICE;
     }
 
     private void chargerButtons() {
@@ -59,6 +76,9 @@ public class ButtonsSelectVariete implements Singleton, Serializable {
         // Ordre des boutons dans le tableau = Ordre des variétés dans l'enum Varietes
         for (int i = 0; i < Varietes.values().length; i++) {
             buttons[i] = new JButton(noms[i] + " : " + prix[i] + " pièces", icones[i]);
+
+            buttons[i].setEnabled(Inventory.getInstance().getNbCoins() >= prix[i]);
+
             buttons[i].setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         }
     }
