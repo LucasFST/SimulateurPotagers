@@ -1,6 +1,8 @@
 package a_vegetable_garden.vue_controleur.vues.windows.edit_potager;
 
 import a_vegetable_garden.modele.potagers.Potager;
+import a_vegetable_garden.vue_controleur.VueManager;
+import a_vegetable_garden.vue_controleur.vues.VueControleurPotager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,6 +60,7 @@ public class EditName extends JFrame {
                 return;
             }
             potager.setName(potagerName);
+            VueManager.getInstance().setVueControleurPotager(new VueControleurPotager(potager, VueManager.getInstance().getVueControleurEnsemblePotagers()));
             dispose();
         }
     }

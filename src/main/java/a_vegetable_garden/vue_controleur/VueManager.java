@@ -44,6 +44,19 @@ public final class VueManager extends JFrame implements Singleton {
         fichierMenu.add(sauvegarderMenuItem);
     }
 
+    public VueControleurEnsemblePotagers getVueControleurEnsemblePotagers() {
+        return vueControleurEnsemblePotagers;
+    }
+
+    public void setVueControleurEnsemblePotagers(VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
+        this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
+        reset();
+        getContentPane().add(vueControleurEnsemblePotagers);
+        revalidate();
+        repaint();
+        setVisible(true);
+    }
+
     private void warnSaveOnClose() {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -118,19 +131,9 @@ public final class VueManager extends JFrame implements Singleton {
         initWindow();
     }
 
-
     public void setVueControleurPotager(VueControleurPotager vueControleurPotager) {
         reset();
         getContentPane().add(vueControleurPotager);
-        revalidate();
-        repaint();
-        setVisible(true);
-    }
-
-    public void setVueControleurEnsemblePotagers(VueControleurEnsemblePotagers vueControleurEnsemblePotagers) {
-        this.vueControleurEnsemblePotagers = vueControleurEnsemblePotagers;
-        reset();
-        getContentPane().add(vueControleurEnsemblePotagers);
         revalidate();
         repaint();
         setVisible(true);
