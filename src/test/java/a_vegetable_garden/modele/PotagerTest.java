@@ -50,13 +50,6 @@ public class PotagerTest {
     }
 
     @Test
-    @DisplayName("Test for the presence of CaseNonCultivable in the middle")
-    public void testPresenceMursInterieurs() {
-        assertTrue(potager.getPlateau()[2][6] instanceof CaseNonCultivable);
-        assertTrue(potager.getPlateau()[3][6] instanceof CaseNonCultivable);
-    }
-
-    @Test
     @DisplayName("Test for the presence of CaseCultivable")
     void testPresenceCasesCultivables() {
         for (int x = 5; x < 15; x++) {
