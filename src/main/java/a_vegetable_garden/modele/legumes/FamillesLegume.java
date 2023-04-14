@@ -10,42 +10,43 @@ public enum FamillesLegume {
     LEGUME_A_BULBES(0f, 0.5f, 0f, 0.5f, 10f, 25f), //ail
     LEGUME_A_TIGES(0f, 0.5f, 0.5f, 1f, 10f, 30f); //asperge
 
-    private final float humidite_min;
-    private final float humidite_max;
-    private final float ensoleillement_min;
-    private final float ensoleillement_max;
-    private final float temperature_min;
-    private final float temperature_max;
-    FamillesLegume(float humidite_min, float humidite_max, float ensoleillement_min, float ensoleillement_max, float temperature_min, float temperature_max) {
-        this.humidite_min = humidite_min;
-        this.humidite_max = humidite_max;
-        this.ensoleillement_min = ensoleillement_min;
-        this.ensoleillement_max = ensoleillement_max;
-        this.temperature_min = temperature_min;
-        this.temperature_max = temperature_max;
+    private final float humiditeMin;
+    private final float humiditeMax;
+    private final float ensoleillementMin;
+    private final float ensoleillementMax;
+    private final float temperatureMin;
+    private final float temperatureMax;
+
+    FamillesLegume(float humiditeMin, float humiditeMax, float ensoleillementMin, float ensoleillementMax, float temperatureMin, float temperatureMax) {
+        this.humiditeMin = humiditeMin;
+        this.humiditeMax = humiditeMax;
+        this.ensoleillementMin = ensoleillementMin;
+        this.ensoleillementMax = ensoleillementMax;
+        this.temperatureMin = temperatureMin;
+        this.temperatureMax = temperatureMax;
     }
 
     float getHumiditeMin() {
-        return humidite_min;
+        return humiditeMin;
     }
 
     float getHumiditeMax() {
-        return humidite_max;
+        return humiditeMax;
     }
 
     float getEnsoleillementMin() {
-        return ensoleillement_min;
+        return ensoleillementMin;
     }
 
     float getEnsoleillementMax() {
-        return ensoleillement_max;
+        return ensoleillementMax;
     }
 
     float getTemperatureMin() {
-        return temperature_min;
+        return temperatureMin;
     }
 
     float getTemperatureMax() {
-        return temperature_max;
+        return temperatureMax;
     }
 }
