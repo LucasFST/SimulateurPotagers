@@ -1,9 +1,6 @@
 package a_vegetable_garden.modele.potagers.cases;
 
-import a_vegetable_garden.modele.legumes.Carotte;
-import a_vegetable_garden.modele.legumes.Legume;
-import a_vegetable_garden.modele.legumes.Salade;
-import a_vegetable_garden.modele.legumes.Varietes;
+import a_vegetable_garden.modele.legumes.*;
 import a_vegetable_garden.modele.player.Inventory;
 import a_vegetable_garden.modele.potagers.Actions;
 import a_vegetable_garden.modele.potagers.Potager;
@@ -74,6 +71,38 @@ public class CaseCultivable extends Case implements Serializable {
                         return null;
                     } else {
                         return notEnoughCoinsMessage(Salade.PRICE);
+                    }
+                }
+                case TOMATE -> {
+                    if (Inventory.getInstance().removeCoinsIfEnough(Tomate.PRICE)) {
+                        legume = new Salade();
+                        return null;
+                    } else {
+                        return notEnoughCoinsMessage(Tomate.PRICE);
+                    }
+                }
+                case MAIS -> {
+                    if (Inventory.getInstance().removeCoinsIfEnough(Mais.PRICE)) {
+                        legume = new Mais();
+                        return null;
+                    } else {
+                        return notEnoughCoinsMessage(Mais.PRICE);
+                    }
+                }
+                case AIL -> {
+                    if (Inventory.getInstance().removeCoinsIfEnough(Ail.PRICE)) {
+                        legume = new Ail();
+                        return null;
+                    } else {
+                        return notEnoughCoinsMessage(Ail.PRICE);
+                    }
+                }
+                case ASPERGE -> {
+                    if (Inventory.getInstance().removeCoinsIfEnough(Asperge.PRICE)) {
+                        legume = new Asperge();
+                        return null;
+                    } else {
+                        return notEnoughCoinsMessage(Asperge.PRICE);
                     }
                 }
                 default -> {
