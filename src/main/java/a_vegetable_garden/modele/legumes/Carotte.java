@@ -6,8 +6,7 @@ public class Carotte extends Legume {
 
     public Carotte() {
         super();
-        temperatureMin = 15;
-        temperatureMax = 25;
+        famille = FamillesLegume.LEGUME_RACINES;
     }
 
     @Override

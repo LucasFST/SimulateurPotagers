@@ -6,8 +6,7 @@ public class Salade extends Legume {
 
     public Salade() {
         super();
-        temperatureMin = 10;
-        temperatureMax = 35;
+        famille = FamillesLegume.LEGUME_FEUILLES;
     }
 
     @Override
