@@ -119,17 +119,17 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private void applyHumidite(CaseCultivable caseCultivable) {
         float tauxHumidite = caseCultivable.getTauxHumidite();
         if (humidite == Humidite.FORTE_PLUIE) {
-            tauxHumidite += 0.1f;
-        } else if (humidite == Humidite.PLUIE) {
-            tauxHumidite += 0.05f;
-        } else if (humidite == Humidite.HUMIDE) {
             tauxHumidite += 0.02f;
+        } else if (humidite == Humidite.PLUIE) {
+            tauxHumidite += 0.01f;
+        } else if (humidite == Humidite.HUMIDE) {
+            tauxHumidite += 0.005f;
         } else if (humidite == Humidite.SEC) {
-            tauxHumidite -= 0.02f;
+            tauxHumidite -= 0.005f;
         } else if (humidite == Humidite.TRES_SEC) {
-            tauxHumidite -= 0.05f;
+            tauxHumidite -= 0.01f;
         } else if (humidite == Humidite.SECHERESSE) {
-            tauxHumidite -= 0.1f;
+            tauxHumidite -= 0.02f;
         }
 
         caseCultivable.setTauxHumidite(tauxHumidite);
