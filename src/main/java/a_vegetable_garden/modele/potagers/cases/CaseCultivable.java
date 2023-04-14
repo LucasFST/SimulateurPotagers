@@ -43,7 +43,7 @@ public class CaseCultivable extends Case implements Serializable {
     }
 
     private void doWatering() {
-        float wateringIncrement = 0.3f;
+        float wateringIncrement = 0.2f;
         setTauxHumidite(tauxHumidite + wateringIncrement);
     }
 

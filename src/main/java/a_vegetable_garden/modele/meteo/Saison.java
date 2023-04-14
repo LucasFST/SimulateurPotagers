@@ -49,29 +49,29 @@ public enum Saison {
         switch (this) {
             case PRINTEMPS, AUTOMNE -> {
                 chanceHumidite.put(Humidite.FORTE_PLUIE, 0.1f);
-                chanceHumidite.put(Humidite.PLUIE, 0.2f);
-                chanceHumidite.put(Humidite.HUMIDE, 0.3f);
+                chanceHumidite.put(Humidite.PLUIE, 0.15f);
+                chanceHumidite.put(Humidite.HUMIDE, 0.2f);
                 chanceHumidite.put(Humidite.NORMAL, 0.2f);
-                chanceHumidite.put(Humidite.SEC, 0.1f);
-                chanceHumidite.put(Humidite.TRES_SEC, 0.1f);
+                chanceHumidite.put(Humidite.SEC, 0.2f);
+                chanceHumidite.put(Humidite.TRES_SEC, 0.15f);
                 chanceHumidite.put(Humidite.SECHERESSE, 0.0f);
             }
             case ETE -> {
-                chanceHumidite.put(Humidite.FORTE_PLUIE, 0.05f);
+                chanceHumidite.put(Humidite.FORTE_PLUIE, 0.0f);
                 chanceHumidite.put(Humidite.PLUIE, 0.1f);
                 chanceHumidite.put(Humidite.HUMIDE, 0.1f);
                 chanceHumidite.put(Humidite.NORMAL, 0.2f);
-                chanceHumidite.put(Humidite.SEC, 0.3f);
+                chanceHumidite.put(Humidite.SEC, 0.25f);
                 chanceHumidite.put(Humidite.TRES_SEC, 0.2f);
-                chanceHumidite.put(Humidite.SECHERESSE, 0.05f);
+                chanceHumidite.put(Humidite.SECHERESSE, 0.15f);
             }
             case HIVER -> {
-                chanceHumidite.put(Humidite.FORTE_PLUIE, 0.1f);
-                chanceHumidite.put(Humidite.PLUIE, 0.3f);
-                chanceHumidite.put(Humidite.HUMIDE, 0.3f);
+                chanceHumidite.put(Humidite.FORTE_PLUIE, 0.15f);
+                chanceHumidite.put(Humidite.PLUIE, 0.2f);
+                chanceHumidite.put(Humidite.HUMIDE, 0.25f);
                 chanceHumidite.put(Humidite.NORMAL, 0.2f);
                 chanceHumidite.put(Humidite.SEC, 0.1f);
-                chanceHumidite.put(Humidite.TRES_SEC, 0.0f);
+                chanceHumidite.put(Humidite.TRES_SEC, 0.1f);
                 chanceHumidite.put(Humidite.SECHERESSE, 0.0f);
             }
             default -> throw new IllegalStateException("Unexpected value: " + this);
