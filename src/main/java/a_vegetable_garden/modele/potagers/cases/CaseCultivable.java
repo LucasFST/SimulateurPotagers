@@ -58,52 +58,22 @@ public class CaseCultivable extends Case implements Serializable {
         if ((legume == null) && (variete != null)) {
             switch (variete) {
                 case CAROTTE -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Carotte.PRICE)) {
-                        legume = new Carotte();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Carotte.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Carotte());
                 }
                 case SALADE -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Salade.PRICE)) {
-                        legume = new Salade();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Salade.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Salade());
                 }
                 case TOMATE -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Tomate.PRICE)) {
-                        legume = new Tomate();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Tomate.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Tomate());
                 }
                 case MAIS -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Mais.PRICE)) {
-                        legume = new Mais();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Mais.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Mais());
                 }
                 case AIL -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Ail.PRICE)) {
-                        legume = new Ail();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Ail.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Ail());
                 }
                 case ASPERGE -> {
-                    if (Inventory.getInstance().removeCoinsIfEnough(Asperge.PRICE)) {
-                        legume = new Asperge();
-                        return null;
-                    } else {
-                        return notEnoughCoinsMessage(Asperge.PRICE);
-                    }
+                    return plantLegumeIfEnoughCoins(new Asperge());
                 }
                 default -> {
                     return "Variété non implémentée, veuillez contacter le développeur";
@@ -113,6 +83,15 @@ public class CaseCultivable extends Case implements Serializable {
         if (legume != null)
             return "Case déjà occupée";
         else return "Variété non sélectionnée";
+    }
+
+    private String plantLegumeIfEnoughCoins(Legume legume) {
+        if (Inventory.getInstance().removeCoinsIfEnough(Carotte.PRICE)) {
+            this.legume = legume;
+            return null;
+        } else {
+            return notEnoughCoinsMessage(Carotte.PRICE);
+        }
     }
 
     public Legume getLegume() {
