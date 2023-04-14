@@ -150,6 +150,10 @@ public class PotagerGrid {
         switch (legume.getVariete()) {
             case SALADE -> icon = SALADE;
             case CAROTTE -> icon = CAROTTE;
+            case TOMATE -> icon = TOMATE;
+            case MAIS -> icon = MAIS;
+            case AIL -> icon = AIL;
+            case ASPERGE -> icon = ASPERGE;
             default -> throw new IllegalStateException("Unexpected value: " + legume.getVariete());
         }
 
