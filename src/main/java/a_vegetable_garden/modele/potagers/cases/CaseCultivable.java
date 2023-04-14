@@ -75,7 +75,7 @@ public class CaseCultivable extends Case implements Serializable {
                 }
                 case TOMATE -> {
                     if (Inventory.getInstance().removeCoinsIfEnough(Tomate.PRICE)) {
-                        legume = new Salade();
+                        legume = new Tomate();
                         return null;
                     } else {
                         return notEnoughCoinsMessage(Tomate.PRICE);
