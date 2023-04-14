@@ -3,10 +3,8 @@ package a_vegetable_garden.modele.legumes;
 public enum Varietes {
     SALADE,
     CAROTTE,
-    /*CONCOMBRE,
-    RADIS,
+    TOMATE,
     MAIS,
-    OIGNON,
-    POIVRON,
-    PIMENT*/
+    AIL,
+    ASPERGE,
 }
