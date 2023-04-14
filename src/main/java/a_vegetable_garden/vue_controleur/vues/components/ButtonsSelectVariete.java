@@ -1,9 +1,7 @@
 package a_vegetable_garden.vue_controleur.vues.components;
 
 import a_vegetable_garden.modele.Singleton;
-import a_vegetable_garden.modele.legumes.Carotte;
-import a_vegetable_garden.modele.legumes.Salade;
-import a_vegetable_garden.modele.legumes.Varietes;
+import a_vegetable_garden.modele.legumes.*;
 import a_vegetable_garden.modele.player.Inventory;
 import a_vegetable_garden.vue_controleur.icon.IconNames;
 import a_vegetable_garden.vue_controleur.icon.IconRepository;
@@ -67,6 +65,10 @@ public class ButtonsSelectVariete implements Singleton, Serializable {
         //Ordre = ordre des variétés dans l'enum Varietes
         prix[0] = Salade.PRICE;
         prix[1] = Carotte.PRICE;
+        prix[2] = Tomate.PRICE;
+        prix[3] = Mais.PRICE;
+        prix[4] = Ail.PRICE;
+        prix[5] = Asperge.PRICE;
     }
 
     private void chargerButtons() {
