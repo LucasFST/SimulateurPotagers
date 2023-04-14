@@ -86,11 +86,11 @@ public class CaseCultivable extends Case implements Serializable {
     }
 
     private String plantLegumeIfEnoughCoins(Legume legume) {
-        if (Inventory.getInstance().removeCoinsIfEnough(Carotte.PRICE)) {
+        if (Inventory.getInstance().removeCoinsIfEnough(legume.getCoinPrice())) {
             this.legume = legume;
             return null;
         } else {
-            return notEnoughCoinsMessage(Carotte.PRICE);
+            return notEnoughCoinsMessage(legume.getCoinPrice());
         }
     }
 
