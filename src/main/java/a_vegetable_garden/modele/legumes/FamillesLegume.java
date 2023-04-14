@@ -3,11 +3,12 @@ package a_vegetable_garden.modele.legumes;
 public enum FamillesLegume {
 
     //FAMILLE (humidite_min, humidite_max, ensoleillement_min, ensoleillement_max, temperature_min, temperature_max)
-    LEGUME_FEUILLES(50, 100, 0, 50, 10, 25), //salade, poireau, brocoli, choux-fleur, épinard
-    LEGUME_RACINES(0, 50, 0, 50, 5, 25), //carotte, navet, radis,
-    LEGUME_A_FRUITS(50, 100, 50, 100, 15, 35), //tomate, aubergine, poivron
+    LEGUME_FEUILLES(50, 100, 0, 50, 10, 25), //salade
+    LEGUME_RACINES(0, 50, 0, 50, 5, 25), //carotte
+    LEGUME_A_FRUITS(50, 100, 50, 100, 15, 35), //tomate
     LEGUME_GRIMPANT(50, 100, 50, 100, 15, 35), //maïs
-    LEGUME_A_BULBES(0, 50, 0, 50, 10, 25); //oignon, ail
+    LEGUME_A_BULBES(0, 50, 0, 50, 10, 25), //ail
+    LEGUME_A_TIGES(0, 50, 50, 100, 10, 30); //asperge
 
     private final float humidite_min;
     private final float humidite_max;
