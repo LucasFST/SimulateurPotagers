@@ -6,8 +6,6 @@ public abstract class Legume implements Serializable {
 
     private static final int TEMPERATURE_GEL = 0;
     private static final float ETAT_VIE_INCREMENT = 0.05f;
-
-    //private static final float ETAT_VIE_INCREMENT_PERFECT_TEMP = 0.02f;
     private static final float ETAT_VIE_DECREMENT = 0.025f;
     private static final float ETAT_VIE_DECREMENT_GEL = 0.1f;
     private double etatVie = 0.5;
@@ -105,14 +103,6 @@ public abstract class Legume implements Serializable {
         }
     }
 
-/*    private int getTemperatureMinOptimale() {
-        return getTemperatureMoyenne() - getIntervalleSizeOptimale() / 2;
-    }
-
-    private int getTemperatureMaxOptimale() {
-        return getTemperatureMoyenne() + getIntervalleSizeOptimale() / 2;
-    }
-*/
     public double getEtatVie() {
         return etatVie;
     }
