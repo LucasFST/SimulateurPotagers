@@ -25,4 +25,10 @@ class AspergeTest {
     void croissance() {
         // TODO
     }
+
+    @Test
+    @DisplayName("Asperge.getCoinPrice() should return Asperge.PRICE")
+    void getCoinPrice() {
+        assertEquals(Asperge.PRICE, asperge.getCoinPrice());
+    }
 }

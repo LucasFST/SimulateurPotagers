@@ -25,4 +25,10 @@ class TomateTest {
         void croissance() {
             // TODO
         }
+
+        @Test
+        @DisplayName("Tomate.getCoinPrice() should return Tomate.PRICE")
+        void getCoinPrice() {
+                assertEquals(Tomate.PRICE, tomate.getCoinPrice());
+        }
 }

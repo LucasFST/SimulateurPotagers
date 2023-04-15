@@ -25,4 +25,10 @@ class AilTest {
     void croissance() {
         // TODO
     }
+
+    @Test
+    @DisplayName("ail.getCoinPrice() should return Ail.PRICE")
+    void getCoinPrice() {
+        assertEquals(Ail.PRICE, ail.getCoinPrice());
+    }
 }

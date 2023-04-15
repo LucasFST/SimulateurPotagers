@@ -25,4 +25,10 @@ class MaisTest {
     void croissance() {
         // TODO
     }
+
+    @Test
+    @DisplayName("Mais.getCoinPrice() should return Mais.PRICE")
+    void getCoinPrice() {
+        assertEquals(Mais.PRICE, mais.getCoinPrice());
+    }
 }

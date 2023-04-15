@@ -26,4 +26,10 @@ class SaladeTest {
         // TODO
     }
 
+    @Test
+    @DisplayName("Salade.getCoinPrice() should return Salade.PRICE")
+    void getCoinPrice() {
+        assertEquals(Salade.PRICE, salade.getCoinPrice());
+    }
+
 }

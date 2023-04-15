@@ -27,4 +27,10 @@ class CarotteTest {
     void croissance() {
         // TODO
     }
+
+    @Test
+    @DisplayName("Carotte.getCoinPrice() should return Carotte.PRICE")
+    void getCoinPrice() {
+        assertEquals(Carotte.PRICE, carotte.getCoinPrice());
+    }
 }
