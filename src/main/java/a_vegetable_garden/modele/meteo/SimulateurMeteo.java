@@ -69,7 +69,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
     }
 
     private void updateHumidite() {
-        if (checkIfChanceToChange(0.1f)) return;
+        if (checkIfChanceToChange(0.6f)) return;
 
         // calcule la nouvelle humidité en fonction de la saison
         Map<Humidite, Float> chanceHumidite = this.saison.getChanceHumidite();
@@ -88,7 +88,7 @@ public class SimulateurMeteo implements Runnable, Serializable {
 
 
     private void updateEnsoleillement() {
-        if (checkIfChanceToChange(0.7f)) return;
+        if (checkIfChanceToChange(0.6f)) return;
 
         // Obtient la liste des valeurs d'ensoleillement
         Map<Ensoleillement, Float> chanceEnsoleillement = this.saison.getChanceEnsoleillement();
@@ -119,17 +119,17 @@ public class SimulateurMeteo implements Runnable, Serializable {
     private void applyHumidite(CaseCultivable caseCultivable) {
         float tauxHumidite = caseCultivable.getTauxHumidite();
         if (humidite == Humidite.FORTE_PLUIE) {
-            tauxHumidite += 0.02f;
+            tauxHumidite += 0.2f;
         } else if (humidite == Humidite.PLUIE) {
-            tauxHumidite += 0.01f;
+            tauxHumidite += 0.1f;
         } else if (humidite == Humidite.HUMIDE) {
-            tauxHumidite += 0.005f;
+            tauxHumidite += 0.05f;
         } else if (humidite == Humidite.SEC) {
-            tauxHumidite -= 0.005f;
+            tauxHumidite -= 0.05f;
         } else if (humidite == Humidite.TRES_SEC) {
-            tauxHumidite -= 0.01f;
+            tauxHumidite -= 0.1f;
         } else if (humidite == Humidite.SECHERESSE) {
-            tauxHumidite -= 0.02f;
+            tauxHumidite -= 0.2f;
         }
 
         caseCultivable.setTauxHumidite(tauxHumidite);
