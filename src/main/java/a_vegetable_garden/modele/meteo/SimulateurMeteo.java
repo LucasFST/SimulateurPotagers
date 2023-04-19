@@ -44,9 +44,6 @@ public class SimulateurMeteo implements Runnable, Serializable {
     }
 
     private void updateMeteo() {
-        Ensoleillement oldEnsoleillement = ensoleillement;
-        Humidite oldHumidite = humidite;
-        int oldTemperature = temperature;
         updateSaison();
         updateEnsoleillement();
         updateHumidite();

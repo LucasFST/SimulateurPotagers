@@ -19,8 +19,6 @@ public class SimulateurPotager implements Serializable {
     public SimulateurMeteo simulateurMeteo;
     private ArrayList<Potager> listePotagers = new ArrayList<>();
 
-    // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
-
     public SimulateurPotager() {
         simulateurMeteo = new SimulateurMeteo(this);
         //par défaut, on a un potager
