@@ -6,7 +6,7 @@
 
     <groupId>fl-17</groupId>
     <artifactId>AVegetableGarden</artifactId>
-    <version>0.1-DEV</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
@@ -24,6 +24,8 @@
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
             <version>3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/flatlaf-3.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -32,5 +34,24 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>AVegetableGarden</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>a_vegetable_garden.AVegetableGarden</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
